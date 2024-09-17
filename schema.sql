@@ -7,3 +7,7 @@ ALTER TABLE `stories` ADD CONSTRAINT `stories_to_categories` FOREIGN KEY (`categ
 ALTER TABLE `categories` ADD UNIQUE(`name`);
 
 ALTER TABLE `stories` CHANGE `id` `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `categories` ADD `descriptor` TINYINT(1) NOT NULL DEFAULT '0' AFTER `name`, ADD INDEX `categoriesDescriptorIdx` (`descriptor`);
+
+CREATE TABLE `cddastorybrowser`.`styles` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;

@@ -6,7 +6,9 @@
             "email": "martin.wadeson@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "twig/twig": "^3.14"
+    },
     "config": {
         "platform": {
             "php": "8.3"
