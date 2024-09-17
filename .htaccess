@@ -39,6 +39,7 @@ AddType image/webp .webp
 
 # Redirect requests to index.php
 RewriteCond %{REQUEST_URI} !=/index.php
+RewriteCond %{REQUEST_URI} !.*\.css$ [NC]
 RewriteRule .* /index.php
 
 <IfModule mod_expires.c>

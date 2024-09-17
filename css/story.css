@@ -1,0 +1,9 @@
+div#container{
+	display: block;
+	width: 100%;
+	div#story{
+		max-width: 800px;
+		width: 100%;
+		margin: 0 auto;
+	}
+}
