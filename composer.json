@@ -1,0 +1,15 @@
+{
+    "name": "martin/cddastorybrowser",
+    "authors": [
+        {
+            "name": "Martin Wadeson",
+            "email": "martin.wadeson@gmail.com"
+        }
+    ],
+    "require": {},
+    "config": {
+        "platform": {
+            "php": "8.3"
+        }
+    }
+}
