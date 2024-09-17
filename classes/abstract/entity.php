@@ -60,6 +60,14 @@ class Entity{
 		}
 	}
 
+	protected function prependColumns(){
+		$return = array();
+		foreach($this->columns as $colname){
+			$return[] = $this->table . '.' . $colname;
+		}
+		return $return;
+	}
+
 	private function getTables(){
 		$sql = 'SELECT table_name FROM information_schema.tables';
 		$this->db->query($sql);

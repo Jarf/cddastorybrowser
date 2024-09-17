@@ -1,6 +1,6 @@
 <?php
 // Vendor Autoload
-// require_once(DIR_VENDOR . 'autoload.php');
+require_once(DIR_VENDOR . 'autoload.php');
 
 // Generic Functions
 require_once(DIR_INCLUDE . 'common_functions.php');

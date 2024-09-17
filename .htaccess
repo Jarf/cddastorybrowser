@@ -1,0 +1,58 @@
+#Options +SymLinksIfOwnerMatch
+Options -Indexes
+RewriteEngine On
+
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS 
+Header set Referrer-Policy "no-referrer" 
+Header set X-Content-Type-Options "nosniff" 
+Header set X-Frame-Options "SAMEORIGIN" 
+Header set X-XSS-Protection "1; mode=block" 
+<If "%{HTTP_HOST} == 'qrauth.local'">
+	Header always edit Set-Cookie (.*) $1;HttpOnly;SameSite=strict;Domain=cddastory.local;Path=/;
+</If>
+<Else>
+	Header always edit Set-Cookie (.*) $1;HttpOnly;SameSite=strict;Secure;Domain=cddastory.jarfjam.co.uk;Path=/;
+</Else>
+Header set Permissions-Policy "geolocation=(), camera=(), microphone=(), display-capture=()"
+Header set Content-Security-Policy "default-src 'self'; \
+ script-src 'none'; \
+	object-src 'none'; \
+   img-src 'self'; \
+   	frame-src 'none'; \
+   		base-uri 'none'; \
+		   	font-src 'self'; \
+		   		style-src 'self'; \
+		   			connect-src 'self'; \
+		   				worker-src blob:"
+Header append Vary Accept env=REQUEST_image
+
+# Allow well-known checks
+RewriteRule /\.well-known|^\.well-known - [L]
+
+# https redirect
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# MIME types
+AddType image/x-icon .ico
+AddType image/webp .webp
+
+# Redirect requests to index.php
+RewriteCond %{REQUEST_URI} !=/index.php
+RewriteRule .* /index.php
+
+<IfModule mod_expires.c>
+	ExpiresActive on
+	ExpiresDefault "access plus 2 days"
+	ExpiresByType image/jpg "access plus 1 month"
+	ExpiresByType image/jpeg "access plus 1 month"
+	ExpiresByType image/png "access plus 1 month"
+	ExpiresByType image/svg+xml "access plus 1 month"
+	ExpiresByType image/x-icon "access plus 1 month"
+	ExpiresByType image/webp "access plus 1 month"
+</IfModule>
+
+# direct file/dir access
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^(.*)$
