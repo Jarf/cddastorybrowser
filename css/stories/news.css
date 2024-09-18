@@ -1,0 +1,33 @@
+@font-face{
+	font-family: newspaper;
+	src: url('/fonts/OldNewspaperTypes.ttf');
+}
+
+div#container{
+	min-height: 100%;
+	background-color: #000000;
+	background-image: url('/img/brownpaper.jpg');
+	background-repeat: repeat;
+}
+
+div#container > div#story{
+	font-family: newspaper;
+	max-width: calc(100% - 64px);
+	padding: 32px;
+	font-size: 24pt;
+	color: #000000;
+	text-align: justify;
+	h1{
+		width: 100%;
+		margin: 0;
+		font-size: 46pt;
+		text-align: center;
+	}
+	hr{
+		background-color: black;
+		margin: 0;
+		padding: 0;
+		height: 1px;
+		border: 0;
+	}
+}

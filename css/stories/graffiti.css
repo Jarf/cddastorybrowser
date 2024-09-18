@@ -12,6 +12,7 @@ div#container{
 
 div#container > div#story{
 	font-family: graffiti;
+	text-align: center;
 	padding: 32px;
 	min-height: calc(100% - 64px);
 	font-size: 48pt;
