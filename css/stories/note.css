@@ -1,0 +1,25 @@
+@font-face{
+	font-family: handwriting;
+	src: url('/fonts/handwriting.ttf');
+}
+
+div#container{
+	height: 100%;
+	background-color: #000000;
+	background-image: url('/img/ashwood.jpg');
+	background-repeat: repeat;
+}
+
+div#container > div#story{
+	font-family: handwriting;
+	max-width: 636px;
+	padding: 32px;
+	padding-left: 132px;
+	min-height: calc(100% - 64px);
+	font-size: 24pt;
+	background-image: url('/img/notepaper.jpg');
+	background-repeat: repeat-y;
+	background-size: 800px auto;
+	background-position: left;
+	color: #444444;
+}
