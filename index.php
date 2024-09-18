@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: text/plain');
+// header('Content-Type: text/plain');
 include(dirname(__FILE__) . '/include/config.php');
 include(dirname(__FILE__) . '/include/autoload.php');
 
