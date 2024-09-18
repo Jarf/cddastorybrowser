@@ -69,7 +69,11 @@ class story extends Entity{
 			foreach($matches[0] as $match){
 				$descriptors[$match] = $this->fetchDescriptor($match);
 			}
-			var_dump($descriptors);exit();
+			foreach($descriptors[$match] as $mkey => $mval){
+				$pos = strpos($descriptor, $mval);
+				$descriptor = substr_replace($descriptor, $mval, $pos, strlen($mval));
+			}
+			$descriptor = trim(preg_replace('/[^A-Za-z0-9]/', ' ', $descriptor));
 		}elseif($matchcount === 1){
 			$descriptor = $matches[0][0];
 			$sql = 'SELECT stories.story AS descriptor FROM stories JOIN categories ON stories.category = categories.id WHERE categories.name = :descriptor ORDER BY RAND() LIMIT 1';
