@@ -82,6 +82,41 @@ foreach($dir as $fileinfo){
 	}
 }
 
+// Assign styles
+$db->query('DELETE FROM categoriesStyles');
+$db->execute();
+$styles = array();
+$db->query('SELECT id, name FROM styles');
+$db->execute();
+if($db->rowCount() > 0){
+	$rs = $db->fetchAll();
+	foreach($rs as $row){
+		$styles[$row->id] = $row->name;
+	}
+}
+$bind = $vals = array();
+$i = 0;
+foreach($categorymap as $categoryid => $categoryname){
+	foreach($styles as $styleid => $stylename){
+		if(strpos($categoryname, $stylename) !== false){
+			$bind['category' . $i] = $categoryid;
+			$bind['style' . $i] = $styleid;
+			$vals[] = '(:category' . $i . ', :style' . $i . ')';
+			$i++;
+		}
+	}
+}
+
+if(!empty($vals)){
+	$sql = 'INSERT INTO categoriesStyles (categoriesid, stylesid) VALUES ' . implode(',', $vals);
+	$db->query($sql);
+	foreach($bind as $bkey => $bval){
+		$db->bind($bkey, $bval);
+	}
+	$db->execute();
+}
+
+
 function parseStories(&$row){
 	$stories = array();
 	if(isset($row->text)){

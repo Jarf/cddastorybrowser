@@ -55,7 +55,7 @@ class story extends Entity{
 			}
 		}
 		// Replace keybinds
-		$this->story = preg_replace('/<keybind:(.*?)>/', '$1 button', $this->story);
+		$this->story = preg_replace('/<keybind:(.*?)>/', 'the $1 button', $this->story);
 	}
 
 	private function fetchDescriptor(string $descriptor){
