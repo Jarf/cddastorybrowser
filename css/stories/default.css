@@ -17,4 +17,8 @@ div#story{
 	padding: 32px;
 	min-height: 100%;
 	font-size: 24pt;
+	hr{
+		border: 0;
+		height: 0;
+	}
 }

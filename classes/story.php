@@ -39,7 +39,7 @@ class story extends Entity{
 		$this->story = trim($this->story);
 		// Add line breaks
 		$this->story = nl2br($this->story);
-		$this->story = preg_replace('/\s{2,}/ms', '<br/><br/>', $this->story);
+		$this->story = preg_replace('/\s{2,}/ms', '<br/>', $this->story);
 		// Replace color tags with styled spans
 		preg_match_all('/\<color_(\w+)\>(.*)\<\/color\>/ms', $this->story, $colormatches);
 		if(!empty($colormatches)){
@@ -74,6 +74,8 @@ class story extends Entity{
 				$this->story = substr_replace($this->story, $headline, $pos, $len);
 			}
 		}
+		// Replace brs with hr
+		$this->story = str_replace(array('<br/>', '<br>'), '<hr/>', $this->story);
 	}
 
 	private function fetchDescriptor(string $descriptor){
