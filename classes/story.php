@@ -64,6 +64,16 @@ class story extends Entity{
 		if(preg_match('/^\"[^"]+\"$/', $this->story) === 1){
 			$this->story = trim($this->story, '"');
 		}
+		// If newspaper
+		if($this->style === 'news'){
+			// all caps first line, make headline
+			if(preg_match('/^([^a-z]+)(<br\/>)+/', $this->story, $headline) === 1){
+				$pos = strpos($this->story, $headline[1]);
+				$len = strlen($headline[0]);
+				$headline = '<h1>' . $headline[1] . '</h1><hr/>';
+				$this->story = substr_replace($this->story, $headline, $pos, $len);
+			}
+		}
 	}
 
 	private function fetchDescriptor(string $descriptor){
