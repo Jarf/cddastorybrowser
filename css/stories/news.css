@@ -7,6 +7,7 @@ div#container{
 	min-height: 100%;
 	background-color: #000000;
 	background-image: url('/img/brownpaper.jpg');
+	background-size: cover;
 	background-repeat: repeat;
 }
 
@@ -24,10 +25,14 @@ div#container > div#story{
 		text-align: center;
 	}
 	hr{
+		border: 0;
+		height: 0;
+	}
+	h1 + hr{
 		background-color: black;
 		margin: 0;
 		padding: 0;
-		height: 1px;
+		height: 8px;
 		border: 0;
 	}
 }
