@@ -1,0 +1,20 @@
+@font-face{
+	font-family: dotMatrix;
+	src: url('/fonts/DOTMATRI.TTF');
+}
+
+div#container{
+	min-height: 100%;
+	background-color: #000000;
+	background-image: url('/img/darkwood.jpg');
+	background-repeat: repeat;
+}
+
+div#story{
+	font-family: dotMatrix;
+	background-image: url('/img/whitepaper.jpg');
+	background-repeat: repeat;
+	padding: 32px;
+	min-height: 100%;
+	font-size: 24pt;
+}

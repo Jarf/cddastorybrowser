@@ -1,5 +1,5 @@
 <?php
-// header('Content-Type: text/plain');
+header('Content-Type: text/plain');
 include(dirname(__FILE__) . '/include/config.php');
 include(dirname(__FILE__) . '/include/autoload.php');
 
@@ -22,11 +22,12 @@ switch ($page) {
 		$pagevars['story'] = &$story;
 		$template = 'story.twig';
 		$pagevars['stylesheets'][] = 'story';
+		$pagevars['stylesheets'][] = 'stories/' . $story->style;
 		break;
 	
-	case 'listing':
-		$template = 'listing.twig';
-		$pagevars['stylesheets'][] = 'story';
+	case 'index':
+		$template = 'index.twig';
+		$pagevars['stylesheets'][] = 'index';
 		break;
 }
 
