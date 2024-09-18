@@ -60,6 +60,10 @@ class story extends Entity{
 				}
 			}
 		}
+		// If starts and ends with apostrophes trim them
+		if(preg_match('/^\"[^"]+\"$/', $this->story) === 1){
+			$this->story = trim($this->story, '"');
+		}
 	}
 
 	private function fetchDescriptor(string $descriptor){
