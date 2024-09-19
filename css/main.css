@@ -10,3 +10,19 @@ body{
 	height: 100%;
 	margin: 0;
 }
+
+div#header{
+	height: 24px;
+	padding: 0 24px;
+	max-height: 24px;
+	line-height: 24px;
+	font-size: 16px;
+	overflow: hidden;
+	background-color: #000;
+	color: #fff;
+	a{
+		cursor: pointer;
+		color: #fff;
+		text-decoration: none;
+	}
+}
