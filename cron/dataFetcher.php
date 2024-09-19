@@ -2,6 +2,8 @@
 print 'Init...';
 include(dirname(__DIR__) . '/include/config.php');
 include(dirname(__DIR__) . '/include/autoload.php');
+// Init DB class
+$db = new db();
 print 'Done' . PHP_EOL . 'Download master.zip...';
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://github.com/CleverRaven/Cataclysm-DDA/archive/refs/heads/master.zip');
@@ -16,7 +18,7 @@ if($zip->open(DIR_DATA . 'master.zip') === true){
 	for($i = 0; $i < $zip->numFiles; $i++){
 		print '.';
 		$filename = $zip->getNameIndex($i);
-		if(preg_match('/^.*\/data\/json\/snippets\/.*\.json$/', $filename) === 1){
+		if(preg_match('/^.*\/data\/json\/snippets\/.*\.json$/', $filename) === 1 || preg_match('/^.*\/data\/names\/en\.json$/', $filename) === 1){
 			file_put_contents(DIR_DATA . basename($filename), $zip->getFromIndex($i));
 		}
 	}
@@ -25,15 +27,6 @@ if($zip->open(DIR_DATA . 'master.zip') === true){
 print 'Done' . PHP_EOL . 'Cleanup master.zip...';
 // Clean up zip
 unlink(DIR_DATA . 'master.zip');
-print 'Done' . PHP_EOL . 'Cleanup stories...';
-// Init DB class
-$db = new db();
-
-// Pre-import clean up
-$db->query('DELETE FROM stories');
-$db->execute();
-$db->query('ALTER TABLE stories AUTO_INCREMENT = 1');
-$db->execute();
 print 'Done' . PHP_EOL . 'Retrieve existing categories...';
 // Get already set categories
 $categorymap = array();
@@ -44,40 +37,75 @@ foreach($items as $item){
 }
 print 'Done' . PHP_EOL . 'Parse JSON files';
 // Parse JSON files
+$storyinsert = array();
 $dir = new DirectoryIterator(DIR_DATA);
 foreach($dir as $fileinfo){
 	print '.';
 	if(!$fileinfo->isDot() && $fileinfo->getExtension() === 'json'){
-		$json = file_get_contents(DIR_DATA . $fileinfo->getFilename());
+		$filename = $fileinfo->getFilename();
+		$json = file_get_contents(DIR_DATA . $filename);
 		$json = @json_decode($json);
 		if($json !== null){
-			foreach($json as &$row){
-				$categoryid = null;
-				if(isset($row->category)){
-					// Identify if descriptor or story
-					$descriptor = preg_match('/^\<.*\>$/', $row->category);
-					if(!in_array($row->category, $categorymap)){
-						$category = new category();
-						$category->name = $row->category;
-						$category->descriptor = $descriptor;
-						$category->saveChanges();
-						$categoryid = $category->id;
-					}else{
-						$categoryid = array_search($row->category, $categorymap, true);
-					}
+			if($filename === 'en.json'){
+				foreach($json as &$row){
+					$descriptor = 1;
+					if(isset($row->usage)){
+						$categoryname = $row->usage;
+						if(isset($row->gender)){
+							$categoryname = $row->gender . '_' . $row->usage . '_name';
+						}elseif($row->usage !== 'city'){
+							$categoryname .= '_name';
+						}
+						$categoryname = '<' . $categoryname . '>';
+						if(!in_array($categoryname, $categorymap)){
+							$category = new category();
+							$category->name = $categoryname;
+							$category->descriptor = $descriptor;
+							$category->saveChanges();
+							$categoryid = $category->id;
+						}else{
+							$categoryid = array_search($categoryname, $categorymap, true);
+						}
 
-					if(!isset($categorymap[$categoryid])){
-						$categorymap[$categoryid] = $row->category;
-					}
+						if(!isset($categorymap[$categoryid])){
+							$categorymap[$categoryid] = $categoryname;
+						}
 
-					// Parse stories
-					$stories = parseStories($row);
-					foreach($stories as $entry){
-						$story = new story();
-						$story->category = $categoryid;
-						$story->story = $entry;
-						if(!empty(trim($entry))){
-							$story->saveChanges();
+						if(!empty($row->name)){
+							foreach($row->name as $name){
+								if(!empty(trim($name))){
+									$storyinsert[] = array($categoryid, $name);
+								}
+							}
+						}
+					}
+				}
+			}else{
+				foreach($json as &$row){
+					$categoryid = null;
+					if(isset($row->category)){
+						// Identify if descriptor or story
+						$descriptor = preg_match('/^\<.*\>$/', $row->category);
+						if(!in_array($row->category, $categorymap)){
+							$category = new category();
+							$category->name = $row->category;
+							$category->descriptor = $descriptor;
+							$category->saveChanges();
+							$categoryid = $category->id;
+						}else{
+							$categoryid = array_search($row->category, $categorymap, true);
+						}
+
+						if(!isset($categorymap[$categoryid])){
+							$categorymap[$categoryid] = $row->category;
+						}
+
+						// Parse stories
+						$stories = parseStories($row);
+						foreach($stories as $entry){
+							if(!empty(trim($entry))){
+								$storyinsert[] = array($categoryid, $entry);
+							}
 						}
 					}
 				}
@@ -86,6 +114,30 @@ foreach($dir as $fileinfo){
 		// Clean up JSON file
 		unlink(DIR_DATA . $fileinfo->getFilename());
 	}
+}
+$storyinserts = array_chunk($storyinsert, 1000);
+print 'Done' . PHP_EOL . 'Update database...';
+// Pre-import clean up
+$db->query('DELETE FROM stories');
+$db->execute();
+$db->query('ALTER TABLE stories AUTO_INCREMENT = 1');
+$db->execute();
+// Story inserts
+foreach($storyinserts as $storyinsert){
+	$vals = $bind = array();
+	$sql = 'INSERT INTO stories (category, story) VALUES ';
+	foreach($storyinsert as $skey => $story){
+		$vals[] = '(:cat' . $skey . ', :story' . $skey . ')';
+		$bind['cat' . $skey] = $story[0];
+		$bind['story' . $skey] = $story[1];
+	}
+	$sql .= implode(',', $vals);
+	$db->query($sql);
+	foreach($bind as $bkey => $bval){
+		$db->bind($bkey, $bval);
+	}
+	$db->execute();
+	print '.';
 }
 print 'Done' . PHP_EOL . 'Assign styles...';
 // Assign styles
