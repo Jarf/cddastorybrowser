@@ -4,7 +4,7 @@
 }
 
 div#container{
-	height: calc(100% - 120px);
+	height: calc(100% - 140px);
 	background-color: #000000;
 	background-image: url('/img/corkboard.jpg');
 	background-size: cover;
