@@ -31,8 +31,8 @@ class story extends Entity{
 					$this->$key = $val;
 				}
 			}
+			$this->parseStory();
 		}
-		$this->parseStory();
 	}
 
 	public function parseStory(){
@@ -79,32 +79,31 @@ class story extends Entity{
 	}
 
 	private function fetchDescriptor(string $descriptor){
-		$matchcount = preg_match_all('/\<\w+\>/', $descriptor, $matches);
-		if($matchcount > 1){
-			$descriptors = array();
-			foreach($matches[0] as $match){
-				$descriptors[$match] = $this->fetchDescriptor($match);
+		if(!empty(trim($descriptor))){
+			$matchcount = preg_match_all('/\<\w+\>/', $descriptor, $matches);
+			if($matchcount > 1){
+				$descriptors = array();
+				foreach($matches[0] as $match){
+					$descriptors[$match] = $this->fetchDescriptor($match);
+				}
+				foreach($descriptors as $mkey => $mval){
+					$pos = strpos($descriptor, $mkey);
+					$descriptor = substr_replace($descriptor, $mval, $pos, strlen($mkey));
+				}
+			}elseif($matchcount === 1){
+				$descriptor = $matches[0][0];
+				$sql = 'SELECT stories.story AS descriptor FROM stories JOIN categories ON stories.category = categories.id WHERE categories.name = :descriptor ORDER BY RAND() LIMIT 1';
+				$this->db->query($sql);
+				$this->db->bind('descriptor', $descriptor);
+				$this->db->execute();
+				if($this->db->rowCount() === 1){
+					$row = $this->db->fetch();
+					$descriptor = $row->descriptor;
+				}
 			}
-			foreach($descriptors[$match] as $mkey => $mval){
-				$pos = strpos($descriptor, $mval);
-				$descriptor = substr_replace($descriptor, $mval, $pos, strlen($mval));
+			if(preg_match('/\<\w+\>/', $descriptor) === 1){
+				$descriptor = $this->fetchDescriptor($descriptor);
 			}
-			$descriptor = trim(preg_replace('/[^A-Za-z0-9]/', ' ', $descriptor));
-		}elseif($matchcount === 1){
-			$descriptor = $matches[0][0];
-			$sql = 'SELECT stories.story AS descriptor FROM stories JOIN categories ON stories.category = categories.id WHERE categories.name = :descriptor ORDER BY RAND() LIMIT 1';
-			$this->db->query($sql);
-			$this->db->bind('descriptor', $descriptor);
-			$this->db->execute();
-			if($this->db->rowCount() === 1){
-				$row = $this->db->fetch();
-				$descriptor = $row->descriptor;
-			}else{
-				$descriptor = trim(preg_replace('/[^A-Za-z0-9]/', ' ', $descriptor));
-			}
-		}
-		if(preg_match('/\<\w+\>/', $descriptor) === 1){
-			$descriptor = $this->fetchDescriptor($descriptor);
 		}
 		return $descriptor;
 	}
