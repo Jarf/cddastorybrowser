@@ -1,0 +1,31 @@
+@font-face{
+	font-family: supersunday;
+	src: url('/fonts/SuperSunday.ttf');
+}
+
+div#container{
+	background-color: #000000;
+	background-image: url('/img/grass.jpg');
+	background-repeat: repeat;
+}
+
+div#container > div#story{
+	font-family: supersunday;
+	text-align: center;
+	padding: 32px;
+	display: block;
+	height: 100%;
+	font-size: 48pt;
+	color: #eab676;
+	background-image: url('/img/vintagetriangles.jpg');
+	background-repeat: repeat;
+	box-shadow: 0 16px 16px rgba(33,33,33,.7);
+	hr{
+		border: 0;
+		height: 0;
+	}
+	div#storytext{
+		background-color: #2596be;
+		border-radius: 32px;
+	}
+}
