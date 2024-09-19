@@ -1,9 +1,17 @@
 div#container{
 	display: block;
 	width: 100%;
+	min-height: calc(100% - 96px);
+	max-height: calc(100% - 96px);
+	margin-top: 24px;
+	margin-bottom: 72px;
+	overflow: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	div#story{
 		max-width: 800px;
 		width: 100%;
-		margin: 0 auto;
+		margin: auto;
 	}
 }

@@ -4,7 +4,6 @@
 }
 
 div#container{
-	min-height: calc(100% - 24px);
 	background-color: #000000;
 	background-image: url('/img/graybrick.jpg');
 	background-repeat: repeat;
@@ -14,8 +13,10 @@ div#container > div#story{
 	font-family: graffiti;
 	text-align: center;
 	padding: 32px;
-	min-height: calc(100% - 64px);
+	display: block;
+	height: 100%;
 	font-size: 48pt;
+	max-width: 100%;
 	color: #000000;
 	text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
 	hr{
