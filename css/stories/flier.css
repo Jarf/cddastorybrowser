@@ -25,6 +25,7 @@ div#container > div#story{
 		height: 0;
 	}
 	div#storytext{
+		padding: 16px;
 		background-color: #2596be;
 		border-radius: 32px;
 	}
