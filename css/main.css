@@ -36,10 +36,21 @@ div#header{
 	overflow: hidden;
 	background-color: #000;
 	color: #fff;
+	display: inline;
 	a{
+		height: 24px;
+		display: inline-block;
 		cursor: pointer;
 		color: #fff;
 		text-decoration: none;
+		vertical-align: middle;
+	}
+	a.home{
+		width: 24px;
+		content: '';
+		background-image: url('/ico/favicon-16x16.png');
+		background-repeat: no-repeat;
+		background-position: center;
 	}
 }
 
