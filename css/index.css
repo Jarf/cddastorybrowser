@@ -1,0 +1,18 @@
+div#container{
+	background-color:#000000;
+	color:#ffffff;
+}
+
+div#container .dataTables_wrapper{
+	tr, div.dataTables_info, label{
+		background-color:#000000;
+		color:#ffffff;
+	}
+	tr{
+		cursor: pointer;
+	}
+	tr:hover{
+		background-color:#ffffff;
+		color:#000000;
+	}
+}

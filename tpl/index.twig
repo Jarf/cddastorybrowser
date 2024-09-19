@@ -1,7 +1,7 @@
 <div id="container">
 	<input type="hidden" id="categoryId" value="{{categoryid}}"/>
 	{% if categoryid is empty %}
-	<table id="categoryIndex">
+	<table id="categoryIndex" class="hover">
 		<thead>
 			<tr>
 				<th>Name</th>
@@ -18,7 +18,7 @@
 		</tbody>
 	</table>
 	{% else %}
-	<table id="storyIndex">
+	<table id="storyIndex" class="hover">
 		<thead>
 			<tr>
 				<th>ID</th>
