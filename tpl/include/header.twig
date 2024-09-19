@@ -5,8 +5,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="A way to browse through the lore snippets found throughout CDDA">
 		<title>CDDA Story Browser</title>
+		{% for javascript in javascripts %}
+		<script type="text/javascript" rel="preload" as="script" src="{{javascript}}"></script>
+		{% endfor %}
 		{% for stylesheet in stylesheets %}
-		<link rel="stylesheet" type="text/css" href="{{constant('SITE_CSS')}}{{stylesheet}}.css">
+		<link rel="stylesheet" type="text/css" href="{{stylesheet}}">
 		{% endfor %}
 	</head>
 	<body>

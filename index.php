@@ -8,26 +8,39 @@ $urlpath = explode('/', $urlpath);
 $page = current($urlpath);
 
 $output = $pagevars = array();
-$pagevars['stylesheets'] = array('main');
+$pagevars['stylesheets'] = array(SITE_CSS . 'main.css');
+$pagevars['javascripts'] = array();
 
 switch ($page) {
 	case '':
 	default:
 		$story = new story();
-		$storyid = false;
+		$storyid = null;
 		if(!empty($urlpath) && isset($urlpath[0]) && is_numeric($urlpath[0])){
 			$storyid = $urlpath[0];
 		}
 		$story->loadStory($storyid);
 		$pagevars['story'] = &$story;
 		$template = 'story.twig';
-		$pagevars['stylesheets'][] = 'story';
-		$pagevars['stylesheets'][] = 'stories/' . $story->style;
+		$pagevars['stylesheets'][] = SITE_CSS . 'story.css';
+		$pagevars['stylesheets'][] = SITE_CSS . 'stories/' . $story->style . '.css';
 		break;
 	
 	case 'index':
+		$categoryid = null;
+		if(!empty($urlpath) && isset($urlpath[1]) && is_numeric($urlpath[1])){
+			$categoryid = $urlpath[1];
+		}
+		$pagevars['categoryid'] = $categoryid;
 		$template = 'index.twig';
-		$pagevars['stylesheets'][] = 'index';
+		$pagevars['stylesheets'][] = SITE_CSS . 'index.css';
+		$pagevars['javascripts'][] = SITE_VENDOR . 'components/jquery/jquery.min.js';
+		$pagevars['stylesheets'][] = SITE_VENDOR . 'datatables/datatables/media/css/jquery.dataTables.min.css';
+		$pagevars['javascripts'][] = SITE_VENDOR . 'datatables/datatables/media/js/jquery.dataTables.min.js';
+		$pagevars['javascripts'][] = SITE_JS . 'index.js';
+		$categories = new categories();
+		$categories->indexListings($categoryid);
+		$pagevars['categories'] = &$categories;
 		break;
 }
 

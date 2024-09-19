@@ -15,9 +15,10 @@ div#container{
 }
 
 div#container > div#story{
-	transform: rotate(10deg);
+	transform: rotate(3deg);
 	font-family: handwriting;
 	width: fit-content;
+	max-width: 280px;
 	padding: 32px;
 	padding-top: 48px;
 	font-size: 24pt;
@@ -37,7 +38,7 @@ div#story::before{
 	content: '';
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: calc(50% - 16px);
 	display: inline-block;
 	background: rgb(255,132,132);
 	background: radial-gradient(circle, rgba(255,132,132,1) 0%, rgba(255,0,0,1) 100%);

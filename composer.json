@@ -7,7 +7,9 @@
         }
     ],
     "require": {
-        "twig/twig": "^3.14"
+        "twig/twig": "^3.14",
+        "datatables/datatables": "^1.10",
+        "components/jquery": "^3.7"
     },
     "config": {
         "platform": {
