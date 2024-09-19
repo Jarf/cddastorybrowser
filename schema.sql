@@ -12,7 +12,7 @@ ALTER TABLE `categories` ADD `descriptor` TINYINT(1) NOT NULL DEFAULT '0' AFTER 
 
 CREATE TABLE `cddastorybrowser`.`styles` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
-INSERT INTO `styles` (`id`, `name`) VALUES ('1', 'graffiti'), ('2', 'news'), ('3', 'postit'), ('4', 'note');
+INSERT INTO `styles` (`id`, `name`) VALUES ('1', 'graffiti'), ('2', 'news'), ('3', 'postit'), ('4', 'note'), ('5', 'flier');
 
 CREATE TABLE `cddastorybrowser`.`categoriesStyles` ( `categoriesId` INT UNSIGNED NOT NULL , `stylesId` INT UNSIGNED NOT NULL ) ENGINE = InnoDB;
 
