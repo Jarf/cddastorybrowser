@@ -76,7 +76,9 @@ foreach($dir as $fileinfo){
 						$story = new story();
 						$story->category = $categoryid;
 						$story->story = $entry;
-						$story->saveChanges();
+						if(!empty(trim($entry))){
+							$story->saveChanges();
+						}
 					}
 				}
 			}
@@ -136,6 +138,8 @@ function parseStories(&$row){
 					$stories[] = $story->text->str;
 				}
 			}
+		}elseif(is_string($row->text)){
+			$stories[] = $row->text;
 		}
 	}
 	return $stories;

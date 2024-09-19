@@ -1,2 +1,8 @@
+	{% if story %}
+	<div id="footer">
+		<a href="/story/{{story.id - 1}}">Prev</a>
+		<a href="/story/{{story.id + 1}}">Next</a>
+	</div>
+	{% endif %}
 	</body>
 </html>

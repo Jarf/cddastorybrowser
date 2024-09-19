@@ -10,14 +10,21 @@ $page = current($urlpath);
 $output = $pagevars = array();
 $pagevars['stylesheets'] = array(SITE_CSS . 'main.css');
 $pagevars['javascripts'] = array();
+$story = new story();
+$story->loadStory();
+$pagevars['randomstory'] = $story->id;
+unset($story);
 
 switch ($page) {
-	case '':
 	default:
+		$template = 'home.twig';
+		break;
+
+	case 'story':
 		$story = new story();
 		$storyid = null;
-		if(!empty($urlpath) && isset($urlpath[0]) && is_numeric($urlpath[0])){
-			$storyid = $urlpath[0];
+		if(!empty($urlpath) && isset($urlpath[1]) && is_numeric($urlpath[1])){
+			$storyid = $urlpath[1];
 		}
 		$story->loadStory($storyid);
 		$pagevars['story'] = &$story;

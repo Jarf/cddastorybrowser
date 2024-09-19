@@ -1,6 +1,8 @@
 $(document).ready(function(){
 	if($('table#categoryIndex').length){
-		$('table#categoryIndex').DataTable();
+		$('table#categoryIndex').DataTable({
+			order: [[1, 'desc']]
+		});
 		$('table#categoryIndex').on('click', 'tbody tr', function(){
 			window.location.href = '/index/' + $(this).data('id');
 		});
@@ -21,7 +23,7 @@ $(document).ready(function(){
 			}
 		});
 		$('table#storyIndex').on('click', 'tbody tr', function(){
-			window.location.href = '/' + $(this).data('id');
+			window.location.href = '/story/' + $(this).data('id');
 		});
 	}
 });

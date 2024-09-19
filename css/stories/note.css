@@ -4,7 +4,6 @@
 }
 
 div#container{
-	min-height: calc(100% - 24px);
 	background-color: #000000;
 	background-image: url('/img/ashwood.jpg');
 	background-repeat: repeat;
