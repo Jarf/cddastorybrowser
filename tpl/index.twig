@@ -1,0 +1,32 @@
+<div id="container">
+	<input type="hidden" id="categoryId" value="{{categoryid}}"/>
+	{% if categoryid is empty %}
+	<table id="categoryIndex">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Stories</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for category in categories.categories %}
+			<tr data-id="{{category.id}}">
+				<td>{{category.nameReadable}}</td>
+				<td>{{category.storiesCount}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+	<table id="storyIndex">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Story</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	{% endif %}
+</div>

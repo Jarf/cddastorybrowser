@@ -8,8 +8,12 @@ define('DIR_VENDOR', DIR_ROOT . 'vendor/');
 define('DIR_TPL', DIR_ROOT . 'tpl/');
 define('DIR_CACHE', '/tmp/');
 define('DIR_CSS', DIR_ROOT . 'css/');
+define('DIR_JS', DIR_ROOT . 'js/');
 
 define('SITE_CSS', '/css/');
+define('SITE_JS', '/js/');
+define('SITE_VENDOR', '/vendor/');
+define('SITE_AJAX', '/ajax/');
 
 define('DB_USER', 'cddastorybrowser');
 define('DB_PASS', 'ywqe)EBJa#-Gp~@N6<[R?d');
