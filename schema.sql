@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS `cddastorybrowser` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `cddastorybrowser`;
+
 CREATE TABLE `cddastorybrowser`.`categories` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 CREATE TABLE `cddastorybrowser`.`stories` ( `id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `category` INT UNSIGNED NOT NULL , `story` TEXT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
