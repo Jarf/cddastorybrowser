@@ -181,7 +181,7 @@ $i = 0;
 $stylemap = array();
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
-		if($categoryname === $stylename){
+		if(strcasecmp($categoryname, $stylename) === 0){
 			$bind['category' . $i] = $categoryid;
 			$bind['style' . $i] = $styleid;
 			$vals[] = '(:category' . $i . ', :style' . $i . ')';
@@ -192,7 +192,7 @@ foreach($categorymap as $categoryid => $categoryname){
 }
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
-		if(strpos($categoryname, $stylename) !== false && !isset($stylemap[$categoryname])){
+		if(stripos($categoryname, $stylename) !== false && !isset($stylemap[$categoryname])){
 			$bind['category' . $i] = $categoryid;
 			$bind['style' . $i] = $styleid;
 			$vals[] = '(:category' . $i . ', :style' . $i . ')';
