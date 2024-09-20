@@ -1,0 +1,25 @@
+@font-face{
+	font-family: typewriter;
+	src: url('/fonts/XTypewriter.ttf');
+}
+
+div#container{
+	background-color: #000000;
+	background-image: url('/img/manillapaper.jpg');
+	background-repeat: repeat;
+}
+
+div#container > div#story{
+	font-family: typewriter;
+	padding: 26px;
+	font-size: 22pt;
+	line-height: 42px;
+	background-image: url('/img/whitepaper.jpg');
+	background-repeat: repeat;
+	color: #444444;
+	box-shadow: 0 8px 8px rgba(33,33,33,.7);
+	hr{
+		border: 0;
+		height: 4px;
+	}
+}
