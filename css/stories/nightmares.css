@@ -1,0 +1,29 @@
+@font-face{
+	font-family: dotMatrix;
+	src: url('/fonts/Terminus.ttf');
+}
+
+div#container{
+	background-color: #000000;
+	background-image: url('/img/starrynight.jpg');
+	background-repeat: repeat;
+}
+
+div#story{
+	font-family: dotMatrix;
+	padding: 32px;
+	min-height: 100%;
+	font-size: 18pt;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
+div#story > div#storytext {
+	text-align: center;
+	background-color:#fff;
+	padding:20px;
+	border-radius:30px;
+	min-width:40px;
+	min-height:40px;
+}
