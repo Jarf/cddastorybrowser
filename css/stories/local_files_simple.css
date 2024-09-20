@@ -26,6 +26,7 @@ div#container > div#story > div#storytext {
 	color: #ffffff;
 	font-weight: 700;
 	background: linear-gradient(225deg, rgba(88,88,88,1) 0%, rgba(37,37,37,1) 100%);
+	overflow: auto;
 	h1{
 		font-size: 24px;
 		margin: -16px -16px 0 -16px;
