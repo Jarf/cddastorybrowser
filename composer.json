@@ -1,11 +1,4 @@
 {
-    "name": "martin/cddastorybrowser",
-    "authors": [
-        {
-            "name": "Martin Wadeson",
-            "email": "martin.wadeson@gmail.com"
-        }
-    ],
     "require": {
         "twig/twig": "^3.14",
         "datatables/datatables": "^1.10",
