@@ -1,0 +1,31 @@
+@font-face{
+	font-family: handwriting;
+	src: url('/fonts/handwriting.ttf');
+}
+
+div#container{
+	background-color: #000000;
+	background-image: url('/img/brownleather.jpg');
+	background-repeat: repeat;
+}
+
+div#container > div#story{
+	font-family: handwriting;
+	max-width: 636px;
+	padding: 26px;
+	font-size: 32pt;
+	background-image: url('/img/whitepaper1.jpg');
+	background-size: cover;
+	background-position: top left;
+	color: #2D383A;
+	box-shadow: 0 8px 8px rgba(33,33,33,.7);
+	div#storytext{
+		background-color: #000000;
+		color: #ffffff;
+		padding: 16px;
+	}
+	hr{
+		border: 0;
+		height: 4px;
+	}
+}
