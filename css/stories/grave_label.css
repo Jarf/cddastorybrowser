@@ -17,14 +17,12 @@ div#container > div#story{
 	font-size: 48pt;
 	display: flex;
 	align-items: center;
+	max-width: 90%;
 	justify-content: center;
 	height: calc(100% - 96px);
-	border-radius: 50% 50% 0 0;
 	div#storytext{
 		padding: 0 32px;
-		margin-bottom: 10%;
 		text-align: center;
-		align-self: last baseline;
 		color: #333333;
 	    text-shadow: 0 2px white;
 	}
@@ -34,6 +32,7 @@ div#container > div#story{
 	div#container > div#story{
 		border-radius: 0;
 		font-size: 36pt;
+		max-width: 100%;
 		div#storytext{
 			align-self: center;
 			margin: 0;

@@ -19,11 +19,15 @@ div#container > div#story{
 	background-image: url('/img/notepaper.jpg');
 	background-repeat: repeat-y;
 	background-size: 800px auto;
-	background-position: top left;
+	background-position: left top;
 	color: #444444;
 	box-shadow: 0 8px 8px rgba(33,33,33,.7);
 	hr{
 		border: 0;
 		height: 4px;
+	}
+	@media only screen and (max-width: 666px){
+		background-position: right top;
+		padding-left: 26px;
 	}
 }
