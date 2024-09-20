@@ -1,6 +1,6 @@
 @font-face{
 	font-family: graffiti;
-	src: url('/fonts/adrip1.ttf');
+	src: url('/fonts/Painterz.ttf');
 }
 
 div#container{
@@ -17,8 +17,9 @@ div#container > div#story{
 	height: 100%;
 	font-size: 48pt;
 	max-width: 100%;
-	color: #000000;
-	text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff, 1px 1px 0 #ffffff;
+	color: #00ff00;
+	letter-spacing: 0.1em;
+	text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
 	hr{
 		border: 0;
 		height: 0;

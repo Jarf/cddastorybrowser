@@ -5,18 +5,23 @@
 
 div#container{
 	background-color: #000000;
-	background-image: url('/img/brownpaper.jpg');
-	background-size: cover;
+	background-image: url('/img/gravel.jpg');
 	background-repeat: repeat;
 }
 
 div#container > div#story{
 	font-family: newspaper;
 	max-width: calc(100% - 64px);
-	padding: 32px;
+	background-image: url('/img/brownpaper.jpg');
+	background-size: cover;
+	background-repeat: repeat;
+	padding: 72px 32px;
 	font-size: 24pt;
 	color: #000000;
 	text-align: justify;
+	box-shadow: 
+		0 -24px 32px black inset,
+		0 8px 8px rgba(33,33,33,.7);
 	@media only screen and (max-width: 600px){
 		font-size: 16pt;
 	}

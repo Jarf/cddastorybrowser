@@ -48,8 +48,11 @@ class story extends Entity{
 				$this->story = str_replace($colormatches[0][$cmkey], $newstring, $this->story);
 			}
 		}
+		// Replace lt gt
+		$this->story = preg_replace('/<lt>(.*?)<gt>/', '$1' , $this->story);
 		// Replace keybinds
 		$this->story = preg_replace('/<keybind:(.*?)>/', 'the $1 button', $this->story);
+
 		// Replace descriptors with words
 		while(preg_match_all('/\<\w+\>/', $this->story, $descriptormatches) !== 0){
 			if(!empty($descriptormatches)){
@@ -99,6 +102,8 @@ class story extends Entity{
 				if($this->db->rowCount() === 1){
 					$row = $this->db->fetch();
 					$descriptor = $row->descriptor;
+				}else{
+					$descriptor = trim(preg_replace('/[<>]/', ' ', $descriptor));
 				}
 			}
 			if(preg_match('/\<\w+\>/', $descriptor) === 1){
