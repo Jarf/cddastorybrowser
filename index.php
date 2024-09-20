@@ -11,8 +11,7 @@ $output = $pagevars = array();
 $pagevars['stylesheets'] = array(SITE_CSS . 'main.css');
 $pagevars['javascripts'] = array();
 $story = new story();
-$story->loadStory();
-$pagevars['randomstory'] = $story->id;
+$pagevars['randomstory'] = $story->getRandomStoryId();
 unset($story);
 
 switch ($page) {

@@ -35,13 +35,20 @@ class story extends Entity{
 		}
 	}
 
+	public function getRandomStoryId(){
+		$this->db->query('SELECT stories.id FROM stories JOIN categories ON stories.category = categories.id WHERE categories.descriptor = 0 ORDER BY RAND() LIMIT 1');
+		$this->db->execute();
+		$row = $this->db->fetch();
+		return $row->id;
+	}
+
 	public function parseStory(){
 		$this->story = trim($this->story);
 		// Add line breaks
 		$this->story = nl2br($this->story);
 		$this->story = preg_replace('/\s{2,}/ms', '<br/>', $this->story);
 		// Replace color tags with styled spans
-		preg_match_all('/\<color_(\w+)\>(.*)\<\/color\>/ms', $this->story, $colormatches);
+		preg_match_all('/\<color_(\w+)\>(.*)\<\/color\>/m', $this->story, $colormatches);
 		if(!empty($colormatches)){
 			foreach($colormatches[0] as $cmkey => $cmval){
 				$newstring = '<span style="color: ' . $colormatches[1][$cmkey] . '">' . $colormatches[2][$cmkey] . '</span>';
