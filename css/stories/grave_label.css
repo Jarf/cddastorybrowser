@@ -1,0 +1,43 @@
+@font-face{
+	font-family: gravestone;
+	src: url('/fonts/CaslonAntique.ttf');
+}
+
+div#container{
+	background-color: #000000;
+	background-image: url('/img/cloudysky.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+div#container > div#story{
+	position: absolute;
+	background-image: url('/img/concrete.jpg');
+	font-family: gravestone;
+	font-size: 48pt;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: calc(100% - 96px);
+	border-radius: 50% 50% 0 0;
+	div#storytext{
+		padding: 0 32px;
+		margin-bottom: 10%;
+		text-align: center;
+		align-self: last baseline;
+		color: #333333;
+	    text-shadow: 0 2px white;
+	}
+}
+
+@media only screen and (max-width: 769px){
+	div#container > div#story{
+		border-radius: 0;
+		font-size: 36pt;
+		div#storytext{
+			align-self: center;
+			margin: 0;
+			padding: 0 16px;
+		}
+	}
+}

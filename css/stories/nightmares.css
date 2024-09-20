@@ -1,8 +1,3 @@
-@font-face{
-	font-family: dotMatrix;
-	src: url('/fonts/Terminus.ttf');
-}
-
 div#container{
 	background-color: #000000;
 	background-image: url('/img/starrynight.jpg');
@@ -10,7 +5,7 @@ div#container{
 }
 
 div#story{
-	font-family: dotMatrix;
+	font-family: terminus;
 	padding: 32px;
 	min-height: 100%;
 	font-size: 18pt;
