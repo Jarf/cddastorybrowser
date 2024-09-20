@@ -27,6 +27,7 @@ switch ($page) {
 			$storyid = $urlpath[1];
 		}
 		$story->loadStory($storyid);
+		$story->getNextPrevIds();
 		$pagevars['story'] = &$story;
 		$template = 'story.twig';
 		$pagevars['stylesheets'][] = SITE_CSS . 'story.css';
