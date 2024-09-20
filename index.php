@@ -17,6 +17,7 @@ unset($story);
 switch ($page) {
 	default:
 		$template = 'home.twig';
+		$pagevars['stylesheets'][] = SITE_CSS . 'home.css';
 		break;
 
 	case 'story':
