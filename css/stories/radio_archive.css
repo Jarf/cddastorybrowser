@@ -1,0 +1,39 @@
+@font-face{
+  font-family: dotMatrix;
+  src: url('/fonts/DOTMATRI.TTF');
+}
+
+div#container{
+  background-color: #000000;
+  background-image: url('/img/carpet.jpg');
+  background-repeat: repeat;
+}
+
+div#container > div#story{
+  font-family: dotMatrix;
+  padding: 26px;
+  font-size: 22pt;
+  line-height: 40px;
+  background: repeating-linear-gradient(
+    0deg,
+    #CBDFD6,
+    #CBDFD6 20px,
+    #FDFFFE 0px,
+    #FDFFFE 40px
+  );
+  border-width: 0 32px;
+  border-color: #FDFFFE ;
+  border-style: solid;
+  background-repeat: repeat;
+  color: #000000;
+  box-shadow: 0 8px 8px rgba(33,33,33,.7);
+  h1{
+    margin: 0;
+    font-size: 22pt;
+    text-align: center;
+  }
+  hr{
+    border: 0;
+    height: 4px;
+  }
+}

@@ -98,6 +98,10 @@ class story extends Entity{
 					}
 				}
 				break;
+
+			case 'radio_archive':
+				$this->story = '<h1>Automated Audio Transcript</h1>' . $this->story;
+				break;
 		}
 		// Replace brs with hr
 		$this->story = str_replace(array('<br/>', '<br>'), '<hr/>', $this->story);
