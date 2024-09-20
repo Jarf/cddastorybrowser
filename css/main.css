@@ -61,6 +61,8 @@ div#header{
 }
 
 div#footer{
+	font-family: terminus;
+	font-size: 24px;
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -76,8 +78,12 @@ div#footer{
 		display: inline-block;
 		width: 50%;
 		cursor: pointer;
-		color: #fff;
+		color: #ffffff;
 		text-decoration: none;
 		text-align: center;
+	}
+	a:hover{
+		color: #000000;
+		background-color: #ffffff;
 	}
 }
