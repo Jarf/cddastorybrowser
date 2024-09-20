@@ -5,6 +5,8 @@ class story extends Entity{
 	public string $story;
 	public string $categoryName;
 	public string $style = 'default';
+	public int $prevstory;
+	public int $nextstory;
 
 	public function __construct(){
 		$this->table = 'stories';
@@ -74,18 +76,55 @@ class story extends Entity{
 		if(preg_match('/^\"[^"]+\"$/', $this->story) === 1){
 			$this->story = trim($this->story, '"');
 		}
-		// If newspaper
-		if($this->style === 'news'){
-			// all caps first line, make headline
-			if(preg_match('/^([^a-z]+)(<br\/>)+/', $this->story, $headline) === 1){
-				$pos = strpos($this->story, $headline[1]);
-				$len = strlen($headline[0]);
-				$headline = '<h1>' . $headline[1] . '</h1><hr/>';
-				$this->story = substr_replace($this->story, $headline, $pos, $len);
-			}
+		// Style specific parsing
+		switch ($this->style) {
+			case 'news':
+				// all caps first line, make headline
+				if(preg_match('/^([^a-z]+)(<br\/>)+/', $this->story, $headline) === 1){
+					$pos = strpos($this->story, $headline[1]);
+					$len = strlen($headline[0]);
+					$headline = '<h1>' . $headline[1] . '</h1><hr/>';
+					$this->story = substr_replace($this->story, $headline, $pos, $len);
+				}
+				break;
+			
+			case 'local_files_simple':
+				if(preg_match('/(^.*\.[\S]{3,4})<br\s\/>$/m', $this->story, $filename) === 1){
+					$pos = strpos($this->story, $filename[1]);
+					if($pos === 0){
+						$len = strlen($filename[0]);
+						$filename = '<h1>' . $filename[1] . '</h1>';
+						$this->story = substr_replace($this->story, $filename, $pos, $len);
+					}
+				}
+				break;
 		}
 		// Replace brs with hr
 		$this->story = str_replace(array('<br/>', '<br>'), '<hr/>', $this->story);
+	}
+
+	public function getNextPrevIds(){
+		$next = $prev = 1;
+		$this->db->query('SELECT MIN(stories.id) AS next FROM stories JOIN categories ON stories.category = categories.id WHERE descriptor = 0 AND stories.id > :storyid LIMIT 1');
+		$this->db->bind('storyid', $this->id);
+		$this->db->execute();
+		if($this->db->rowCount() === 1){
+			$row = $this->db->fetch();
+			if(is_numeric($row->next)){
+				$next = $row->next;
+			}
+		}
+		$this->db->query('SELECT MAX(stories.id) AS prev FROM stories JOIN categories ON stories.category = categories.id WHERE descriptor = 0 AND stories.id < :storyid LIMIT 1');
+		$this->db->bind('storyid', $this->id);
+		$this->db->execute();
+		if($this->db->rowCount() === 1){
+			$row = $this->db->fetch();
+			if(is_numeric($row->prev)){
+				$prev = $row->prev;
+			}
+		}
+		$this->nextstory = $next;
+		$this->prevstory = $prev;
 	}
 
 	private function fetchDescriptor(string $descriptor){

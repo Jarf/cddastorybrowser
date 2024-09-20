@@ -139,6 +139,30 @@ foreach($storyinserts as $storyinsert){
 	$db->execute();
 	print '.';
 }
+print 'Done' . PHP_EOL . 'Populate Styles...';
+$dir = new DirectoryIterator(DIR_CSS . 'stories/');
+$bind = $vals = array();
+$i = 0;
+foreach($dir as $fileinfo){
+	print '.';
+	if(!$fileinfo->isDot() && $fileinfo->getExtension() === 'css' && $fileinfo->getFilename() !== 'default.css'){
+		$bind['style' . $i] = $fileinfo->getBasename('.css');
+		$vals[] = '(:style' . $i . ')';
+		$i++;
+	}
+}
+$db->query('DELETE FROM styles');
+$db->execute();
+$db->query('ALTER TABLE styles AUTO_INCREMENT = 1');
+$db->execute();
+if(!empty($vals)){
+	$sql = 'INSERT INTO styles (name) VALUES ' . implode(',', $vals);
+	$db->query($sql);
+	foreach($bind as $bkey => $bval){
+		$db->bind($bkey, $bval);
+	}
+	$db->execute();
+}
 print 'Done' . PHP_EOL . 'Assign styles...';
 // Assign styles
 $db->query('DELETE FROM categoriesStyles');
@@ -154,13 +178,26 @@ if($db->rowCount() > 0){
 }
 $bind = $vals = array();
 $i = 0;
+$stylemap = array();
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
-		if(strpos($categoryname, $stylename) !== false){
+		if($categoryname === $stylename){
 			$bind['category' . $i] = $categoryid;
 			$bind['style' . $i] = $styleid;
 			$vals[] = '(:category' . $i . ', :style' . $i . ')';
 			$i++;
+			$stylemap[$categoryname] = $stylename;
+		}
+	}
+}
+foreach($categorymap as $categoryid => $categoryname){
+	foreach($styles as $styleid => $stylename){
+		if(strpos($categoryname, $stylename) !== false && !isset($stylemap[$categoryname])){
+			$bind['category' . $i] = $categoryid;
+			$bind['style' . $i] = $styleid;
+			$vals[] = '(:category' . $i . ', :style' . $i . ')';
+			$i++;
+			$stylemap[$categoryname] = $stylename;
 		}
 	}
 }
