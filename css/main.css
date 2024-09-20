@@ -1,3 +1,8 @@
+@font-face{
+	font-family: terminus;
+	src: url('/fonts/Terminus.ttf');
+}
+
 html{
 	display: block;
 	width: 100%;
@@ -24,6 +29,7 @@ div#container{
 }
 
 div#header{
+	font-family: terminus;
 	position: fixed;
 	top: 0;
 	left: 0;

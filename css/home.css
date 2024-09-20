@@ -1,0 +1,32 @@
+div#container{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #000000;
+	color: #ffffff;
+	font-size: 24px;
+	background-image: url('/ico/favicon-196x196.png');
+	background-repeat: no-repeat;
+	background-position: top center;
+}
+
+div#content{
+	font-family: terminus;
+	h1{
+		font-size: 42px;
+		color: #00ff00;
+	}
+	a{
+		display: block;
+		color: #ffffff;
+		text-decoration: none;
+		border: 1px solid #ffffff;
+		margin: 8px 0;
+		text-align: center;
+		padding: 8px;
+	}
+	a:hover{
+		color: #000000;
+		background-color: #ffffff;
+	}
+}
