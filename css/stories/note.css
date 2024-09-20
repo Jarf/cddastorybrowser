@@ -12,17 +12,18 @@ div#container{
 div#container > div#story{
 	font-family: handwriting;
 	max-width: 636px;
-	padding: 32px;
+	padding: 26px;
 	padding-left: 132px;
-	font-size: 24pt;
+	font-size: 22pt;
+	line-height: 42px;
 	background-image: url('/img/notepaper.jpg');
 	background-repeat: repeat-y;
 	background-size: 800px auto;
-	background-position: left;
+	background-position: top left;
 	color: #444444;
 	box-shadow: 0 8px 8px rgba(33,33,33,.7);
 	hr{
 		border: 0;
-		height: 0;
+		height: 4px;
 	}
 }
