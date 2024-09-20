@@ -15,10 +15,11 @@ div#container > div#story{
 	padding: 32px;
 	display: block;
 	height: 100%;
-	font-size: 48pt;
+	font-size: 32pt;
 	color: #eab676;
 	background-image: url('/img/vintagetriangles.jpg');
 	background-repeat: repeat;
+	background-size: 50%;
 	box-shadow: 0 16px 16px rgba(33,33,33,.7);
 	hr{
 		border: 0;
@@ -28,5 +29,9 @@ div#container > div#story{
 		padding: 16px;
 		background-color: #2596be;
 		border-radius: 32px;
+	}
+	@media only screen and (max-width: 769px){
+		padding: 16px;
+		font-size: 16pt;
 	}
 }
