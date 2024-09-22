@@ -1,8 +1,13 @@
 	{% if story %}
 	<div id="footer">
-		<a href="/story/{{story.prevstory}}">Prev</a>
-		<a href="/story/{{randomstory}}">Rand</a>
-		<a href="/story/{{story.nextstory}}">Next</a>
+		<div id="storycategory">
+			Category - {{story.categoryName}}
+		</div>
+		<div id="storylinks">
+			<a href="/story/{{story.prevstory}}">Prev</a>
+			<a href="/story/{{randomstory}}">Rand</a>
+			<a href="/story/{{story.nextstory}}">Next</a>
+		</div>
 	</div>
 	{% endif %}
 	</body>
