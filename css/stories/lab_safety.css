@@ -30,4 +30,7 @@ div#container > div#story > div#storytext{
 		height: 8px;
 		background-color: #000000;
 	}
+	@media only screen and (max-width: 425px){
+		font-size:28pt;
+	}
 }
