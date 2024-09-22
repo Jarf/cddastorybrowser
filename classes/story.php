@@ -31,6 +31,9 @@ class story extends Entity{
 			foreach($row as $key => $val){
 				if(!empty($val)){
 					$this->$key = $val;
+					if($key === 'categoryName'){
+						$this->$key = $this->humanReadable($val);
+					}
 				}
 			}
 			$this->parseStory();
