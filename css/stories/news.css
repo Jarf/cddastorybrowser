@@ -15,7 +15,7 @@ div#container > div#story{
 	background-image: url('/img/brownpaper.jpg');
 	background-size: cover;
 	background-repeat: repeat;
-	padding: 72px 32px;
+	padding: 16px 32px 72px 32px;
 	font-size: 24pt;
 	color: #000000;
 	text-align: justify;

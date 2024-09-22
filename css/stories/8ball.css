@@ -1,0 +1,57 @@
+div#container{
+	background-color: #000000;
+	background: rgb(0,0,0);
+	background: radial-gradient(circle at 30vmin 30vmin, #444, #000);;
+	div#story{
+		font-family: terminus;
+		padding: 32px;
+		font-size: 18pt;
+		text-align: center;
+		hr{
+			border: 0;
+			height: 0;
+		}
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: radial-gradient(#002, #001 25vmin, #666 25vmin, #000 25.5vmin, #000 29vmin, #666 29vmin, transparent 29.5vmin);
+		width: 25vw;
+		height: 25vw;
+		min-width: 364px;
+		min-height: 364px;
+		max-width: none;
+	}
+}
+
+div#story > div#storytext {
+	text-align: center;
+	align-self: center;
+	color: #ffffff;
+	max-width: 300px;
+}
+
+@media only screen and (max-width: 600px){
+div#container{
+	background-color: #000000;
+	background: rgb(0,0,0);
+	background: radial-gradient(#002, #001 100%);
+	div#story{
+		background: none;
+		font-family: terminus;
+		padding: 32px;
+		font-size: 18pt;
+		text-align: center;
+		hr{
+			border: 0;
+			height: 0;
+		}
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 25vw;
+		height: 25vw;
+		min-width: 364px;
+		min-height: 364px;
+		max-width: none;
+	}
+}

@@ -17,6 +17,7 @@ div#container{
 
 /* The screen (or content) of the device */
 div#container > div#story > div#storytext {
+	font-family: Roboto;
 	padding: 16px;
 	width: 736px;
 	max-width: calc(100% - 32px);
@@ -57,7 +58,6 @@ div#container > div#story > div#storytext {
 		border-radius: 36px;
 		background: rgb(88,88,88);
 		background: linear-gradient(225deg, rgba(88,88,88,1) 0%, rgba(37,37,37,1) 100%);
-		font-family: Roboto;
 	}
 
 	/* The horizontal line on the top of the device */

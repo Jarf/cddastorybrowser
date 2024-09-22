@@ -1,0 +1,31 @@
+@font-face{
+	font-family: handwriting;
+	src: url('/fonts/handwriting.ttf');
+}
+
+div#container{
+	background-color: #ffffff;
+	background-image: url('/img/valentine.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+div#story{
+	font-family: handwriting;
+	padding: 32px;
+	min-height: 100%;
+	font-size: 22pt;
+	color: #444444;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
+div#story > div#storytext {
+	text-align: center;
+	padding:20px;
+	border-radius:30px;
+	min-width:40px;
+	min-height:40px;
+}
