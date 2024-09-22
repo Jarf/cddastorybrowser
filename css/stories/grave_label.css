@@ -17,7 +17,7 @@ div#container > div#story{
 	font-size: 48pt;
 	display: flex;
 	align-items: center;
-	max-width: 90%;
+	max-width: 1000px;
 	justify-content: center;
 	height: calc(100% - 96px);
 	div#storytext{

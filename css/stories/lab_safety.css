@@ -1,0 +1,33 @@
+@font-face{
+	font-family: labsignage;
+	src: url('/fonts/SVBasicManual-Bold.ttf');
+}
+
+div#container{
+	background-color: #ffffff;
+	background-image: url('/img/whiteconcrete.jpg');
+	background-repeat: repeat;
+	background-size: 100% auto;
+}
+
+div#container > div#story{
+	background-color: #ffffff;
+	border: 8px solid #000000;
+	border-radius: 25px;
+	min-height: 300px;
+	padding: 25px;
+	display: flex;
+	align-content: center;
+}
+
+div#container > div#story > div#storytext{
+	font-family: labsignage;
+	font-size: 48pt;
+	text-align: center;
+	align-self: center;
+	width: 100%;
+	hr{
+		height: 8px;
+		background-color: #000000;
+	}
+}

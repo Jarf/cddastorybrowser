@@ -1,0 +1,27 @@
+@font-face{
+	font-family: carvedwood;
+	src: url('/fonts/CARVEDWOOD.ttf');
+}
+
+div#container{
+	background-color: #2C2A2B;
+	background-image: url('/img/treebark.jpg');
+	background-repeat: repeat;
+}
+
+div#story{
+	font-family: carvedwood;
+	padding: 32px;
+	min-height: 100%;
+	font-size: 48pt;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
+div#story > div#storytext {
+	color: #ffffff;
+	text-align: center;
+	text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+	font-weight: 800;
+}
