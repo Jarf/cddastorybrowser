@@ -6,7 +6,7 @@ define('DIR_CLASSES', DIR_ROOT . 'classes/');
 define('DIR_CLASSES_ABSTRACT', DIR_CLASSES . 'abstract/');
 define('DIR_VENDOR', DIR_ROOT . 'vendor/');
 define('DIR_TPL', DIR_ROOT . 'tpl/');
-define('DIR_CACHE', '/tmp/');
+define('DIR_CACHE', false);
 define('DIR_CSS', DIR_ROOT . 'css/');
 define('DIR_JS', DIR_ROOT . 'js/');
 
