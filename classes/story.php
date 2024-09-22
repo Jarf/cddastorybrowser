@@ -53,7 +53,7 @@ class story extends Entity{
 		$this->story = nl2br($this->story);
 		$this->story = preg_replace('/\s{2,}/ms', '<br/>', $this->story);
 		// Replace color tags with styled spans
-		preg_match_all('/\<color_(\w+)\>(.*)\<\/color\>/m', $this->story, $colormatches);
+		preg_match_all('/\<color_(\w+)\>(.*?(?=<\/color\>))<\/color\>/m', $this->story, $colormatches);
 		if(!empty($colormatches)){
 			foreach($colormatches[0] as $cmkey => $cmval){
 				$newstring = '<span style="color: ' . $colormatches[1][$cmkey] . '">' . $colormatches[2][$cmkey] . '</span>';
