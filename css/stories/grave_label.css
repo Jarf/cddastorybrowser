@@ -1,6 +1,7 @@
 @font-face{
 	font-family: gravestone;
 	src: url('/fonts/CaslonAntique.ttf');
+	font-display: swap;
 }
 
 div#container{

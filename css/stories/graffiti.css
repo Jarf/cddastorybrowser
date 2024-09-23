@@ -1,6 +1,7 @@
 @font-face{
 	font-family: graffiti;
 	src: url('/fonts/Painterz.ttf');
+	font-display: swap;
 }
 
 div#container{

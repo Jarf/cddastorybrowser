@@ -1,6 +1,7 @@
 @font-face{
 	font-family: labsignage;
 	src: url('/fonts/SVBasicManual-Bold.ttf');
+	font-display: swap;
 }
 
 div#container{

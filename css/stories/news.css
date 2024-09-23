@@ -1,6 +1,7 @@
 @font-face{
 	font-family: newspaper;
 	src: url('/fonts/OldNewspaperTypes.ttf');
+	font-display: swap;
 }
 
 div#container{

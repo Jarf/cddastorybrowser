@@ -1,6 +1,7 @@
 @font-face{
   font-family: dotMatrix;
   src: url('/fonts/DOTMATRI.TTF');
+  font-display: swap;
 }
 
 div#container{

@@ -1,6 +1,7 @@
 @font-face{
 	font-family: crayon;
 	src: url('/fonts/Crayone.otf');
+	font-display: swap;
 }
 
 div#container{

@@ -1,6 +1,7 @@
 @font-face{
 	font-family: handwriting;
 	src: url('/fonts/handwriting.ttf');
+	font-display: swap;
 }
 
 div#container{
