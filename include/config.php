@@ -22,12 +22,27 @@ define('DB_HOST', 'localhost');
 define('DB_TYPE', 'mysql');
 
 $dev = 0;
-if(isset($_SERVER['HTTP_HOST'])){
-	switch ($_SERVER['HTTP_HOST']) {
-		case 'cddastory.local':
-			$dev = 1;
+
+if(isset($_SERVER['SERVER_NAME'])){
+	$servername = $_SERVER['SERVER_NAME'];
+}else{
+	switch (gethostname()) {
+		case 'localhost':
+			$servername = 'cddastory.jarfjam.co.uk';
+			break;
+		
+		default:
+			$servername = 'cddastory.local';
 			break;
 	}
 }
+$https = false;
+if(isset($_SERVER['HTTPS'])){
+	$https = true;
+}elseif(isset($_SERVER['SERVER_PROTOCOL']) && stripos($_SERVER['SERVER_PROTOCOL'], 'https') === 0){
+	$https = true;
+}
+define('SITE_ROOT', ($https ? 'https' : 'http') . '://' . $servername . '/');
+
 define('ISDEV', $dev);
 ?>

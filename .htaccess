@@ -28,6 +28,10 @@ Header append Vary Accept env=REQUEST_image
 
 # Allow well-known checks
 RewriteRule /\.well-known|^\.well-known - [L]
+# Allow robots.txt
+RewriteRule ^robots.txt - [L]
+# Sitemap generator
+RewriteRule ^sitemap.xml$ sitemap.php [END]
 
 # https redirect
 RewriteCond %{HTTPS} !=on
@@ -47,6 +51,7 @@ RewriteCond %{REQUEST_URI} !.*\.png$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.ttf$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.otf$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.ico$ [NC]
+RewriteCond %{REQUEST_URI} !robots\.txt$ [NC]
 RewriteRule .* /index.php
 
 <IfModule mod_expires.c>
