@@ -1,6 +1,7 @@
 @font-face{
 	font-family: carvedwood;
 	src: url('/fonts/CARVEDWOOD.ttf');
+	font-display: swap;
 }
 
 div#container{

@@ -4,9 +4,9 @@
 			Category - {{story.categoryName}}
 		</div>
 		<div id="storylinks">
-			<a href="/story/{{story.prevstory}}">Prev</a>
-			<a href="/story/{{randomstory}}">Rand</a>
-			<a href="/story/{{story.nextstory}}">Next</a>
+			<a href="/story/{{story.prevstory}}" aria-label="View Previous Story">Prev</a>
+			<a href="/story/{{randomstory}}" aria-label="View a Random Story">Rand</a>
+			<a href="/story/{{story.nextstory}}" aria-label="View Next Story">Next</a>
 		</div>
 	</div>
 	{% endif %}

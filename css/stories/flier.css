@@ -1,6 +1,7 @@
 @font-face{
 	font-family: supersunday;
 	src: url('/fonts/SuperSunday.ttf');
+	font-display: swap;
 }
 
 div#container{

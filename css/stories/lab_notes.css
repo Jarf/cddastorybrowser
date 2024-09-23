@@ -1,6 +1,7 @@
 @font-face{
 	font-family: typewriter;
 	src: url('/fonts/XTypewriter.ttf');
+	font-display: swap;
 }
 
 div#container{

@@ -1,6 +1,7 @@
 @font-face{
 	font-family: terminus;
 	src: url('/fonts/Terminus.ttf');
+	font-display: swap;
 }
 
 html{
