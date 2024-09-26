@@ -9,6 +9,7 @@ define('DIR_TPL', DIR_ROOT . 'tpl/');
 define('DIR_CACHE', false);
 define('DIR_CSS', DIR_ROOT . 'css/');
 define('DIR_JS', DIR_ROOT . 'js/');
+define('DIR_IMG', DIR_ROOT . 'img/');
 
 define('SITE_CSS', '/css/');
 define('SITE_JS', '/js/');
@@ -33,6 +34,7 @@ if(isset($_SERVER['SERVER_NAME'])){
 		
 		default:
 			$servername = 'cddastory.local';
+			$dev = 1;
 			break;
 	}
 }

@@ -41,6 +41,12 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 AddType image/x-icon .ico
 AddType image/webp .webp
 
+# If WebP accepted and exists
+RewriteCond %{HTTP_ACCEPT} image/webp
+RewriteCond %{REQUEST_URI}  (.*)\.(jpe?g|png)$
+RewriteCond %{DOCUMENT_ROOT}%1.webp -f
+RewriteRule (.+)\.(jpe?g)$ $1.webp [T=image/webp,E=REQUEST_image]
+
 # Redirect requests to index.php
 RewriteCond %{REQUEST_URI} !=/index.php
 RewriteCond %{REQUEST_URI} !/ajax/.* [NC]
@@ -51,6 +57,7 @@ RewriteCond %{REQUEST_URI} !.*\.png$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.ttf$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.otf$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.ico$ [NC]
+RewriteCond %{REQUEST_URI} !.*\.webp$ [NC]
 RewriteCond %{REQUEST_URI} !robots\.txt$ [NC]
 RewriteRule .* /index.php
 
