@@ -5,7 +5,7 @@
 }
 
 div#container{
-	background-color: #000000;
+	background-color: #A4A09B;
 	background-image: url('/img/concrete.jpg');
 	background-repeat: repeat;
 }
@@ -15,6 +15,7 @@ div#container > div#story{
 	max-width: 636px;
 	padding: 26px;
 	font-size: 32pt;
+	background-color: #D6D7D2;
 	background-image: url('/img/whitepaper1.jpg');
 	background-size: cover;
 	background-position: top left;

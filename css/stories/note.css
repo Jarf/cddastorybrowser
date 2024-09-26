@@ -5,7 +5,7 @@
 }
 
 div#container{
-	background-color: #000000;
+	background-color: #E5D3B7;
 	background-image: url('/img/ashwood.jpg');
 	background-repeat: repeat;
 }
@@ -17,6 +17,7 @@ div#container > div#story{
 	padding-left: 132px;
 	font-size: 22pt;
 	line-height: 42px;
+	background-color: #ffffff;
 	background-image: url('/img/notepaper.jpg');
 	background-repeat: repeat-y;
 	background-size: 800px auto;

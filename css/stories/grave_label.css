@@ -5,7 +5,7 @@
 }
 
 div#container{
-	background-color: #000000;
+	background-color: #237ABC;
 	background-image: url('/img/cloudysky.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -13,6 +13,7 @@ div#container{
 
 div#container > div#story{
 	position: absolute;
+	background-color: #A4A09B;
 	background-image: url('/img/concrete.jpg');
 	font-family: gravestone;
 	font-size: 48pt;

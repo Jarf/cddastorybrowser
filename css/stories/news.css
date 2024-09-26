@@ -5,7 +5,7 @@
 }
 
 div#container{
-	background-color: #000000;
+	background-color: #CCCED5;
 	background-image: url('/img/gravel.jpg');
 	background-repeat: repeat;
 }
@@ -13,6 +13,7 @@ div#container{
 div#container > div#story{
 	font-family: newspaper;
 	max-width: calc(100% - 64px);
+	background-color: #D3B994;
 	background-image: url('/img/brownpaper.jpg');
 	background-size: cover;
 	background-repeat: repeat;

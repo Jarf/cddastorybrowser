@@ -6,7 +6,7 @@
 
 div#container{
 	height: calc(100% - 140px);
-	background-color: #000000;
+	background-color: #B39B76;
 	background-image: url('/img/corkboard.jpg');
 	background-size: cover;
 	background-repeat: repeat;
