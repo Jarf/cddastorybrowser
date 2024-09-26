@@ -12,6 +12,7 @@ div#container{
 
 div#story{
 	font-family: dotMatrix;
+	background-color: #E2E3DA;
 	background-image: url('/img/whitepaper.jpg');
 	background-repeat: repeat;
 	padding: 32px;

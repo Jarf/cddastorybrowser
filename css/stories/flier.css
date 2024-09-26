@@ -5,7 +5,7 @@
 }
 
 div#container{
-	background-color: #000000;
+	background-color: #7B954A;
 	background-image: url('/img/grass.jpg');
 	background-repeat: repeat;
 }
@@ -18,6 +18,7 @@ div#container > div#story{
 	height: 100%;
 	font-size: 32pt;
 	color: #eab676;
+	background-color: #E4AF41;
 	background-image: url('/img/vintagetriangles.jpg');
 	background-repeat: repeat;
 	background-size: 50%;
