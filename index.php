@@ -12,6 +12,10 @@ $pagevars['stylesheets'] = array(SITE_CSS . 'main.css');
 $pagevars['javascripts'] = array();
 $story = new story();
 $pagevars['randomstory'] = $story->getRandomStoryId();
+$pagevars['header'] = array(
+	'title' => 'CDDA Story Browser',
+	'description' => 'A way to browse through the lore snippets found throughout CDDA'
+);
 unset($story);
 
 switch ($page) {
@@ -27,6 +31,10 @@ switch ($page) {
 			$storyid = $urlpath[1];
 		}
 		$story->loadStory($storyid);
+		if(!isset($story->story) || empty($story->story)){
+			display404();
+			exit();
+		}
 		$story->getNextPrevIds();
 		$pagevars['story'] = &$story;
 		$template = 'story.twig';
