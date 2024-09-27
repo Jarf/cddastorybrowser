@@ -58,6 +58,15 @@ switch ($page) {
 		$pagevars['javascripts'][] = SITE_JS . 'index.js';
 		$categories = new categories();
 		$categories->indexListings($categoryid);
+		if(empty($categoryid)){
+			$pagevars['header']['title'] .= ' - Story Category Index';
+			$pagevars['header']['description'] = 'An index of the various categories the CDDA lore snippets are sorted into';
+		}else{
+			if(isset($categories->categories) && !empty($categories->categories) && isset($categories->categories[0]) && isset($categories->categories[0]->nameReadable)){
+				$pagevars['header']['title'] .= ' - ' . $categories->categories[0]->nameReadable . ' Story Index';
+				$pagevars['header']['description'] = 'An index of the stories found in the ' . $categories->categories[0]->nameReadable . ' category of CDDA lore snippets';
+			}
+		}
 		$pagevars['categories'] = &$categories;
 		break;
 }
