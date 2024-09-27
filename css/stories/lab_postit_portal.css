@@ -1,0 +1,53 @@
+@font-face{
+	font-family: handwriting;
+	src: url('/fonts/handwriting.ttf');
+	font-display: swap;
+}
+
+div#container{
+	height: calc(100% - 140px);
+	background-color: #B39B76;
+	background-image: url('/img/corkboard.jpg');
+	background-size: cover;
+	background-repeat: repeat;
+	text-align: center;
+	overflow: hidden;
+}
+
+div#container > div#story{
+	transform: rotate(3deg);
+	font-family: handwriting;
+	width: fit-content;
+	max-width: 280px;
+	padding: 32px;
+	padding-top: 48px;
+	font-size: 24pt;
+	color: #000000;
+	background-color: #FE5B60;
+	margin: 0 auto;
+	box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+	min-height: 240px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
+
+div#story::before{
+	margin: 8px;
+	content: '';
+	position: absolute;
+	top: 0;
+	left: calc(50% - 16px);
+	display: inline-block;
+	background: rgb(255,132,132);
+	background: radial-gradient(circle, rgba(209,172,0,1) 0%, rgba(106,80,0,1) 100%);
+	background-position: -8px -8px;
+	box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+	height: 32px;
+	width: 32px;
+	border-radius: 16px;
+}
