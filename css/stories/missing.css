@@ -26,6 +26,6 @@ div#container > div#story{
 		height: 4px;
 	}
 	@media only screen and (max-width: 769px){
-		font-size: 24pt;
+		font-size: 14pt;
 	}
 }
