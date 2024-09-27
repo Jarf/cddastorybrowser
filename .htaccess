@@ -71,8 +71,7 @@ RewriteRule .* /index.php
 	ExpiresByType image/svg+xml "access plus 1 year"
 	ExpiresByType image/x-icon "access plus 1 year"
 	ExpiresByType image/webp "access plus 1 year"
-	ExpiresByType font/ttf "access plus 1 year"
-	ExpiresByType font/otf "access plus 1 year"
+	ExpiresByType font/woff2 "access plus 1 year"
 </IfModule>
 
 # direct file/dir access
