@@ -37,6 +37,8 @@ switch ($page) {
 		}
 		$story->getNextPrevIds();
 		$pagevars['story'] = &$story;
+		$pagevars['header']['title'] .= ' - ' . $story->categoryName;
+		$pagevars['header']['description'] = $story->getMetaDescription();
 		$template = 'story.twig';
 		$pagevars['stylesheets'][] = SITE_CSS . 'story.css';
 		$pagevars['stylesheets'][] = SITE_CSS . 'stories/' . $story->style . '.css';
