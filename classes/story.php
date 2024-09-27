@@ -134,6 +134,15 @@ class story extends Entity{
 		$this->prevstory = $prev;
 	}
 
+	public function getMetaDescription(){
+		$description = 'A ' . $this->categoryName . ' category snippet - ' . preg_replace('/\s+/', ' ', strip_tags(str_replace(array('<br/>', '<hr/>'), ' ', $this->story)));
+		if(strlen($description) > 120){
+			$description = substr($description, 0, 117);
+			$description = substr($description, 0, strrpos($description, ' ')) . '...';
+		}
+		return $description;
+	}
+
 	private function fetchDescriptor(string $descriptor){
 		if(!empty(trim($descriptor))){
 			$matchcount = preg_match_all('/\<\w+\>/', $descriptor, $matches);
