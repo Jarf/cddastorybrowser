@@ -1,0 +1,31 @@
+@font-face{
+	font-family: typewriter;
+	src: url('/fonts/xtypewriter.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #7D5D40;
+	background-image: url('/img/brownwood.jpg');
+	background-repeat: repeat;
+}
+
+div#container > div#story{
+	font-family: typewriter;
+	max-width: 636px;
+	padding: 26px;
+	font-size: 18pt;
+	background-color: #D6D7D2;
+	background-image: url('/img/whitepaper1.jpg');
+	background-size: cover;
+	background-position: top left;
+	color: #444444;
+	box-shadow: 0 8px 8px rgba(33,33,33,.7);
+	hr{
+		border: 0;
+		height: 4px;
+	}
+	@media only screen and (max-width: 769px){
+		font-size: 24pt;
+	}
+}
