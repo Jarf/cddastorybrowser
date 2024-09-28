@@ -41,6 +41,9 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 AddType image/x-icon .ico
 AddType image/webp .webp
 
+# Etag
+FileETag MTime Size
+
 # If WebP accepted and exists
 RewriteCond %{HTTP_ACCEPT} image/webp
 RewriteCond %{REQUEST_URI}  (.*)\.(jpe?g|png)$
