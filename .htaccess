@@ -7,7 +7,7 @@ Header set Referrer-Policy "no-referrer"
 Header set X-Content-Type-Options "nosniff" 
 Header set X-Frame-Options "SAMEORIGIN" 
 Header set X-XSS-Protection "1; mode=block" 
-<If "%{HTTP_HOST} == 'qrauth.local'">
+<If "%{HTTP_HOST} == 'cddastory.local'">
 	Header always edit Set-Cookie (.*) $1;HttpOnly;SameSite=strict;Domain=cddastory.local;Path=/;
 </If>
 <Else>
