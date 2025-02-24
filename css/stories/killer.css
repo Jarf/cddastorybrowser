@@ -1,0 +1,21 @@
+@font-face{
+	font-family: blood;
+	src: url('/fonts/bloodspatter.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #540b0c;
+	background-image: url('/img/bloodsplatter.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+div#story{
+	font-family: blood;
+	text-align: center;
+	padding: 32px;
+	min-height: 100%;
+	font-size: 36pt;
+	text-shadow: 2px 0 #940000;
+}
