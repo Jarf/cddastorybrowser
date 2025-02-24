@@ -8,7 +8,7 @@ $images = getDirectoryFiles(DIR_IMG);
 $convert = $webps = array();
 foreach($images as $ikey => $image){
 	$extension = pathinfo($image, PATHINFO_EXTENSION);
-	if($extension === 'jpg'){
+	if($extension === 'jpg' || $extension === 'png'){
 		$webppath = getWebpPath($image);
 		if(!file_exists($webppath)){
 			$convert[$ikey] = $image;

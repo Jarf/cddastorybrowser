@@ -4,13 +4,16 @@ include(dirname(__DIR__) . '/include/config.php');
 include(dirname(__DIR__) . '/include/autoload.php');
 // Init DB class
 $db = new db();
+$masterpath = DIR_DATA . 'master.zip';
 print 'Done' . PHP_EOL . 'Download master.zip...';
+$fp = fopen($masterpath, 'w+');
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, 'https://github.com/CleverRaven/Cataclysm-DDA/archive/refs/heads/master.zip');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-$response = curl_exec($ch);
-file_put_contents(DIR_DATA . 'master.zip', $response);
+curl_setopt($ch, CURLOPT_FILE, $fp);
+curl_exec($ch);
+curl_close($ch);
 print 'Done' . PHP_EOL . 'Extract JSON snippets';
 // Extract story snippets
 $zip = new ZipArchive;
@@ -26,7 +29,7 @@ if($zip->open(DIR_DATA . 'master.zip') === true){
 }
 print 'Done' . PHP_EOL . 'Cleanup master.zip...';
 // Clean up zip
-unlink(DIR_DATA . 'master.zip');
+unlink($masterpath);
 print 'Done' . PHP_EOL . 'Retrieve existing categories...';
 // Get already set categories
 $categorymap = array();
