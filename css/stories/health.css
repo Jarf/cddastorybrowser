@@ -1,0 +1,30 @@
+div#container{
+	background-color: #000000;
+	background-image: url('/img/health.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+div#story{
+	font-family: terminus;
+	color: #4AF626;
+	padding: 32px;
+	min-height: 100%;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
+div#story > div#storytext {
+	background-color: #000000;
+	border: 1px #4AF626 solid;
+	text-align: center;
+	padding:20px;
+	min-width:40px;
+	min-height:40px;
+	font-size: 24pt;
+	@media only screen and (max-width: 666px){
+		font-size: 16pt;
+	}
+}
