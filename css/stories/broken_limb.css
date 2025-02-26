@@ -1,0 +1,35 @@
+@font-face{
+	font-family: broken;
+	src: url('/fonts/broken.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #000000;
+	background-image: url('/img/brokenbone.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+div#story{
+	font-family: broken;
+	padding: 32px;
+	min-height: 100%;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
+div#story > div#storytext {
+	text-align: center;
+	padding:20px;
+	border-radius:30px;
+	min-width:40px;
+	min-height:40px;
+	font-size: 48pt;
+	text-shadow: 2px 2px #E8E7E5;
+	@media only screen and (max-width: 666px){
+		font-size: 32pt;
+	}
+}
