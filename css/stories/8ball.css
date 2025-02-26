@@ -1,57 +1,29 @@
 div#container{
 	background-color: #000000;
-	background: rgb(0,0,0);
-	background: radial-gradient(circle at 30vmin 30vmin, #444, #000);;
-	div#story{
-		font-family: terminus;
-		padding: 32px;
-		font-size: 18pt;
-		text-align: center;
-		hr{
-			border: 0;
-			height: 0;
-		}
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background: radial-gradient(#002, #001 25vmin, #666 25vmin, #000 25.5vmin, #000 29vmin, #666 29vmin, transparent 29.5vmin);
-		width: 25vw;
-		height: 25vw;
-		min-width: 364px;
-		min-height: 364px;
-		max-width: none;
-	}
+	background-image: url('/img/8ball.png');
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
+div#story{
+	font-family: terminus;
+	color: #CED5F9;
+	padding: 32px;
+	min-height: 100%;
+	font-size: 18pt;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
 div#story > div#storytext {
 	text-align: center;
+	padding:20px;
+	border-radius:30px;
+	width: 200px;
+	max-height:200px;
 	align-self: center;
-	color: #ffffff;
-	max-width: 300px;
-}
-
-@media only screen and (max-width: 600px){
-div#container{
-	background-color: #000000;
-	background: rgb(0,0,0);
-	background: radial-gradient(#002, #001 100%);
-	div#story{
-		background: none;
-		font-family: terminus;
-		padding: 32px;
-		font-size: 18pt;
-		text-align: center;
-		hr{
-			border: 0;
-			height: 0;
-		}
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 25vw;
-		height: 25vw;
-		min-width: 364px;
-		min-height: 364px;
-		max-width: none;
-	}
 }
