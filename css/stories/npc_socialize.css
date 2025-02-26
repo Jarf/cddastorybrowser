@@ -1,0 +1,43 @@
+div#container{
+	background-color: #000000;
+	background-image: url('/img/cloudysky.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+div#story{
+	font-family: terminus;
+	padding: 32px;
+	min-height: 100%;
+	width: unset !important;
+	font-size: 36pt;
+	text-shadow: -2px -2px #ffffff, 2px 2px #ffffff, -2px -2px #ffffff, 2px 2px #ffffff;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
+div#story > div#storytext {
+	position: relative;
+	font-size: 18px;
+	line-height: 24px;
+	background: #fff;
+	border-radius: 40px;
+	padding: 24px;
+	text-align: center;
+	color: #000;
+}
+
+div#story > div#storytext:before {
+	content: "";
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	border-left: 24px solid #fff;
+	border-right: 12px solid transparent;
+	border-top: 12px solid #fff;
+	border-bottom: 20px solid transparent;
+	left: 32px;
+	bottom: -24px;
+}
