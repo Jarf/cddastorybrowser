@@ -1,0 +1,38 @@
+@font-face{
+	font-family: subway;
+	src: url('/fonts/subway.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #ffffff;
+	background-image: url('/img/subway.jpg');
+	background-repeat: repeat;
+	background-size: cover;
+}
+
+div#container > div#story > div#storytext{
+	background-color: #000000;
+	margin: -20px;
+	padding: 16px;
+	color: #FFF9A5;
+	font-family: subway;
+	font-size: 32pt;
+	text-align: center;
+	align-self: center;
+	width: 100%;
+	border-image: linear-gradient(141deg,rgba(0, 0, 0, 1) 0%, rgba(217, 217, 217, 1) 17%, rgba(0, 0, 0, 1) 100%) 1;
+	border-width: 4px;
+	border-style: solid;
+	box-shadow: 0px 0px 30px 15px rgba(0, 0, 0, 0.5);
+	hr{
+		height: 4px;
+		background-color: #FFF9A5;
+		border: 0;
+	}
+	@media only screen and (max-width: 425px){
+		font-size:16pt;
+		margin: -4px;
+		padding: 16px 0;
+	}
+}
