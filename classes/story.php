@@ -174,5 +174,28 @@ class story extends Entity{
 		}
 		return $descriptor;
 	}
+
+	public function getDependencies(){
+		$return = array();
+		if(isset($this->categoryName)){
+			$css = DIR_CSS . 'stories/' . strtolower(str_replace(' ', '_', $this->categoryName)) . '.css';
+			if(file_exists($css)){
+				$css = file_get_contents($css);
+				if(preg_match('/div#container{[^}]+background-image:\s?url\(\'([^\']+)\'\);/s', $css, $image) === 1){
+					$return[] = array(
+						'type' => 'image',
+						'path' => end($image)
+					);
+				}
+				if(preg_match('/@font-face{[^}]+src:\s?url\(\'([^\']+)\'\);/s', $css, $font) === 1){
+					$return[] = array(
+						'type' => 'font',
+						'path' => end($font)
+					);
+				}
+			}
+		}
+		return $return;
+	}
 }
 ?>

@@ -42,6 +42,7 @@ switch ($page) {
 		$template = 'story.twig';
 		$pagevars['stylesheets'][] = SITE_CSS . 'story.css';
 		$pagevars['stylesheets'][] = SITE_CSS . 'stories/' . $story->style . '.css';
+		$pagevars['dependencies'] = $pagevars['story']->getDependencies();
 		break;
 	
 	case 'index':
