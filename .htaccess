@@ -15,7 +15,7 @@ Header set X-XSS-Protection "1; mode=block"
 </Else>
 Header set Permissions-Policy "geolocation=(), camera=(), microphone=(), display-capture=()"
 Header set Content-Security-Policy "default-src 'self'; \
- script-src 'self'; \
+ script-src 'self' 'sha256-9jtjNGPjDsL5pafVmutYFkzeHH6NTkB3WAEUGqqKhSI='; \
 	object-src 'none'; \
    img-src 'self'; \
    	frame-src 'none'; \
@@ -23,7 +23,9 @@ Header set Content-Security-Policy "default-src 'self'; \
 		   	font-src 'self'; \
 		   		style-src 'self'; \
 		   			connect-src 'self'; \
-		   				worker-src blob:"
+		   				worker-src blob:; \
+		   					require-trusted-types-for 'script'; \
+		   						trusted-types default"
 Header append Vary Accept env=REQUEST_image
 Header add Cross-Origin-Embedder-Policy "require-corp"
 Header add Cross-Origin-Opener-Policy "same-origin"
