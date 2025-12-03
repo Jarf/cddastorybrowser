@@ -2,7 +2,7 @@
 	<input type="hidden" id="categoryId" value="{{categoryid}}"/>
 	{% if categoryid is empty %}
 	<p>Select a category to browse the stories within</p>
-	<table id="categoryIndex" class="hover">
+	<table id="categoryIndex" class="hover" role="main">
 		<thead>
 			<tr>
 				<th>Name</th>
@@ -20,7 +20,7 @@
 	</table>
 	{% else %}
 	<p>Select a story to view it</p>
-	<table id="storyIndex" class="hover">
+	<table id="storyIndex" class="hover" role="main">
 		<thead>
 			<tr>
 				<th>ID</th>
