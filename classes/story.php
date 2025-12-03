@@ -181,11 +181,15 @@ class story extends Entity{
 			$css = DIR_CSS . 'stories/' . $this->style . '.css';
 			if(file_exists($css)){
 				$css = file_get_contents($css);
-				if(preg_match('/div#container{[^}]+background-image:\s?url\(\'([^\']+)\'\);/s', $css, $image) === 1){
-					$return[] = array(
-						'type' => 'image',
-						'path' => end($image)
-					);
+				preg_match_all('/background-image:\s?url\(\'([^\']+)\'\);/s', $css, $images, PREG_PATTERN_ORDER);
+				if(!empty($images)){
+					$images = end($images);
+					foreach($images as $image){
+						$return[] = array(
+							'type' => 'image',
+							'path' => $image
+						);
+					}
 				}
 				if(preg_match('/@font-face{[^}]+src:\s?url\(\'([^\']+)\'\);/s', $css, $font) === 1){
 					$return[] = array(

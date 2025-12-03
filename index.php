@@ -16,6 +16,10 @@ $pagevars['header'] = array(
 	'title' => 'CDDA Story Browser',
 	'description' => 'A way to browse through the lore snippets found throughout CDDA'
 );
+$pagevars['dependencies'] = array(array(
+	'type' => 'font',
+	'path' => '/fonts/terminus.woff2'
+));
 unset($story);
 
 switch ($page) {
@@ -42,7 +46,7 @@ switch ($page) {
 		$template = 'story.twig';
 		$pagevars['stylesheets'][] = SITE_CSS . 'story.css';
 		$pagevars['stylesheets'][] = SITE_CSS . 'stories/' . $story->style . '.css';
-		$pagevars['dependencies'] = $pagevars['story']->getDependencies();
+		$pagevars['dependencies'] = array_merge($pagevars['dependencies'], $pagevars['story']->getDependencies());
 		break;
 	
 	case 'index':
