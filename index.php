@@ -16,16 +16,26 @@ $pagevars['header'] = array(
 	'title' => 'CDDA Story Browser',
 	'description' => 'A way to browse through the lore snippets found throughout CDDA'
 );
-$pagevars['dependencies'] = array(array(
-	'type' => 'font',
-	'path' => '/fonts/terminus.woff2'
-));
+$pagevars['dependencies'] = array(
+	array(
+		'type' => 'font',
+		'path' => '/fonts/terminus.woff2'
+	),
+	array(
+		'type' => 'image',
+		'path' => '/ico/favicon-16x16.png'
+	)
+);
 unset($story);
 
 switch ($page) {
 	default:
 		$template = 'home.twig';
 		$pagevars['stylesheets'][] = SITE_CSS . 'home.css';
+		$pagevars['dependencies'][] = array(
+			'type' => 'image',
+			'path' => '/ico/favicon-196x196.png'
+		);
 		break;
 
 	case 'story':
@@ -73,6 +83,14 @@ switch ($page) {
 			}
 		}
 		$pagevars['categories'] = &$categories;
+		$pagevars['dependencies'][] = array(
+			'type' => 'image',
+			'path' => '/vendor/datatables/datatables/media/images/sort_both.png'
+		);
+		$pagevars['dependencies'][] = array(
+			'type' => 'image',
+			'path' => '/vendor/datatables/datatables/media/images/sort_desc.png'
+		);
 		break;
 }
 
