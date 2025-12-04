@@ -26,6 +26,7 @@ Header set Content-Security-Policy "default-src 'self'; \
 		   				worker-src blob:; \
 		   					require-trusted-types-for 'script'; \
 		   						trusted-types default"
+Header set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
 Header append Vary Accept env=REQUEST_image
 Header add Cross-Origin-Embedder-Policy "require-corp"
 Header add Cross-Origin-Opener-Policy "same-origin"
