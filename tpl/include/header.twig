@@ -41,7 +41,7 @@
 		<meta name="msapplication-wide310x150logo" content="/ico/mstile-310x150.png" />
 		<meta name="msapplication-square310x310logo" content="/ico/mstile-310x310.png" />
 		{% for dependency in dependencies %}
-		<link rel="preload" href="{{dependency.path}}" as="{{dependency.type}}" fetchpriority="high"/>
+		<link rel="preload" href="{{dependency.path}}" as="{{dependency.type}}" {{dependency.type == 'font' ? 'type="font/woff2" crossorigin ' : ''}} fetchpriority="high"/>
 		{% endfor %}
 	</head>
 	<body>
