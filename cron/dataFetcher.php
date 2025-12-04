@@ -4,6 +4,7 @@ include(dirname(__DIR__) . '/include/config.php');
 include(dirname(__DIR__) . '/include/autoload.php');
 // Init DB class
 $db = new db();
+
 $masterpath = DIR_DATA . 'master.zip';
 print 'Done' . PHP_EOL . 'Download master.zip...';
 $fp = fopen($masterpath, 'w+');
@@ -214,6 +215,26 @@ if(!empty($vals)){
 	$db->execute();
 }
 print 'Done' . PHP_EOL;
+
+if(DIR_CACHE !== false){
+	print 'Clearing twig cache';
+	$dir = new DirectoryIterator(DIR_CACHE);
+	foreach($dir as $fileinfo){
+		if(!$fileinfo->isDot() && $fileinfo->isDir()){
+			$cachedir = new DirectoryIterator(DIR_CACHE . $fileinfo->getFilename());
+			$dirname = $fileinfo->getFilename();
+			foreach($cachedir as $cachefile){
+				if(!$cachefile->isDot() && $cachefile->getExtension() === 'php'){
+					print '.';
+					unlink(DIR_CACHE . $dirname . '/' . $cachefile->getFilename());
+				}
+			}
+			print '.';
+			rmdir(DIR_CACHE . $fileinfo->getFilename());
+		}
+	}
+	print 'Done' . PHP_EOL;
+}
 
 function parseStories(&$row){
 	$stories = array();

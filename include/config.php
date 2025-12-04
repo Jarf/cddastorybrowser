@@ -6,7 +6,7 @@ define('DIR_CLASSES', DIR_ROOT . 'classes/');
 define('DIR_CLASSES_ABSTRACT', DIR_CLASSES . 'abstract/');
 define('DIR_VENDOR', DIR_ROOT . 'vendor/');
 define('DIR_TPL', DIR_ROOT . 'tpl/');
-define('DIR_CACHE', false);
+define('DIR_CACHE', DIR_ROOT . 'cache/');
 define('DIR_CSS', DIR_ROOT . 'css/');
 define('DIR_JS', DIR_ROOT . 'js/');
 define('DIR_IMG', DIR_ROOT . 'img/');
@@ -15,6 +15,7 @@ define('SITE_CSS', '/css/');
 define('SITE_JS', '/js/');
 define('SITE_VENDOR', '/vendor/');
 define('SITE_AJAX', '/ajax/');
+define('SITE_ICO', '/ico/');
 
 define('DB_USER', 'cddastorybrowser');
 define('DB_PASS', 'ywqe)EBJa#-Gp~@N6<[R?d');

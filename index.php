@@ -23,7 +23,7 @@ $pagevars['dependencies'] = array(
 	),
 	array(
 		'type' => 'image',
-		'path' => '/ico/favicon-16x16.png'
+		'path' => SITE_ICO . 'favicon-16x16.png'
 	)
 );
 unset($story);
@@ -34,7 +34,7 @@ switch ($page) {
 		$pagevars['stylesheets'][] = SITE_CSS . 'home.css';
 		$pagevars['dependencies'][] = array(
 			'type' => 'image',
-			'path' => '/ico/favicon-196x196.png'
+			'path' => SITE_ICO . 'favicon-196x196.png'
 		);
 		break;
 
@@ -85,11 +85,11 @@ switch ($page) {
 		$pagevars['categories'] = &$categories;
 		$pagevars['dependencies'][] = array(
 			'type' => 'image',
-			'path' => '/vendor/datatables/datatables/media/images/sort_both.png'
+			'path' => SITE_VENDOR . 'datatables/datatables/media/images/sort_both.png'
 		);
 		$pagevars['dependencies'][] = array(
 			'type' => 'image',
-			'path' => '/vendor/datatables/datatables/media/images/sort_desc.png'
+			'path' => SITE_VENDOR . 'datatables/datatables/media/images/sort_desc.png'
 		);
 		break;
 }
