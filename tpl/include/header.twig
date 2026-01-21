@@ -15,9 +15,11 @@
 		<meta name="description" content="{{header.description}}">
 		<title>{{header.title}}</title>
 		{% for javascript in javascripts %}
-		<script type="text/javascript" rel="preload" as="script" src="{{javascript}}"></script>
+		<link rel="preload" href="{{javascript}}" as="script" fetchpriority="high"/>
+		<script type="text/javascript" src="{{javascript}}"></script>
 		{% endfor %}
 		{% for stylesheet in stylesheets %}
+		<link rel="preload" href="{{stylesheet}}" as="style" fetchpriority="high"/>
 		<link rel="stylesheet" type="text/css" href="{{stylesheet}}">
 		{% endfor %}
 		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/ico/apple-touch-icon-57x57.png" />
