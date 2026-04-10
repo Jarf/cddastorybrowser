@@ -1,0 +1,35 @@
+@font-face{
+	font-family: comic;
+	src: url('/fonts/comic.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #898A83;
+	background-image: url('/img/fault.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
+div#story{
+	font-family: comic;
+	color: #000000;
+	padding: 32px;
+	min-height: 100%;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
+div#story > div#storytext {
+	background-color: #ffffff;
+	border: 4px #000000 solid;
+	text-align: center;
+	padding:20px;
+	min-width:40px;
+	font-size: 24pt;
+	@media only screen and (max-width: 666px){
+		font-size: 16pt;
+	}
+}
