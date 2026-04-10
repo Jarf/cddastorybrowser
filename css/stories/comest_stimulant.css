@@ -10,6 +10,9 @@ div#container{
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
+	@media only screen and (max-width: 769px){
+		background-size: cover;
+	}
 }
 
 div#story{
@@ -20,6 +23,9 @@ div#story{
 	text-shadow: 2px 0 #00ff00, -2px 0 #0000ff, 0 2px #ff0000, 0 -2px #ffffff;
 	min-height: 100%;
 	text-align: center;
+	@media only screen and (max-width: 769px){
+		font-size: 28pt;
+	}
 	hr{
 		border: 0;
 		height: 0;
