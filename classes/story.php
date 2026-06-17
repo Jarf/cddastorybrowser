@@ -62,7 +62,7 @@ class story extends Entity{
 
 	public function getStoryUrl(int $storyid){
 		$return = false;
-		$sql = 'SELECT categories.name, COUNT(stories.id) AS storyCount FROM stories JOIN categories ON stories.category = categories.id WHERE stories.id <= :storyid AND stories.category = (SELECT stories.category FROM stories WHERE stories.id = :storyid LIMIT 1) GROUP BY categories.id';
+		$sql = 'SELECT categories.name, COUNT(stories.id) AS storyCount FROM stories JOIN categories ON stories.category = categories.id WHERE stories.id <= :storyid AND categories.descriptor = 0 AND stories.category = (SELECT stories.category FROM stories WHERE stories.id = :storyid LIMIT 1) GROUP BY categories.id';
 		$this->db->query($sql);
 		$this->db->bind('storyid', $storyid);
 		$this->db->execute();

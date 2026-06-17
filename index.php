@@ -45,6 +45,14 @@ switch ($page) {
 			$categoryname = $urlpath[1];
 			$categorystoryid = $urlpath[2];
 			$storyid = $story->getStoryId($categoryname, $categorystoryid);
+		}elseif(!empty($urlpath) && isset($urlpath[1]) && is_numeric($urlpath[1])){
+			$storyurl = $story->getStoryUrl($urlpath[1]);
+			if($storyurl === false){
+				display404();
+				exit();
+			}else{
+				header('Location: /story/' . $storyurl);
+			}
 		}
 		if(empty($storyid)){
 			display404();
