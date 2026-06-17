@@ -27,6 +27,8 @@ function display404(){
 		'title' => 'CDDA Story Browser - 404 Page Not Found',
 		'description' => '404 Page Not Found'
 	);
+	$story = new story();
+	$pagevars['randomstory'] = $story->getRandomStoryId();
 	$output[] = $twig->render('header.twig', $pagevars);
 	$output[] = $twig->render('404.twig', $pagevars);
 	$output[] = $twig->render('footer.twig', $pagevars);
