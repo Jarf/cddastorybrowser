@@ -1,0 +1,30 @@
+@font-face{
+	font-family: broken;
+	src: url('/fonts/broken.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #FFFFFF;
+	background-image: url('/img/cigarette.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: auto;
+	@media only screen and (max-width: 769px){
+		background-size: contain;
+	}
+}
+
+div#story{
+	font-family: broken;
+	color: #000000;
+	text-align: center;
+	padding: 32px;
+	min-height: 100%;
+	font-size: 36pt;
+	text-shadow: 2px 0 #ffffff;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
