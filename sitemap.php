@@ -22,11 +22,13 @@ foreach($categories->categories as $category){
 		'lastmod' => $lmod
 	);
 	$stories->loadStories($category->id);
+	$storyidx = 1;
 	foreach($stories->stories as $story){
 		$pages[] = array(
-			'loc' => SITE_ROOT . 'story/' . $story->id,
+			'loc' => SITE_ROOT . 'story/' . $category->name . '/' . $storyidx,
 			'lastmod' => $lmod
 		);
+		$storyidx++;
 	}
 }
 header("Content-type: application/xml; charset=utf-8");

@@ -65,7 +65,7 @@ class stories extends Entity{
 		return $return;
 	}
 
-	private function countStories(int $categoryid = null, string $search = null){
+	public function countStories(int $categoryid = null, string $search = null, bool $returnCount = false){
 		$return = array(
 			'recordsTotal' => 0,
 			'recordsFiltered' => 0
@@ -115,6 +115,9 @@ class stories extends Entity{
 			$return['recordsFiltered'] = $row->total;
 		}else{
 			$return['recordsFiltered'] = $return['recordsTotal'];
+		}
+		if($returnCount === true){
+			$return = $return['recordsTotal'];
 		}
 		return $return;
 	}

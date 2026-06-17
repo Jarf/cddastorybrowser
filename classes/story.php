@@ -5,8 +5,8 @@ class story extends Entity{
 	public string $story;
 	public string $categoryName;
 	public string $style = 'default';
-	public int $prevstory;
-	public int $nextstory;
+	public string $prevstory;
+	public string $nextstory;
 
 	public function __construct(){
 		$this->table = 'stories';
@@ -41,10 +41,36 @@ class story extends Entity{
 	}
 
 	public function getRandomStoryId(){
-		$this->db->query('SELECT stories.id FROM stories JOIN categories ON stories.category = categories.id WHERE categories.descriptor = 0 ORDER BY RAND() LIMIT 1');
+		$category = new categories();
+		$category = $category->getRandomCategory();
+		$storiescount = new stories();
+		$storiescount = $storiescount->countStories($category->id, null, true);
+		return $category->name . '/' . rand(1, $storiescount);
+	}
+
+	public function getStoryId(string $categoryname, int $categorystoryid){
+		$id = false;
+		$sql = 'SELECT stories.id FROM ' . $this->table . ' JOIN categories ON stories.category = categories.id WHERE categories.name = :categoryname ORDER BY stories.id ASC LIMIT 1 OFFSET ' . ($categorystoryid - 1);
+		$this->db->query($sql);
+		$this->db->bind('categoryname', $categoryname);
 		$this->db->execute();
-		$row = $this->db->fetch();
-		return $row->id;
+		if($this->db->rowCount() === 1){
+			$id = $this->db->fetch()->id;
+		}
+		return $id;
+	}
+
+	public function getStoryUrl(int $storyid){
+		$return = false;
+		$sql = 'SELECT categories.name, COUNT(stories.id) AS storyCount FROM stories JOIN categories ON stories.category = categories.id WHERE stories.id <= :storyid AND stories.category = (SELECT stories.category FROM stories WHERE stories.id = :storyid LIMIT 1) GROUP BY categories.id';
+		$this->db->query($sql);
+		$this->db->bind('storyid', $storyid);
+		$this->db->execute();
+		if($this->db->rowCount() === 1){
+			$row = $this->db->fetch();
+			$return = $row->name . '/' . $row->storyCount;
+		}
+		return $return;
 	}
 
 	public function parseStory(){
@@ -130,8 +156,8 @@ class story extends Entity{
 				$prev = $row->prev;
 			}
 		}
-		$this->nextstory = $next;
-		$this->prevstory = $prev;
+		$this->nextstory = $this->getStoryUrl($next);
+		$this->prevstory = $this->getStoryUrl($prev);
 	}
 
 	public function getMetaDescription(){

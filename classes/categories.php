@@ -35,5 +35,16 @@ class categories extends Entity{
 		}
 		$this->categories = $return;
 	}
+
+	public function getRandomCategory(){
+		$return = false;
+		$sql = 'SELECT categories.id, categories.name FROM categories JOIN stories ON categories.id = stories.category WHERE descriptor = 0 ORDER BY RAND() LIMIT 1';
+		$this->db->query($sql);
+		$this->db->execute();
+		if($this->db->rowCount() === 1){
+			$return = $this->db->fetch();
+		}
+		return $return;
+	}
 }
 ?>

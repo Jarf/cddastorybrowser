@@ -7,8 +7,9 @@ $(document).ready(function(){
 			window.location.href = '/index/' + $(this).data('id');
 		});
 	}else if($('table#storyIndex').length){
-		var categoryIndex = $('input#categoryId').val();
-		$('table#storyIndex').DataTable({
+		const categoryIndex = $('input#categoryId').val();
+		const categoryName = $('input#categoryName').val();
+		const dt = $('table#storyIndex').DataTable({
 			processing: true,
 			serverSide: true,
 			columns: [
@@ -23,7 +24,7 @@ $(document).ready(function(){
 			}
 		});
 		$('table#storyIndex').on('click', 'tbody tr', function(){
-			window.location.href = '/story/' + $(this).data('id');
+			window.location.href = '/story/' + categoryName + '/' + ((dt.row(this).index() + 1) + (dt.page() * dt.page.len()));
 		});
 	}
 });

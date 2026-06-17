@@ -40,9 +40,15 @@ switch ($page) {
 
 	case 'story':
 		$story = new story();
-		$storyid = null;
-		if(!empty($urlpath) && isset($urlpath[1]) && is_numeric($urlpath[1])){
-			$storyid = $urlpath[1];
+		$storyid = $categoryname = $categorystoryid = null;
+		if(!empty($urlpath) && isset($urlpath[1]) && !is_numeric($urlpath[1]) && isset($urlpath[2]) && is_numeric($urlpath[2])){
+			$categoryname = $urlpath[1];
+			$categorystoryid = $urlpath[2];
+			$storyid = $story->getStoryId($categoryname, $categorystoryid);
+		}
+		if(empty($storyid)){
+			display404();
+			exit();
 		}
 		$story->loadStory($storyid);
 		if(!isset($story->story) || empty($story->story)){
@@ -73,6 +79,7 @@ switch ($page) {
 		$pagevars['javascripts'][] = SITE_JS . 'index.js';
 		$categories = new categories();
 		$categories->indexListings($categoryid);
+		$pagevars['categoryname'] = !empty($pagevars['categoryid']) && isset($categories->categories) && isset($categories->categories[0]) && isset($categories->categories[0]->name) ? $categories->categories[0]->name : null;
 		if(empty($categoryid)){
 			$pagevars['header']['title'] .= ' - Story Category Index';
 			$pagevars['header']['description'] = 'An index of the various categories the CDDA lore snippets are sorted into';
