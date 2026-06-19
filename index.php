@@ -12,6 +12,16 @@ $pagevars['stylesheets'] = array(SITE_CSS . 'main.css');
 $pagevars['javascripts'] = array();
 $story = new story();
 $pagevars['randomstory'] = $story->getRandomStoryId();
+$db = new db();
+$pagevars['lastimport'] = null;
+$db->query('SELECT import.lastimport FROM import LIMIT 1');
+$db->execute();
+if($db->rowCount() === 1){
+	$pagevars['lastimport'] = $db->fetch()->lastimport;
+	$pagevars['lastimport'] = DateTime::createFromFormat('Y-m-d H:i:s', $pagevars['lastimport']);
+	$pagevars['lastimport'] = $pagevars['lastimport']->format('F jS, Y');
+}
+
 $pagevars['header'] = array(
 	'title' => 'CDDA Story Browser',
 	'description' => 'A way to browse through the lore snippets found throughout CDDA'

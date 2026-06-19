@@ -236,6 +236,11 @@ if(DIR_CACHE !== false){
 	print 'Done' . PHP_EOL;
 }
 
+print 'Setting last import date...';
+$db->query('UPDATE import SET lastimport = NOW()');
+$db->execute();
+print 'Done' . PHP_EOL;
+
 function parseStories(&$row){
 	$stories = array();
 	if(isset($row->text)){

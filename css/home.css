@@ -15,6 +15,15 @@ div#content{
 	h1{
 		font-size: 42px;
 		color: #00ff00;
+		text-shadow:
+            -2px -2px 0 #000,
+            2px -2px 0 #000,
+            -2px 2px 0 #000,
+            2px 2px 0 #000,
+            -3px 0px 0 #000,
+            3px 0px 0 #000,
+            0px -3px 0 #000,
+            0px 3px 0 #000;
 	}
 	a{
 		display: block;
@@ -28,5 +37,12 @@ div#content{
 	a:hover{
 		color: #000000;
 		background-color: #ffffff;
+	}
+	small{
+		margin-top: 16px;
+		display: block;
+		text-align: center;
+		font-size: 16px;
+		color: #00ff00;
 	}
 }

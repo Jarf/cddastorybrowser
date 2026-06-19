@@ -20,3 +20,6 @@ CREATE TABLE `cddastorybrowser`.`categoriesStyles` ( `categoriesId` INT UNSIGNED
 ALTER TABLE `categoriesStyles` ADD CONSTRAINT `categoriesStyles_to_categories` FOREIGN KEY (`categoriesId`) REFERENCES `categories`(`id`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `categoriesStyles` ADD CONSTRAINT `categoriesStyles_to_styles` FOREIGN KEY (`stylesId`) REFERENCES `styles`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `cddastorybrowser`.`categoriesStyles` ADD UNIQUE `categoriesStylesUniqueIdx` (`categoriesId`, `stylesId`);
+
+CREATE TABLE `cddastorybrowser`.`import` (`lastimport` DATETIME NOT NULL ) ENGINE = InnoDB;
+INSERT INTO `import` (`lastimport`) VALUES ('2026-06-01 00:00:00');
