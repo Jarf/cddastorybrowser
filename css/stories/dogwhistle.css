@@ -1,0 +1,32 @@
+@font-face{
+	font-family: loudandclear;
+	src: url('/fonts/loudandclear.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #ffffff;
+	background-image: url('/img/dogwhistle.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+
+div#story{
+	font-family: loudandclear;
+	padding: 32px;
+	min-height: 100%;
+	font-size: 36pt;
+	text-shadow: -2px -2px #ffffff, 2px 2px #ffffff, -2px -2px #ffffff, 2px 2px #ffffff;
+	hr{
+		border: 0;
+		height: 0;
+	}
+}
+div#story > div#storytext {
+	text-align: center;
+	padding:20px;
+	border-radius:30px;
+	min-width:40px;
+	min-height:40px;
+}

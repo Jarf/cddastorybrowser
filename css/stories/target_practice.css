@@ -1,0 +1,21 @@
+div#container{
+	background-color: #F7EBD3;
+	background-image: url('/img/target.jpg');
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+div#container > div#story > div#storytext{
+	font-family: terminus;
+	font-size: 24px;
+	text-align: center;
+	color: #F7EBD3;
+	background-color: #373536;
+	padding: 16px;
+	border-radius: 8px;
+	@media only screen and (max-width: 769px){
+		font-size: 16pt;
+		border-radius: 0;
+	}
+}

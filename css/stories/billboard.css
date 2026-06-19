@@ -1,0 +1,53 @@
+@font-face{
+	font-family: BringboldNineties;
+	src: url('/fonts/BringboldNineties.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-image: url('/img/brick.jpg');
+	background-repeat: repeat;
+}
+
+div#container > div#story{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 50vh;
+	font-family: BringboldNineties;
+	padding: 13px;
+	font-size: 36pt;
+  	background-color: #CAC0B8;
+  	background-image: url('/img/peelingpaper.jpg');
+  	background-size: cover;
+  	background-position: top;
+  	background-repeat: no-repeat;
+  	border-width: 8px;
+  	border-style: solid;
+  	border-color: #3D2519;
+  	box-shadow: 1px 3px 5px 1px #000000;
+	hr{
+		border: 0;
+		background-color: #000000;
+		height: 1px;
+	}
+	div#storytext{
+		color: #ffffff;
+		padding: 13px;
+		text-align: center;
+		min-height: 100%;
+		text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000,
+            -1px 0px 0 #000,
+            1px 0px 0 #000,
+            0px -1px 0 #000,
+            0px 1px 0 #000
+	}
+	@media only screen and (max-width: 769px){
+		font-size: 24pt;
+		border-width: 8px 0;
+	}
+}

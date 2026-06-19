@@ -1,0 +1,34 @@
+@font-face{
+	font-family: typewriter;
+	src: url('/fonts/xtypewriter.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #F4DFB6;
+	background-image: url('/img/manillapaper.jpg');
+	background-repeat: repeat;
+}
+
+div#container > div#story{
+	font-family: typewriter;
+	background-image: url('/img/whitepaper2.jpg');
+	background-repeat: repeat;
+	background-size: cover;
+	padding: 24px;
+	font-size: 30px;
+	background-color: #ffffff;
+	background-repeat: repeat;
+	color: #444444;
+	box-shadow: 0 8px 8px rgba(33,33,33,.7);
+	hr{
+		border: 0;
+		height: 0;
+	}
+	@media only screen and (max-width: 769px){
+		font-size: 25px;
+	}
+	@media only screen and (max-width: 425px){
+		font-size: 20px;
+	}
+}

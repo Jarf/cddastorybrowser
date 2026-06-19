@@ -1,0 +1,30 @@
+@font-face{
+	font-family: notodrugs;
+	src: url('/fonts/notodrugs.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background:
+	repeating-radial-gradient(
+		circle at center,
+		rgba(255,255,255,0.12) 0 2px,
+		transparent 2px 40px
+	),
+	#0f172a;
+	#0f172a;
+}
+
+div#story{
+	text-align: center;
+	font-family: notodrugs;
+	color: #ffffff;
+	font-size: 36pt;
+	hr{
+		border: 0;
+		height: 0;
+	}
+	@media only screen and (max-width: 769px){
+		font-size: 28pt;
+	}
+}

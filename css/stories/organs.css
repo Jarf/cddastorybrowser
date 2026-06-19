@@ -1,0 +1,37 @@
+@font-face{
+	font-family: crayone;
+	src: url('/fonts/crayone.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #3889C9;
+	background-image: url('/img/organ.jpg');
+	background-repeat: repeat;
+}
+
+div#story{
+	font-family: crayone;
+	text-align: center;
+	font-size: 36pt;
+	color: #ffffff;
+	text-shadow:
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        -3px 0px 0 #000,
+        3px 0px 0 #000,
+        0px -3px 0 #000,
+        0px 3px 0 #000;
+	hr{
+		height: 0;
+		border: 0;
+	}
+	@media only screen and (max-width: 769px){
+		font-size: 24pt;
+	}
+	@media only screen and (max-width: 425px){
+		font-size: 18pt;
+	}
+}

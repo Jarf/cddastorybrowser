@@ -1,0 +1,33 @@
+@font-face{
+	font-family: Fakeblood;
+	src: url('/fonts/Fakeblood.woff2');
+	font-display: swap;
+}
+
+div#container{
+	font-family: Fakeblood;
+	background-color: #697739;
+	background-image: url('/img/mutant.jpg');
+	background-repeat: repeat;
+	div#story{
+		text-align: center;
+		div#storytext{
+			font-size: 32pt;
+			padding: 16px;
+			border-radius: 8px;
+			color: #000000;
+			background-color: #697739;
+			box-shadow: 0px 0px 15px 3px rgba(0,0,0,1);
+			@media only screen and (max-width: 769px){
+				font-size: 28pt;
+			}
+			@media only screen and (max-width: 425px){
+				font-size: 22pt;
+			}
+		}
+		div#storytext > hr{
+			border: 0;
+			height: 0;
+		}
+	}
+}
