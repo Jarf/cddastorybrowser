@@ -14,13 +14,6 @@ $story = new story();
 $pagevars['randomstory'] = $story->getRandomStoryId();
 $db = new db();
 $pagevars['lastimport'] = null;
-$db->query('SELECT import.lastimport FROM import LIMIT 1');
-$db->execute();
-if($db->rowCount() === 1){
-	$pagevars['lastimport'] = $db->fetch()->lastimport;
-	$pagevars['lastimport'] = DateTime::createFromFormat('Y-m-d H:i:s', $pagevars['lastimport']);
-	$pagevars['lastimport'] = $pagevars['lastimport']->format('F jS, Y');
-}
 
 $pagevars['header'] = array(
 	'title' => 'CDDA Story Browser',
@@ -46,6 +39,13 @@ switch ($page) {
 			'type' => 'image',
 			'path' => SITE_ICO . 'favicon-196x196.png'
 		);
+		$db->query('SELECT import.lastimport FROM import LIMIT 1');
+		$db->execute();
+		if($db->rowCount() === 1){
+			$pagevars['lastimport'] = $db->fetch()->lastimport;
+			$pagevars['lastimport'] = DateTime::createFromFormat('Y-m-d H:i:s', $pagevars['lastimport']);
+			$pagevars['lastimport'] = $pagevars['lastimport']->format('F jS, Y');
+		}
 		break;
 
 	case 'story':
