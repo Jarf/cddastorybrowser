@@ -196,7 +196,7 @@ foreach($categorymap as $categoryid => $categoryname){
 }
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
-		if(stripos($categoryname, $stylename) !== false && !isset($stylemap[$categoryname])){
+		if(preg_match('/(^|_)' . $stylename . '($|_)/i', $categoryname) === 1 && !isset($stylemap[$categoryname])){
 			$bind['category' . $i] = $categoryid;
 			$bind['style' . $i] = $styleid;
 			$vals[] = '(:category' . $i . ', :style' . $i . ')';
