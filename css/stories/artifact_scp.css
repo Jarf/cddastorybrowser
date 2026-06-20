@@ -1,0 +1,44 @@
+@font-face{
+	font-family: Nunito;
+	src: url('/fonts/Nunito.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #F4DFB6;
+	background-image: url('/img/manillapaper.jpg');
+	background-repeat: repeat;
+}
+
+div#container > div#story{
+	font-family: Nunito;
+	background-image: url('/img/scp.png');
+	background-repeat: no-repeat;
+	background-position: center 12px;
+	background-size: auto;
+	padding: 13px;
+	padding-top: 224px;
+	font-size: 16pt;
+	background-color: #ffffff;
+	color: #000000;
+	box-shadow: 0 8px 8px rgba(33,33,33,.7);
+	hr{
+		border: 0;
+		background-color: #000000;
+		height: 1px;
+	}
+	div#storytext{
+		border: 1px solid #000000;
+		padding: 13px;
+	}
+	@media only screen and (max-width: 769px){
+		font-size: 12pt;
+	}
+	@media only screen and (max-width: 528px){
+		background-size: 290px;
+		padding-top: 140px;
+	}
+	@media only screen and (max-width: 425px){
+		font-size: 10pt;
+	}
+}
