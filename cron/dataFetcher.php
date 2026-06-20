@@ -186,22 +186,28 @@ $stylemap = array();
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
 		if(strcasecmp($categoryname, $stylename) === 0){
-			$bind['category' . $i] = $categoryid;
-			$bind['style' . $i] = $styleid;
-			$vals[] = '(:category' . $i . ', :style' . $i . ')';
-			$i++;
-			$stylemap[$categoryname] = $stylename;
+			matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
+		}
+	}
+}
+foreach($categorymap as $categoryid => $categoryname){
+	foreach($styles as $styleid => $stylename){
+		if(preg_match('/^' . $stylename . '($|_)/i', $categoryname) === 1 && !isset($stylemap[$categoryname])){
+			matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
+		}
+	}
+}
+foreach($categorymap as $categoryid => $categoryname){
+	foreach($styles as $styleid => $stylename){
+		if(preg_match('/(^|_)' . $stylename . '$/i', $categoryname) === 1 && !isset($stylemap[$categoryname])){
+			matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
 		}
 	}
 }
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
 		if(preg_match('/(^|_)' . $stylename . '($|_)/i', $categoryname) === 1 && !isset($stylemap[$categoryname])){
-			$bind['category' . $i] = $categoryid;
-			$bind['style' . $i] = $styleid;
-			$vals[] = '(:category' . $i . ', :style' . $i . ')';
-			$i++;
-			$stylemap[$categoryname] = $stylename;
+			matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
 		}
 	}
 }
@@ -261,5 +267,13 @@ function parseStories(&$row){
 		}
 	}
 	return $stories;
+}
+
+function matchStyle(&$stylemap, &$bind, &$vals, &$i, $categoryid, $categoryname, $styleid, $stylename){
+	$bind['category' . $i] = $categoryid;
+	$bind['style' . $i] = $styleid;
+	$vals[] = '(:category' . $i . ', :style' . $i . ')';
+	$i++;
+	$stylemap[$categoryname] = $stylename;
 }
 ?>
