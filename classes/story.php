@@ -118,7 +118,7 @@ class story extends Entity{
 				break;
 			
 			case 'local_files_simple':
-				if(preg_match('/(^.*\.[\S]{3,4})<br\s\/>$/m', $this->story, $filename) === 1){
+				if(preg_match('/((^.*\.[\S]{3,4})|(^apps\/[A-Za-z]+))<br\s\/>$/m', $this->story, $filename) === 1){
 					$pos = strpos($this->story, $filename[1]);
 					if($pos === 0){
 						$len = strlen($filename[0]);
