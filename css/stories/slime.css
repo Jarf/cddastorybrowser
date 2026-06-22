@@ -1,0 +1,37 @@
+@font-face{
+	font-family: Slimespooky;
+	src: url('/fonts/Slimespooky.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #22AC1B;
+	background-image: url('/img/slime.jpg');
+	background-repeat: repeat;
+}
+
+div#story{
+	font-family: Slimespooky;
+	text-align: center;
+	font-size: 48pt;
+	color: #22AC1B;
+	text-shadow:
+        -2px -2px 0 #163410,
+        2px -2px 0 #163410,
+        -2px 2px 0 #163410,
+        2px 2px 0 #163410,
+        -3px 0px 0 #163410,
+        3px 0px 0 #163410,
+        0px -3px 0 #163410,
+        0px 3px 0 #163410;
+	hr{
+		height: 0;
+		border: 0;
+	}
+	@media only screen and (max-width: 769px){
+		font-size: 32pt;
+	}
+	@media only screen and (max-width: 425px){
+		font-size: 26pt;
+	}
+}

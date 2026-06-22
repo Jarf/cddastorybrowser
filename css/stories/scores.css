@@ -1,0 +1,46 @@
+@font-face{
+	font-family: timesnewroman;
+	src: url('/fonts/TimesNewRomanMTStd.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #7B954A;
+	background-image: url('/img/grass.jpg');
+	background-repeat: repeat;
+}
+
+div#container > div#story{
+	font-family: timesnewroman;
+	font-size: 30px;
+	text-align: center;
+	min-height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background:
+		linear-gradient(#24552d22, #24552d22),
+	    repeating-linear-gradient(
+	      to bottom,
+	      transparent 0 39px,
+	      #2a4d3215 39px 40px
+	    ),
+	    repeating-linear-gradient(
+	      to right,
+	      transparent 0 59px,
+	      #2a4d3215 59px 60px
+	    ),
+	    #f7f1df;
+	border: 2px solid #29492f;
+	box-shadow:
+	    inset 0 0 0 4px #f7f1df,
+	    inset 0 0 0 5px #29492f,
+	    0 8px 20px rgb(0 0 0 / 0.15);
+ 	border-radius: 16px;
+ 	padding: 16px;
+ 	hr{
+ 		background-color: #29492f;
+ 		height: 1px;
+ 		border: 0;
+ 	}
+}
