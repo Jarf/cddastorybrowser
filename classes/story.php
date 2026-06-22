@@ -109,7 +109,7 @@ class story extends Entity{
 		switch ($this->style) {
 			case 'news':
 				// all caps first line, make headline
-				if(preg_match('/^([^a-z]+)(<br\/>)+/', $this->story, $headline) === 1){
+				if(preg_match('/^([^a-z]+)(<br\/>|(:\s))+/', $this->story, $headline) === 1){
 					$pos = strpos($this->story, $headline[1]);
 					$len = strlen($headline[0]);
 					$headline = '<h1>' . $headline[1] . '</h1><hr/>';
