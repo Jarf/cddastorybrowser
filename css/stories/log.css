@@ -13,8 +13,8 @@ div#container{
 div#container > div#story{
 	font-family: typewriter;
 	background-image: url('/img/whitepaper2.jpg');
-	background-repeat: repeat;
-	background-size: cover;
+	background-repeat: repeat-y;
+	background-size: contain;
 	padding: 24px;
 	font-size: 30px;
 	background-color: #ffffff;
