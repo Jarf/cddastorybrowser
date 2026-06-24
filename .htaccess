@@ -36,7 +36,7 @@ RewriteRule /\.well-known|^\.well-known - [L]
 # Allow robots.txt
 RewriteRule ^robots.txt - [L]
 # Sitemap generator
-RewriteRule ^sitemap.xml$ sitemap.php [END]
+RewriteRule ^sitemap.*.xml$ sitemap.php [END]
 
 # https redirect
 RewriteCond %{HTTPS} !=on

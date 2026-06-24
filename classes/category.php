@@ -8,5 +8,21 @@ class category extends Entity{
 		$this->table = 'categories';
 		parent::__construct();
 	}
+
+	public function getIdFromName(string $name){
+		$return = false;
+		$sql = 'SELECT ' . $this->table . '.id, ' . $this->table . '.name, ' . $this->table . '.descriptor FROM ' . $this->table . ' WHERE ' . $this->table . '.name = :name LIMIT 1';
+		$this->db->query($sql);
+		$this->db->bind('name', $name);
+		$this->db->execute();
+		if($this->db->rowCount() === 1){
+			$row = $this->db->fetch();
+			$this->id = $row->id;
+			$this->name = $row->name;
+			$this->descriptor = $row->descriptor;
+			$return = $this->id;
+		}
+		return $return;
+	}
 }
 ?>
