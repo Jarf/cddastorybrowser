@@ -14,7 +14,9 @@ switch ($sitemap) {
 		$categories = new categories();
 		$categories->indexListings();
 		foreach($categories->categories as $category){
-			$pages[] = array('loc' => SITE_ROOT . 'sitemap_storyindex_' . $category->name . '.xml', 'lastmod' => $lmod);
+			if($category->storiesCount > 0){
+				$pages[] = array('loc' => SITE_ROOT . 'sitemap_storyindex_' . $category->name . '.xml', 'lastmod' => $lmod);
+			}
 		}
 		break;
 
