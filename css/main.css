@@ -74,7 +74,7 @@ div#footer{
 	white-space: nowrap;
 	background-color: #000;
 	color: #fff;
-	div#storycategory{
+	h1#storycategory{
 		display: block;
 		font-family: terminus;
 		height: 24px;
@@ -87,6 +87,8 @@ div#footer{
 		line-height: 24px;
 		font-size: 16px;
 		text-align: center;
+		margin: 0;
+		font-weight: normal;
 	}
 	div#storylinks{
 		display: flex;
