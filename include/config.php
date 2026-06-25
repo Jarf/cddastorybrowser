@@ -23,6 +23,8 @@ define('DB_NAME', 'cddastorybrowser');
 define('DB_HOST', 'localhost');
 define('DB_TYPE', 'mysql');
 
+define('CACHEBUSTER', substr(md5(trim(file_get_contents(DIR_ROOT . '.git/refs/heads/master'))), 0, 8));
+
 $dev = 0;
 
 if(isset($_SERVER['SERVER_NAME'])){

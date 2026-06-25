@@ -15,12 +15,12 @@
 		<meta name="description" content="{{header.description}}">
 		<title>{{header.title}}</title>
 		{% for javascript in javascripts %}
-		<link rel="preload" href="{{javascript}}" as="script" fetchpriority="high"/>
-		<script type="text/javascript" src="{{javascript}}"></script>
+		<link rel="preload" href="{{javascript}}?c={{constant('CACHEBUSTER')}}" as="script" fetchpriority="high"/>
+		<script type="text/javascript" src="{{javascript}}?c={{constant('CACHEBUSTER')}}"></script>
 		{% endfor %}
 		{% for stylesheet in stylesheets %}
-		<link rel="preload" href="{{stylesheet}}" as="style" fetchpriority="high"/>
-		<link rel="stylesheet" type="text/css" href="{{stylesheet}}">
+		<link rel="preload" href="{{stylesheet}}?c={{constant('CACHEBUSTER')}}" as="style" fetchpriority="high"/>
+		<link rel="stylesheet" type="text/css" href="{{stylesheet}}?c={{constant('CACHEBUSTER')}}">
 		{% endfor %}
 		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/ico/apple-touch-icon-57x57.png" />
 		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114x114.png" />
