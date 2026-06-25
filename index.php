@@ -8,6 +8,7 @@ $urlpath = explode('/', $urlpath);
 $page = current($urlpath);
 
 $output = $pagevars = array();
+$pagevars['shareurl'] = urlencode(SITE_ROOT . substr($_SERVER['REQUEST_URI'],1));
 $pagevars['stylesheets'] = array(SITE_CSS . 'main.css');
 $pagevars['javascripts'] = array();
 $story = new story();
