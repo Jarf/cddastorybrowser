@@ -114,7 +114,7 @@ switch ($page) {
 		$pagevars['javascripts'][] = SITE_VENDOR . 'datatables/datatables/media/js/jquery.dataTables.min.js';
 		$pagevars['javascripts'][] = SITE_JS . 'index.js';
 		$categories = new categories();
-		$categories->indexListings($categoryid);
+		$categories->indexListings(isset($category) && isset($category->id) ? $category->id : null);
 		$pagevars['categoryname'] = !empty($pagevars['categoryid']) && isset($categories->categories) && isset($categories->categories[0]) && isset($categories->categories[0]->name) ? $categories->categories[0]->name : null;
 		$pagevars['categorynamereadable'] = null;
 		if(empty($categoryid)){
