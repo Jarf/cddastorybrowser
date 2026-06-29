@@ -9,6 +9,19 @@ class category extends Entity{
 		parent::__construct();
 	}
 
+	public function loadCategory(int $id){
+		$sql = 'SELECT ' . implode(', ', $this->prependColumns()) . ' FROM  ' . $this->table . ' WHERE ' . $this->table . '.id = :id LIMIT 1';
+		$this->db->query($sql);
+		$this->db->bind('id', $id);
+		$this->db->execute();
+		if($this->db->rowCount() === 1){
+			$row = $this->db->fetch();
+			foreach($row as $key => $val){
+				$this->$key = $val;
+			}
+		}
+	}
+
 	public function getIdFromName(string $name){
 		$return = false;
 		$sql = 'SELECT ' . $this->table . '.id, ' . $this->table . '.name, ' . $this->table . '.descriptor FROM ' . $this->table . ' WHERE ' . $this->table . '.name = :name LIMIT 1';

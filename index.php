@@ -63,6 +63,7 @@ switch ($page) {
 				exit();
 			}else{
 				header('Location: /story/' . $storyurl);
+				exit();
 			}
 		}
 		if(empty($storyid)){
@@ -87,11 +88,22 @@ switch ($page) {
 	case 'index':
 		$categoryid = null;
 		if(!empty($urlpath) && isset($urlpath[1]) && !empty($urlpath[1]) && is_string($urlpath[1])){
-			$categoryid = $urlpath[1];
 			$category = new category();
+			if(is_numeric($urlpath[1])){
+				$category->loadCategory($urlpath[1]);
+				if(isset($category->name)){
+					header('Location: /index/' . $category->name);
+					exit();
+				}else{
+					display404();
+					exit();
+				}
+			}
+			$categoryid = $urlpath[1];
 			$categoryid = $category->getIdFromName($categoryid);
 			if($categoryid === false){
-				$categoryid = null;
+				display404();
+				exit();
 			}
 		}
 		$pagevars['categoryid'] = $categoryid;
