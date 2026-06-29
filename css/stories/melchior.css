@@ -1,0 +1,33 @@
+@font-face{
+	font-family: VT323;
+	src: url('/fonts/VT323.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #000000;
+	font-family: VT323;
+	color: #FD971F;
+}
+
+div#story{
+	font-size: 36pt;
+	@media only screen and (max-width: 425px){
+		font-size:24pt;
+	}
+}
+
+div#storytext{
+	text-shadow: 0 0 5px #FD971F;
+	margin: 5px;
+	hr{
+		background-color: #FD971F;
+		border: 0;
+		height: 10px;
+		margin: 5px -5px;
+	}
+}
+
+div#storytext::after{
+	content: "█";
+}
