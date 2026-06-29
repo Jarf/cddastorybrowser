@@ -1,0 +1,29 @@
+@font-face{
+	font-family: Nunito;
+	src: url('/fonts/Nunito.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #22AC1B;
+	background-image: url('/img/slime.jpg');
+	background-repeat: repeat;
+}
+
+div#story{
+	font-family: Nunito;
+	color: #000000;
+	text-shadow: 0 0 8px #EEE7DC;
+	background-color: #EEE7DC;
+	background-image: url('/img/dirtypaper.jpg');
+	padding: 32px;
+	font-size: 24pt;
+	box-shadow: inset 0 0 20px 10px #22AC1B;
+	background-repeat: repeat;
+	background-position: center;
+	hr{
+		border: 0;
+		background-color: #000000;
+		height: 1px;
+	}
+}
