@@ -2,6 +2,9 @@ div#container{
 	font-family: terminus;
 	background-color:#000000;
 	color:#ffffff;
+	h1{
+		text-align: center;
+	}
 }
 
 div#container .dataTables_wrapper{
