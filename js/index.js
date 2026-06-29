@@ -20,7 +20,6 @@ $(document).ready(function(){
 				url: "/ajax/storyindex.php?category=" + categoryIndex
 			},
 			createdRow: function(row, data, dataIdx){
-				console.log(data);
 				$(row).attr('data-id', data[0]);
 			}
 		});
