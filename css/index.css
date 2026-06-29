@@ -17,3 +17,7 @@ div#container .dataTables_wrapper{
 		color:#000000;
 	}
 }
+
+#categoryIndex_paginate > span > a:not(.current), #categoryIndex_paginate > a:not(.disabled){
+	color: #ffffff !important;
+}
