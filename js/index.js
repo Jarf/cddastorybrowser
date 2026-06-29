@@ -4,7 +4,7 @@ $(document).ready(function(){
 			order: [[1, 'desc']]
 		});
 		$('table#categoryIndex').on('click', 'tbody tr', function(){
-			window.location.href = '/index/' + $(this).data('id');
+			window.location.href = '/index/' + $(this).data('name');
 		});
 	}else if($('table#storyIndex').length){
 		const categoryIndex = $('input#categoryId').val();
@@ -20,6 +20,7 @@ $(document).ready(function(){
 				url: "/ajax/storyindex.php?category=" + categoryIndex
 			},
 			createdRow: function(row, data, dataIdx){
+				console.log(data);
 				$(row).attr('data-id', data[0]);
 			}
 		});

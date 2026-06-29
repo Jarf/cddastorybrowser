@@ -86,8 +86,13 @@ switch ($page) {
 	
 	case 'index':
 		$categoryid = null;
-		if(!empty($urlpath) && isset($urlpath[1]) && is_numeric($urlpath[1])){
+		if(!empty($urlpath) && isset($urlpath[1]) && !empty($urlpath[1]) && is_string($urlpath[1])){
 			$categoryid = $urlpath[1];
+			$category = new category();
+			$categoryid = $category->getIdFromName($categoryid);
+			if($categoryid === false){
+				$categoryid = null;
+			}
 		}
 		$pagevars['categoryid'] = $categoryid;
 		$template = 'index.twig';

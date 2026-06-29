@@ -12,7 +12,7 @@
 		</thead>
 		<tbody>
 			{% for category in categories.categories %}
-			<tr data-id="{{category.id}}">
+			<tr data-id="{{category.id}}" data-name="{{category.name}}">
 				<td>{{category.nameReadable}}</td>
 				<td>{{category.storiesCount}}</td>
 			</tr>

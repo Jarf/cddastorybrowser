@@ -25,7 +25,7 @@ switch ($sitemap) {
 		$categories = new categories();
 		$categories->indexListings();
 		foreach($categories->categories as $category){
-			$pages[] = array('loc' => SITE_ROOT . 'index/' . $category->id, 'lastmod' => $lmod);
+			$pages[] = array('loc' => SITE_ROOT . 'index/' . $category->name, 'lastmod' => $lmod);
 		}
 		break;
 
