@@ -78,14 +78,8 @@ class story extends Entity{
 		// Add line breaks
 		$this->story = nl2br($this->story);
 		$this->story = preg_replace('/\s{2,}/ms', '<br/>', $this->story);
-		// Replace color tags with styled spans
-		preg_match_all('/\<color_(\w+)\>(.*?(?=<\/color\>))<\/color\>/m', $this->story, $colormatches);
-		if(!empty($colormatches)){
-			foreach($colormatches[0] as $cmkey => $cmval){
-				$newstring = '<span style="color: ' . $colormatches[1][$cmkey] . '">' . $colormatches[2][$cmkey] . '</span>';
-				$this->story = str_replace($colormatches[0][$cmkey], $newstring, $this->story);
-			}
-		}
+		// Remove color tags
+		$this->story = preg_replace('/<\/?color(_\w+)?>/', '', $this->story);
 		// Replace lt gt
 		$this->story = preg_replace('/<lt>(.*?)<gt>/', '$1' , $this->story);
 		// Replace keybinds
