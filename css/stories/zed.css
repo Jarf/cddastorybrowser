@@ -1,0 +1,39 @@
+@font-face{
+	font-family: crayone;
+	src: url('/fonts/crayone.woff2');
+	font-display: swap;
+}
+
+div#container{
+	background-color: #313602;
+	background-image: url('/img/zed.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+div#story{
+	font-family: crayone;
+	text-align: center;
+	font-size: 36pt;
+	color: #E4AF41;
+	text-shadow:
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        -3px 0px 0 #000,
+        3px 0px 0 #000,
+        0px -3px 0 #000,
+        0px 3px 0 #000;
+	hr{
+		height: 0;
+		border: 0;
+	}
+	@media only screen and (max-width: 769px){
+		font-size: 24pt;
+	}
+	@media only screen and (max-width: 425px){
+		font-size: 18pt;
+	}
+}

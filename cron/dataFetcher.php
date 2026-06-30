@@ -276,6 +276,13 @@ function parseStories(&$row){
 	return $stories;
 }
 
+print 'Unmapped categories:' . PHP_EOL;
+foreach($categorymap as $categoryid => $categoryname){
+	if(!isset($stylemap[$categoryname]) && substr($categoryname, 0, 1) !== '<' && substr($categoryname, -1, 1) !== '>'){
+		print $categoryname . PHP_EOL;
+	}
+}
+
 function matchStyle(&$stylemap, &$bind, &$vals, &$i, $categoryid, $categoryname, $styleid, $stylename){
 	if(!isset($stylemap[$categoryname])){
 		$bind['category' . $i] = $categoryid;
