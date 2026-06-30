@@ -211,6 +211,13 @@ foreach($categorymap as $categoryid => $categoryname){
 		}
 	}
 }
+foreach($categorymap as $categoryid => $categoryname){
+	foreach($styles as $styleid => $stylename){
+		if(stripos($categoryname, $stylename) !== false){
+			matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
+		}
+	}
+}
 
 if(!empty($vals)){
 	$sql = 'INSERT INTO categoriesStyles (categoriesid, stylesid) VALUES ' . implode(',', $vals);
@@ -270,10 +277,12 @@ function parseStories(&$row){
 }
 
 function matchStyle(&$stylemap, &$bind, &$vals, &$i, $categoryid, $categoryname, $styleid, $stylename){
-	$bind['category' . $i] = $categoryid;
-	$bind['style' . $i] = $styleid;
-	$vals[] = '(:category' . $i . ', :style' . $i . ')';
-	$i++;
-	$stylemap[$categoryname] = $stylename;
+	if(!isset($stylemap[$categoryname])){
+		$bind['category' . $i] = $categoryid;
+		$bind['style' . $i] = $styleid;
+		$vals[] = '(:category' . $i . ', :style' . $i . ')';
+		$i++;
+		$stylemap[$categoryname] = $stylename;
+	}
 }
 ?>
