@@ -15,7 +15,7 @@
 			{% for category in categories.categories %}
 			{% if category.storiesCount > 0 %}
 			<tr data-id="{{category.id}}" data-name="{{category.name}}">
-				<td>{{category.nameReadable}}</td>
+				<td><a href="/story/{{category.name}}">{{category.nameReadable}}</a></td>
 				<td>{{category.storiesCount}}</td>
 			</tr>
 			{% endif %}

@@ -21,11 +21,11 @@ switch ($sitemap) {
 		break;
 
 	case 'sitemap_categoryindex':
-		$pages[] = array('loc' => SITE_ROOT . 'index', 'lastmod' => $lmod);
+		$pages[] = array('loc' => SITE_ROOT . 'story', 'lastmod' => $lmod);
 		$categories = new categories();
 		$categories->indexListings();
 		foreach($categories->categories as $category){
-			$pages[] = array('loc' => SITE_ROOT . 'index/' . $category->name, 'lastmod' => $lmod);
+			$pages[] = array('loc' => SITE_ROOT . 'story/' . $category->name, 'lastmod' => $lmod);
 		}
 		break;
 

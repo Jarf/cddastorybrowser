@@ -2,12 +2,13 @@ div#container{
 	font-family: terminus;
 	background-color:#000000;
 	color:#ffffff;
-	h1{
+	h1, p{
 		text-align: center;
 	}
 }
 
-div#container .dataTables_wrapper{
+div#container .dataTables_wrapper, table#categoryIndex{
+	width: 100%;
 	tr, div.dataTables_info, label{
 		background-color:#000000;
 		color:#ffffff;
@@ -18,6 +19,14 @@ div#container .dataTables_wrapper{
 	tr:hover{
 		background-color:#ffffff;
 		color:#000000;
+	}
+	tr > td > a{
+		display: block;
+		color: inherit;
+		text-decoration: none;
+	}
+	tr > td:nth-child(2){
+		text-align: right;
 	}
 }
 

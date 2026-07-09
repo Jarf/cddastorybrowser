@@ -14,7 +14,14 @@ $(document).ready(function(){
 			serverSide: true,
 			columns: [
 				{'visible' : false},
-				null
+				{
+					render: function(data, type, row, meta){
+						if(meta.col === 1){
+							data = '<a href="/story/' + categoryName + '/' + (meta.row + 1) + '">' + data + '</a>';
+						}
+						return data;
+					}
+				}
 			],
 			ajax: {
 				url: "/ajax/storyindex.php?category=" + categoryIndex

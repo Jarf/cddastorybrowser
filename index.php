@@ -33,6 +33,7 @@ $pagevars['dependencies'] = array(
 unset($story);
 
 switch ($page) {
+	case '':
 	default:
 		$template = 'home.twig';
 		$pagevars['stylesheets'][] = SITE_CSS . 'home.css';
@@ -49,7 +50,7 @@ switch ($page) {
 		}
 		break;
 
-	case 'story':
+	case (!empty($urlpath) && isset($urlpath[0]) && $urlpath[0] === 'story' && isset($urlpath[2])):
 		$story = new story();
 		$storyid = $categoryname = $categorystoryid = null;
 		if(!empty($urlpath) && isset($urlpath[1]) && !is_numeric($urlpath[1]) && isset($urlpath[2]) && is_numeric($urlpath[2])){
@@ -85,14 +86,14 @@ switch ($page) {
 		$pagevars['dependencies'] = array_merge($pagevars['dependencies'], $pagevars['story']->getDependencies());
 		break;
 	
-	case 'index':
+	case (!empty($urlpath) && isset($urlpath[0]) && $urlpath[0] === 'story' && !isset($urlpath[2])):
 		$categoryid = null;
 		if(!empty($urlpath) && isset($urlpath[1]) && !empty($urlpath[1]) && is_string($urlpath[1])){
 			$category = new category();
 			if(is_numeric($urlpath[1])){
 				$category->loadCategory($urlpath[1]);
 				if(isset($category->name)){
-					header('Location: /index/' . $category->name);
+					header('Location: /story/' . $category->name);
 					exit();
 				}else{
 					display404();
