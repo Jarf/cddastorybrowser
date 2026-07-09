@@ -68,7 +68,7 @@ class Entity{
 		return $return;
 	}
 
-	protected function humanReadable(string $string){
+	public function humanReadable(string $string){
 		return ucwords(trim(preg_replace('/[^A-Za-z0-9]/', ' ', $string)));
 	}
 

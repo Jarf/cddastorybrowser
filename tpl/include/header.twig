@@ -45,6 +45,24 @@
 		{% for dependency in dependencies %}
 		<link rel="preload" href="{{dependency.path}}" as="{{dependency.type}}" {{dependency.type == 'font' ? 'type="font/woff2" crossorigin ' : ''}} fetchpriority="high"/>
 		{% endfor %}
+		{% if breadcrumb is not empty %}
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "BreadcrumbList",
+				"itemListElement": [
+					{% for crumb in breadcrumb %}
+					{
+						"@type": "ListItem"
+						{% for key,val in crumb %}
+						,"{{key}}": "{{val}}"
+						{% endfor %}
+					}{{crumb.item is defined ? ',' : ''}}
+					{% endfor %}
+				]
+			}
+		</script>
+		{% endif %}
 	</head>
 	<body>
 		<div id="header" role="banner">
