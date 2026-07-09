@@ -16,8 +16,9 @@ $(document).ready(function(){
 				{'visible' : false},
 				{
 					render: function(data, type, row, meta){
+						console.log(dt.page());
 						if(meta.col === 1){
-							data = '<a href="/story/' + categoryName + '/' + (meta.row + 1) + '">' + data + '</a>';
+							data = '<a href="/story/' + categoryName + '/' + ((meta.row + 1) + (dt.page() * dt.page.len())) + '">' + data + '</a>';
 						}
 						return data;
 					}
