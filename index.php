@@ -19,13 +19,15 @@ $pagevars['breadcrumb'] = array();
 if(!empty($urlpath)){
 	$url = substr(SITE_ROOT, 0, -1);
 	foreach($urlpath as $pkey => $pval){
-		$url .= '/' . $pval;
-		$pagevars['breadcrumb'][$pkey] = array(
-			'position' => $pkey + 1,
-			'name' => $story->humanReadable($pval)
-		);
-		if($pkey !== (count($urlpath) - 1)){
-			$pagevars['breadcrumb'][$pkey]['item'] = $url;
+		if(!empty($pval)){
+			$url .= '/' . $pval;
+			$pagevars['breadcrumb'][$pkey] = array(
+				'position' => $pkey + 1,
+				'name' => $story->humanReadable($pval)
+			);
+			if($pkey !== (count($urlpath) - 1)){
+				$pagevars['breadcrumb'][$pkey]['item'] = $url;
+			}
 		}
 	}
 }

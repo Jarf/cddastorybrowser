@@ -62,6 +62,15 @@
 				]
 			}
 		</script>
+		{% elseif breadcrumb is defined %}
+		<script type="application/ld+json">
+			{
+				"@context" : "https://schema.org",
+				"@type" : "WebSite",
+				"name" : "CDDA Story Browser",
+				"url" : "{{constant('SITE_ROOT')}}"
+			}
+		</script>
 		{% endif %}
 	</head>
 	<body>
