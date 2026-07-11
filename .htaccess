@@ -37,6 +37,8 @@ RewriteRule /\.well-known|^\.well-known - [L]
 RewriteRule ^robots.txt - [L]
 # Sitemap generator
 RewriteRule ^sitemap.*.xml$ sitemap.php [END]
+# llms.txt generator
+RewriteRule ^llms.txt$ llmstxt.php [END]
 
 # https redirect
 RewriteCond %{HTTPS} !=on
