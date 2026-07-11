@@ -94,6 +94,7 @@ switch ($page) {
 		}
 		$story->getNextPrevIds();
 		$pagevars['story'] = &$story;
+		$pagevars['categoryname'] = $story->humanReadable($story->categoryName);
 		$pagevars['header']['title'] .= ' - ' . $story->categoryName;
 		$pagevars['header']['description'] = $story->getMetaDescription();
 		$template = 'story.twig';

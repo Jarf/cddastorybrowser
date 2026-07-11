@@ -116,7 +116,7 @@ div#footer{
 		height: 24px;
 		background-color: #000000;
 		color: #ffffff;
-		padding: 0 8px;
+		padding: 0;
 		top: 24px;
 		left: 0;
 		max-height: 24px;
@@ -125,20 +125,26 @@ div#footer{
 		text-align: center;
 		margin: 0;
 		font-weight: normal;
+		a{
+			width: 100%;
+			display: block;
+		}
 	}
 	div#storylinks{
 		display: flex;
 		a{
 			flex-grow: 1;
-			cursor: pointer;
-			color: #ffffff;
-			text-decoration: none;
-			text-align: center;
 			line-height: 48px;
 		}
-		a:hover{
-			color: #000000;
-			background-color: #ffffff;
-		}
+	}
+	a{
+		cursor: pointer;
+		color: #ffffff;
+		text-decoration: none;
+		text-align: center;	
+	}
+	a:hover{
+		color: #000000;
+		background-color: #ffffff;
 	}
 }
