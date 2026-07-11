@@ -36,12 +36,13 @@
 		<link rel="icon" type="image/png" href="/ico/favicon-16x16.png" sizes="16x16" />
 		<link rel="icon" type="image/png" href="/ico/favicon-128.png" sizes="128x128" />
 		<meta name="application-name" content="CDDA Story Browser"/>
-		<meta name="msapplication-TileColor" content="#FFFFFF" />
+		<meta name="msapplication-TileColor" content="#000000" />
 		<meta name="msapplication-TileImage" content="/ico/mstile-144x144.png" />
 		<meta name="msapplication-square70x70logo" content="/ico/mstile-70x70.png" />
 		<meta name="msapplication-square150x150logo" content="/ico/mstile-150x150.png" />
 		<meta name="msapplication-wide310x150logo" content="/ico/mstile-310x150.png" />
 		<meta name="msapplication-square310x310logo" content="/ico/mstile-310x310.png" />
+		<link rel="manifest" href="/site.webmanifest" />
 		{% for dependency in dependencies %}
 		<link rel="preload" href="{{dependency.path}}" as="{{dependency.type}}" {{dependency.type == 'font' ? 'type="font/woff2" crossorigin ' : ''}} fetchpriority="high"/>
 		{% endfor %}

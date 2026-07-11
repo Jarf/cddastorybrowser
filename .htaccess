@@ -70,6 +70,7 @@ RewriteCond %{REQUEST_URI} !.*\.ico$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.webp$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.svg$ [NC]
 RewriteCond %{REQUEST_URI} !robots\.txt$ [NC]
+RewriteCond %{REQUEST_URI} !site\.webmanifest$ [NC]
 RewriteRule .* /index.php
 
 <IfModule mod_expires.c>
