@@ -8,7 +8,8 @@ div#container{
 }
 
 div#container .dataTables_wrapper, table#categoryIndex, table#storyIndex{
-	width: 100vw;
+	max-width: 100vw;
+	overflow: hidden;
 	tr, div.dataTables_info, label{
 		background-color:#000000;
 		color:#ffffff;
@@ -20,6 +21,10 @@ div#container .dataTables_wrapper, table#categoryIndex, table#storyIndex{
 		background-color:#ffffff;
 		color:#000000;
 	}
+	tr > td{
+		padding: 0;
+		line-height: 32px;
+	}
 	tr > td > a{
 		display: block;
 		color: inherit;
@@ -27,7 +32,6 @@ div#container .dataTables_wrapper, table#categoryIndex, table#storyIndex{
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		max-width: calc(100vw - 20px);
 	}
 	tr > td:nth-child(2){
 		text-align: right;
