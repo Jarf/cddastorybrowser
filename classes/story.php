@@ -152,7 +152,7 @@ class story extends Entity{
 	}
 
 	public function getMetaDescription(){
-		$description = 'A ' . $this->categoryName . ' category snippet - ' . preg_replace('/\s+/', ' ', strip_tags(str_replace(array('<br/>', '<hr/>'), ' ', $this->story)));
+		$description = 'A "' . $this->humanReadable($this->categoryName) . '" lore snippet - ' . preg_replace('/\s+/', ' ', strip_tags(str_replace(array('<br/>', '<hr/>'), ' ', $this->story)));
 		if(strlen($description) > 120){
 			$description = substr($description, 0, 117);
 			$description = substr($description, 0, strrpos($description, ' ')) . '...';
