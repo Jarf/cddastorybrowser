@@ -1,7 +1,7 @@
 	{% if story %}
 	<div id="footer">
 		<h1 id="storycategory" role="contentinfo">
-			<a href="/story/{{story.categoryName}}">{{categoryname}} {{storycount}}</a>
+			<a href="/story/{{story.categoryName}}" aria-label="View {{categoryname}} Story Index">{{categoryname}} {{storycount}}</a>
 		</h1>
 		<div id="storylinks" role="navigation">
 			<a href="/story/{{story.prevstory}}" aria-label="View Previous Story">Prev</a>
