@@ -41,6 +41,13 @@ div#container .dataTables_wrapper, table#categoryIndex, table#storyIndex{
 	}
 }
 
-#categoryIndex_paginate > span > a:not(.current), #categoryIndex_paginate > a:not(.disabled){
+#categoryIndex_paginate > span > a:not(.current), #categoryIndex_paginate > a:not(.disabled), #storyIndex_paginate > span > a:not(.current), #storyIndex_paginate > a:not(.disabled){
 	color: #ffffff !important;
+}
+
+a#categoriesindex{
+	text-align: center;
+	display: block;
+	color: inherit;
+	text-decoration: none;
 }
