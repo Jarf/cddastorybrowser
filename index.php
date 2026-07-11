@@ -143,6 +143,8 @@ switch ($page) {
 				$pagevars['header']['description'] = 'An index of the stories found in the ' . $categories->categories[0]->nameReadable . ' category of CDDA lore snippets';
 				$pagevars['categorynamereadable'] = $categories->categories[0]->nameReadable;
 			}
+			$stories = new stories();
+			$pagevars['stories'] = $stories->loadStories($categoryid);
 		}
 		$pagevars['categories'] = &$categories;
 		$pagevars['dependencies'][] = array(

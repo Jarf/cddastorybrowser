@@ -28,11 +28,15 @@
 	<table id="storyIndex" class="hover" role="main">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>Story</th>
 			</tr>
 		</thead>
 		<tbody>
+			{% for skey,story in stories.data %}
+			<tr>
+				<td><a href="/story/{{categoryname}}/{{skey + 1}}">{{story.story}}</a></td>
+			</tr>
+			{% endfor %}
 		</tbody>
 	</table>
 	{% endif %}

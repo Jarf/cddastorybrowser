@@ -61,7 +61,6 @@ RewriteRule (.+)\.(jpe?g)$ $1.webp [T=image/webp,E=REQUEST_image]
 
 # Redirect requests to index.php
 RewriteCond %{REQUEST_URI} !=/index.php
-RewriteCond %{REQUEST_URI} !/ajax/.* [NC]
 RewriteCond %{REQUEST_URI} !.*\.css$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.js$ [NC]
 RewriteCond %{REQUEST_URI} !.*\.jpe?g$ [NC]

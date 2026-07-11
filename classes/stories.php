@@ -29,6 +29,7 @@ class stories extends Entity{
 			$bind['limit'] = $limit;
 			$bind['offset'] = $offset;
 		}
+		$sql .= ' ORDER BY stories.id ASC';
 		$this->db->query($sql);
 		if(!empty($bind)){
 			foreach($bind as $bkey => $bval){
@@ -38,24 +39,6 @@ class stories extends Entity{
 		$this->db->execute();
 		if($this->db->rowCount() > 0){
 			$return = $this->db->fetchAll();
-		}
-		$previewlength = 48;
-		foreach($return as &$row){
-			$ellipsis = false;
-			$row->story = $this->sanitizeString($row->story);
-			$row->story = preg_split('/[\s]{2,}/m', $row->story);
-			if(count($row->story) > 1){
-				$ellipsis = true;
-			}
-			$row->story = current($row->story);
-			if(strlen($row->story) > $previewlength){
-				$row->story = substr($row->story, 0, $previewlength);
-				$ellipsis = true;
-			}
-			if($ellipsis === true){
-				$row->story .= '...';
-			}
-			
 		}
 
 		$this->stories = $return;
