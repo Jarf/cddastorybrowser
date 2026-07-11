@@ -9,7 +9,9 @@ div#container{
 
 div#container .dataTables_wrapper, table#categoryIndex, table#storyIndex{
 	max-width: 100vw;
-	overflow: hidden;
+	thead, thead > tr{
+		max-width: 100vw;
+	}
 	tr, div.dataTables_info, label{
 		background-color:#000000;
 		color:#ffffff;
@@ -32,6 +34,7 @@ div#container .dataTables_wrapper, table#categoryIndex, table#storyIndex{
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		max-width: 100vw;
 	}
 	tr > td:nth-child(2){
 		text-align: right;
