@@ -95,7 +95,12 @@ switch ($page) {
 		$story->getNextPrevIds();
 		$pagevars['story'] = &$story;
 		$pagevars['categoryname'] = $story->humanReadable($story->categoryName);
-		$pagevars['header']['title'] .= ' - ' . $story->categoryName;
+		$categoryid = new category();
+		$categoryid = $categoryid->getIdFromName($story->categoryName);
+		$pagevars['storycount'] = new stories();
+		$pagevars['storycount'] = $pagevars['storycount']->countStories($categoryid, null, true);
+		$pagevars['storycount'] = '(' . $categorystoryid . '/' . $pagevars['storycount'] . ')';
+		$pagevars['header']['title'] .= ' - ' . $story->humanReadable($story->categoryName) . ' ' . $pagevars['storycount'];
 		$pagevars['header']['description'] = $story->getMetaDescription();
 		$template = 'story.twig';
 		$pagevars['stylesheets'][] = SITE_CSS . 'story.css';
