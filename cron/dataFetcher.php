@@ -218,6 +218,20 @@ foreach($categorymap as $categoryid => $categoryname){
 		}
 	}
 }
+// Additonal style checks
+foreach($categorymap as $categoryid => $categoryname){
+	if(!isset($stylemap[$categoryname]) && substr($categoryname, 0, 1) !== '<' && substr($categoryname, -1, 1) !== '>'){
+		foreach($styles as $styleid => $stylename){
+			if(
+				($stylename === 'scrf' && preg_match('/^sr\d+_mess$/', $categoryname) === 1) ||
+				($stylename === 'organs' && (str_starts_with($categoryname, 'harvest') || str_contains($categoryname, 'dissection') || str_contains($categoryname, 'butchery') || str_contains($categoryname, 'tainted'))) ||
+				($stylename === 'starving' && (str_contains($categoryname, 'emaciated') || str_contains($categoryname, 'malnutrition') || str_contains($categoryname, 'low_cal')))
+			){
+				matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
+			}
+		}
+	}
+}
 
 if(!empty($vals)){
 	$sql = 'INSERT INTO categoriesStyles (categoriesid, stylesid) VALUES ' . implode(',', $vals);

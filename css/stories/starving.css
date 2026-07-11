@@ -6,8 +6,10 @@
 
 div#container{
 	background-color: #690304;
-	background-image: url('/img/organ.jpg');
-	background-repeat: repeat;
+	background-image: url('/img/stomach.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
 }
 
 div#story{
