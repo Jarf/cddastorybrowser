@@ -225,7 +225,9 @@ foreach($categorymap as $categoryid => $categoryname){
 			if(
 				($stylename === 'scrf' && preg_match('/^sr\d+_mess$/', $categoryname) === 1) ||
 				($stylename === 'organs' && (str_starts_with($categoryname, 'harvest') || str_contains($categoryname, 'dissection') || str_contains($categoryname, 'butchery') || str_contains($categoryname, 'tainted'))) ||
-				($stylename === 'starving' && (str_contains($categoryname, 'emaciated') || str_contains($categoryname, 'malnutrition') || str_contains($categoryname, 'low_cal')))
+				($stylename === 'starving' && (str_contains($categoryname, 'emaciated') || str_contains($categoryname, 'malnutrition') || str_contains($categoryname, 'low_cal'))) ||
+				($stylename === 'lab_notes' && str_contains($categoryname, 't-substrate')) ||
+				($stylename === 'addiction' && str_starts_with($categoryname, 'addict'))
 			){
 				matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
 			}
