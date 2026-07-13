@@ -61,8 +61,16 @@ div#header{
 	}
 	div#sharecontainer{
 		position: fixed;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		top: 0;
 		right: 0;
+		height: 24px;
+		label{
+			height: 24px;
+			width: 24px;
+		}
 		img{
 			height: 16px;
 			width: 16px;
