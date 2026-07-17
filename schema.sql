@@ -23,3 +23,9 @@ ALTER TABLE `cddastorybrowser`.`categoriesStyles` ADD UNIQUE `categoriesStylesUn
 
 CREATE TABLE `cddastorybrowser`.`import` (`lastimport` DATETIME NOT NULL ) ENGINE = InnoDB;
 INSERT INTO `import` (`lastimport`) VALUES ('2026-06-01 00:00:00');
+
+CREATE TABLE `cddastorybrowser`.`factions` (`id` INT UNSIGNED NOT NULL AUTO_INCREMENT , `code` VARCHAR(255) NOT NULL , `name` VARCHAR(255) NOT NULL , `description` TEXT NULL , PRIMARY KEY (`id`), UNIQUE `factionsCodeIdx` (`code`)) ENGINE = InnoDB;
+CREATE TABLE `cddastorybrowser`.`npcs` (`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT , `code` VARCHAR(255) NOT NULL , `name` VARCHAR(255) NULL DEFAULT NULL , `description` TEXT NULL DEFAULT NULL , `faction` INT UNSIGNED NOT NULL , PRIMARY KEY (`id`), UNIQUE `npcsCodeIdx` (`code`)) ENGINE = InnoDB;
+ALTER TABLE `npcs` ADD CONSTRAINT `npcs_to_factions` FOREIGN KEY (`faction`) REFERENCES `factions`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+CREATE TABLE `cddastorybrowser`.`dialogue` (`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT , `code` VARCHAR(255) NOT NULL , `dialogue` TEXT NOT NULL , `npc` BIGINT UNSIGNED NOT NULL , PRIMARY KEY (`id`), INDEX `dialogueCodeIdx` (`code`)) ENGINE = InnoDB;
+	ALTER TABLE `dialogue` ADD CONSTRAINT `dialogue_to_npcs` FOREIGN KEY (`npc`) REFERENCES `npcs`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

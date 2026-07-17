@@ -2,6 +2,7 @@
 print 'Init...';
 include(dirname(__DIR__) . '/include/config.php');
 include(dirname(__DIR__) . '/include/autoload.php');
+$zip = new ZipArchive;
 // Init DB class
 $db = new db();
 
@@ -15,9 +16,10 @@ curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($ch, CURLOPT_FILE, $fp);
 curl_exec($ch);
 curl_close($ch);
-print 'Done' . PHP_EOL . 'Extract JSON snippets';
+print 'Done' . PHP_EOL . 'Extract snippets JSON';
+
+// === STORIES ===
 // Extract story snippets
-$zip = new ZipArchive;
 if($zip->open(DIR_DATA . 'master.zip') === true){
 	for($i = 0; $i < $zip->numFiles; $i++){
 		print '.';
@@ -28,9 +30,6 @@ if($zip->open(DIR_DATA . 'master.zip') === true){
 	}
 	$zip->close();
 }
-print 'Done' . PHP_EOL . 'Cleanup master.zip...';
-// Clean up zip
-unlink($masterpath);
 print 'Done' . PHP_EOL . 'Retrieve existing categories...';
 // Get already set categories
 $categorymap = array();
@@ -39,7 +38,7 @@ $items = $items->selectAll();
 foreach($items as $item){
 	$categorymap[$item->id] = $item->name;
 }
-print 'Done' . PHP_EOL . 'Parse JSON files';
+print 'Done' . PHP_EOL . 'Parse snippets JSON files';
 // Parse JSON files
 $storyinsert = array();
 $dir = new DirectoryIterator(DIR_DATA);
@@ -120,7 +119,7 @@ foreach($dir as $fileinfo){
 	}
 }
 $storyinserts = array_chunk($storyinsert, 1000);
-print 'Done' . PHP_EOL . 'Update database...';
+print 'Done' . PHP_EOL . 'Populate stories';
 // Pre-import clean up
 $db->query('DELETE FROM stories');
 $db->execute();
@@ -143,7 +142,7 @@ foreach($storyinserts as $storyinsert){
 	$db->execute();
 	print '.';
 }
-print 'Done' . PHP_EOL . 'Populate Styles...';
+print 'Done' . PHP_EOL . 'Populate Styles';
 $dir = new DirectoryIterator(DIR_CSS . 'stories/');
 $bind = $vals = array();
 $i = 0;
@@ -186,35 +185,35 @@ $stylemap = array();
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
 		if(strcasecmp($categoryname, $stylename) === 0){
-			matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
+			matchStoryStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
 		}
 	}
 }
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
 		if(preg_match('/^' . $stylename . '($|_)/i', $categoryname) === 1 && !isset($stylemap[$categoryname])){
-			matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
+			matchStoryStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
 		}
 	}
 }
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
 		if(preg_match('/(^|_)' . $stylename . '$/i', $categoryname) === 1 && !isset($stylemap[$categoryname])){
-			matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
+			matchStoryStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
 		}
 	}
 }
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
 		if(preg_match('/(^|_)' . $stylename . '($|_)/i', $categoryname) === 1 && !isset($stylemap[$categoryname])){
-			matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
+			matchStoryStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
 		}
 	}
 }
 foreach($categorymap as $categoryid => $categoryname){
 	foreach($styles as $styleid => $stylename){
 		if(stripos($categoryname, $stylename) !== false){
-			matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
+			matchStoryStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
 		}
 	}
 }
@@ -229,7 +228,7 @@ foreach($categorymap as $categoryid => $categoryname){
 				($stylename === 'lab_notes' && str_contains($categoryname, 't-substrate')) ||
 				($stylename === 'addiction' && str_starts_with($categoryname, 'addict'))
 			){
-				matchStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
+				matchStoryStyle($stylemap, $bind, $vals, $i, $categoryid, $categoryname, $styleid, $stylename);
 			}
 		}
 	}
@@ -245,32 +244,223 @@ if(!empty($vals)){
 }
 print 'Done' . PHP_EOL;
 
-if(DIR_CACHE !== false){
-	print 'Clearing twig cache';
-	$dir = new DirectoryIterator(DIR_CACHE);
-	foreach($dir as $fileinfo){
-		if(!$fileinfo->isDot() && $fileinfo->isDir()){
-			$cachedir = new DirectoryIterator(DIR_CACHE . $fileinfo->getFilename());
-			$dirname = $fileinfo->getFilename();
-			foreach($cachedir as $cachefile){
-				if(!$cachefile->isDot() && $cachefile->getExtension() === 'php'){
-					print '.';
-					unlink(DIR_CACHE . $dirname . '/' . $cachefile->getFilename());
-				}
+// === NPCs/Dialogue ===
+// Extract npc data
+print 'Done' . PHP_EOL . 'Extract NPC JSON';
+if($zip->open(DIR_DATA . 'master.zip') === true){
+	for($i = 0; $i < $zip->numFiles; $i++){
+		print '.';
+		$filename = $zip->getNameIndex($i);
+		if(preg_match('/^.*\/data\/json\/npcs\/(.*\.json)$/', $filename, $match) === 1){
+			$dir = dirname($match[1]) . '/';
+			if($dir !== '.' && !is_dir(DIR_DATA . $dir)){
+				mkdir(DIR_DATA . $dir, 0775, true);
 			}
-			print '.';
-			rmdir(DIR_CACHE . $fileinfo->getFilename());
+			file_put_contents(DIR_DATA . $match[1], $zip->getFromIndex($i));
 		}
 	}
-	print 'Done' . PHP_EOL;
+	$zip->close();
 }
 
-print 'Setting last import date...';
+print 'Done' . PHP_EOL . 'Retrieve existing categories...';
+// Get already set factions
+$factionmap = array();
+$factions = new factions();
+$factions = $factions->selectAll();
+foreach($factions as $faction){
+	$factionmap[$faction->id] = $faction->code;
+}
+
+print 'Done' . PHP_EOL . 'Parse Factions JSON file';
+$factions = array();
+if(file_exists(DIR_DATA . 'factions.json')){
+	$json = file_get_contents(DIR_DATA . 'factions.json');
+	$json = @json_decode($json);
+	foreach($json as &$row){
+		print '.';
+		if(isset($row->type) && $row->type === 'faction' && isset($row->id) && isset($row->name)){
+			$factioncode = $row->id;
+			if(!in_array($row->id, $factionmap)){
+				$faction = new faction();
+				$faction->name = $row->name;
+				$faction->code = $factioncode;
+				$faction->description = isset($row->description) ? $row->description : null;
+				$faction->saveChanges();
+				$factionid = $faction->id;
+			}else{
+				$factionid = array_search($factioncode, $factionmap, true);
+			}
+
+			if(!isset($factionmap[$factionid])){
+				$factionmap[$factionid] = $factioncode;
+			}
+		}
+	}
+}
+
+print 'Done' . PHP_EOL . 'Parse NPC JSON files';
+$npcinsert = array();
+$dir = new RecursiveDirectoryIterator(DIR_DATA);
+$iterator = new RecursiveIteratorIterator($dir);
+foreach($iterator as $fileinfo){
+	if($fileinfo->isFile() && $fileinfo->getExtension() === 'json'){
+		$filename = $fileinfo->getPathname();
+		$json = file_get_contents($filename);
+		$json = @json_decode($json);
+		if($json !== null){
+			foreach($json as &$row){
+				if(isset($row->type) && $row->type === 'npc' && isset($row->id)){
+					print '.';
+					$faction = isset($row->faction) ? $row->faction : 'no_faction';
+					$factionid = array_search($faction, $factionmap, true);
+					$code = $row->id;
+					$name = null;
+					if(isset($row->name_unique) && !empty($row->name_unique)){
+						$name = $row->name_unique;
+					}elseif(isset($row->name_suffix) && !empty($row->name_suffix)){
+						$name = $row->name_suffix;
+					}
+					$desckey = '//';
+					$description = isset($row->$desckey) ? $row->$desckey : null;
+					$npcinsert[] = array($code, $name, $description, $factionid);
+				}
+			}
+		}
+	}
+}
+$npcinserts = array_chunk($npcinsert, 1000);
+print 'Done' . PHP_EOL . 'Populate NPCs...';
+// Pre-import clean up
+$db->query('DELETE FROM npcs');
+$db->execute();
+$db->query('ALTER TABLE npcs AUTO_INCREMENT = 1');
+$db->execute();
+// NPC inserts
+foreach($npcinserts as $npcinsert){
+	$vals = $bind = array();
+	$sql = 'INSERT INTO npcs (code, name, description, faction) VALUES ';
+	foreach($npcinsert as $nkey => $npc){
+		$vals[] = '(:code' . $nkey . ', :name' . $nkey . ', :desc' . $nkey . ', :faction' . $nkey . ')';
+		$bind['code' . $nkey] = $npc[0];
+		$bind['name' . $nkey] = $npc[1];
+		$bind['desc' . $nkey] = $npc[2];
+		$bind['faction' . $nkey] = $npc[3];
+	}
+	$sql .= implode(',', $vals);
+	$db->query($sql);
+	foreach($bind as $bkey => $bval){
+		$db->bind($bkey, $bval);
+	}
+	$db->execute();
+	print '.';
+}
+print 'Done' . PHP_EOL . 'Parse NPC Dialogue';
+// Fetch NPCs
+$npcs = new npcs();
+$npcs->indexListings();
+// Parse dialogue
+$dialogueinsert = array();
+$dir = new RecursiveDirectoryIterator(DIR_DATA);
+$iterator = new RecursiveIteratorIterator($dir);
+foreach($iterator as $fileinfo){
+	$npccode = $npcid = null;
+	if($fileinfo->isFile()){
+		$filename = $fileinfo->getPathname();
+		if($fileinfo->getExtension() === 'json'){
+			$json = file_get_contents($filename);
+			$json = @json_decode($json);
+			if($json !== null){
+				foreach($json as &$row){
+					if(isset($row->type) && $row->type === 'npc' && isset($row->id)){
+						print '.';
+						$npccode = $row->id;
+						foreach($npcs->npcs as $npc){
+							if($npc->code === $npccode){
+								$npcid = $npc->id;
+								break;
+							}
+						}
+					}
+					if(!empty($npcid) && isset($row->type) && $row->type === 'talk_topic' && isset($row->id)){
+						print '.';
+						$dialoguecode = $row->id;
+						if(is_array($dialoguecode)){
+							$dialoguecode = current($dialoguecode);
+						}
+						$dialogue = parseDialogues($row);
+						foreach($dialogue as $entry){
+							if(!empty(trim($entry))){
+								$dialogueinsert[] = array($dialoguecode, $entry, $npcid);
+							}
+						}
+					}
+				}
+			}
+			unlink($filename);
+		}
+	}
+}
+$dialogueinserts = array_chunk($dialogueinsert, 1000);
+// Clean up directories
+$directories = array();
+foreach($iterator as $fileinfo){
+	if(!$fileinfo->isFile()){
+		$dir = $fileinfo->getPathname();
+		if($dir !== DIR_DATA && str_ends_with($dir, '..')){
+			$directories[] = substr($dir, 0, -2);
+		}
+	}
+}
+usort($directories, function($a, $b){
+	return substr_count($a, DIRECTORY_SEPARATOR) < substr_count($b, DIRECTORY_SEPARATOR);
+});
+foreach($directories as $dir){
+	if($dir !== DIR_DATA){
+		rmdir($dir);
+	}
+}
+print 'Done' . PHP_EOL . 'Populate dialogue';
+// Pre-import clean up
+$db->query('DELETE FROM dialogue');
+$db->execute();
+$db->query('ALTER TABLE dialogue AUTO_INCREMENT = 1');
+$db->execute();
+// Dialogue inserts
+foreach($dialogueinserts as $dialogueinsert){
+	$vals = $bind = array();
+	$sql = 'INSERT INTO dialogue (code, dialogue, npc) VALUES ';
+	foreach($dialogueinsert as $dkey => $dialogue){
+		$vals[] = '(:code' . $dkey . ', :dialogue' . $dkey . ', :npc' . $dkey . ')';
+		$bind['code'. $dkey] = $dialogue[0];
+		$bind['dialogue'. $dkey] = $dialogue[1];
+		$bind['npc'. $dkey] = $dialogue[2];
+	}
+	$sql .= implode(',', $vals);
+	$db->query($sql);
+	foreach($bind as $bkey => $bval){
+		$db->bind($bkey, $bval);
+	}
+	$db->execute();
+	print '.';
+}
+
+print 'Done' . PHP_EOL . 'Cleanup master.zip...';
+// Clean up zip
+unlink($masterpath);
+
+print 'Done' . PHP_EOL . 'Setting last import date...';
 $db->query('UPDATE import SET lastimport = NOW()');
 $db->execute();
 print 'Done' . PHP_EOL;
 
-function parseStories(&$row){
+print 'Unmapped story categories:' . PHP_EOL;
+foreach($categorymap as $categoryid => $categoryname){
+	if(!isset($stylemap[$categoryname]) && substr($categoryname, 0, 1) !== '<' && substr($categoryname, -1, 1) !== '>'){
+		print $categoryname . PHP_EOL;
+	}
+}
+
+function parseStories(object &$row){
 	$stories = array();
 	if(isset($row->text)){
 		if(is_array($row->text)){
@@ -292,14 +482,36 @@ function parseStories(&$row){
 	return $stories;
 }
 
-print 'Unmapped categories:' . PHP_EOL;
-foreach($categorymap as $categoryid => $categoryname){
-	if(!isset($stylemap[$categoryname]) && substr($categoryname, 0, 1) !== '<' && substr($categoryname, -1, 1) !== '>'){
-		print $categoryname . PHP_EOL;
+function parseDialogues(object &$row){
+	$dialogues = array();
+	$dialoguecode = $row->id;
+	if(isset($row->dynamic_line)){
+		if(is_string($row->dynamic_line)){
+			$dialogues[] = $row->dynamic_line;
+		}else{
+			$iterator = new RecursiveArrayIterator($row->dynamic_line);
+			iterator_apply($iterator, 'traverseDialogue', array($iterator, &$dialogues));
+		}
+	}
+	return $dialogues;
+}
+
+function traverseDialogue(Iterator $iterator, array &$dialogues){
+	$return = null;
+	$keyignore = array('math', 'compare_string', 'relevant_genders', 'u_has_trait', 'u_has_mission', 'npc_has_trait', 'u_has_any_trait', 'npc_has_effect');
+	while($iterator->valid()){
+		if(!in_array($iterator->key(), $keyignore)){
+			if($iterator->hasChildren()){
+				traverseDialogue($iterator->getChildren(), $dialogues);
+			}elseif(is_string($iterator->current()) && $iterator->current() !== '-' && $iterator->current() !== '...'){
+				$dialogues[] = $iterator->current();
+			}
+		}
+		$iterator->next();
 	}
 }
 
-function matchStyle(&$stylemap, &$bind, &$vals, &$i, $categoryid, $categoryname, $styleid, $stylename){
+function matchStoryStyle(array &$stylemap, array &$bind, array &$vals, int &$i, int $categoryid, string $categoryname, int $styleid, string $stylename){
 	if(!isset($stylemap[$categoryname])){
 		$bind['category' . $i] = $categoryid;
 		$bind['style' . $i] = $styleid;
