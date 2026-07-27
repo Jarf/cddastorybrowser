@@ -1,44 +1,68 @@
 <div id="container" role="main">
-	<input type="hidden" id="categoryId" value="{{categoryid}}"/>
-	<input type="hidden" id="categoryName" value="{{categoryname}}"/>
-	{% if categoryid is empty %}
-	<h1>Category Index</h1>
-	<p>Select a category to browse the stories within</p>
+	{% if indextype == "index" %}
+	<h1>{{indexheading}}</h1>
+	<p>Select a category to browse the entries within</p>
 	<table id="categoryIndex" class="hover">
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Stories</th>
+				<th>Type</th>
+				<th>Entries</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for category in categories.categories %}
+			{% for category in entries %}
 			{% if category.storiesCount > 0 %}
-			<tr data-id="{{category.id}}" data-name="{{category.name}}">
+			<tr>
+				{% if category.type == "Snippets" %}
 				<td><a href="/story/{{category.name}}">{{category.nameReadable}}</a></td>
+				{% elseif category.type == "Dialogue" %}
+				<td><a href="/dialogue/{{category.code}}">{{category.nameReadable}}</a></td>
+				{% elseif category.type == "NPC" %}
+				<td><a href="/dialogue/{{category.faction}}/{{category.code}}">{{category.name}}</a></td>
+				{% endif %}
+				<td>{{category.type}}</td>
 				<td>{{category.storiesCount}}</td>
 			</tr>
 			{% endif %}
 			{% endfor %}
 		</tbody>
 	</table>
-	{% else %}
+	{% elseif indextype == "story" %}
 	<h1>{{categorynamereadable}} Story Index</h1>
 	<p>Select a story to view it</p>
 	<table id="storyIndex" class="hover" role="main">
 		<thead>
 			<tr>
-				<th>Story</th>
+				<th>Entry</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for skey,story in stories.data %}
+			{% for skey,story in entries %}
 			<tr>
 				<td><a href="/story/{{categoryname}}/{{skey + 1}}">{{story.story}}</a></td>
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
-	<a id="categoriesindex" href="/story/">Return to Categories Index</a>
+	<a id="categoriesindex" href="/index/">Return to Categories Index</a>
+	{% elseif indextype == "dialogue" %}
+	<h1>{{categorynamereadable}} Index</h1>
+	<p>Select an entry to view it</p>
+	<table id="dialogueIndex" class="hover" role="main">
+		<thead>
+			<tr>
+				<th>Entry</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for skey,story in entries %}
+			<tr>
+				<td><a href="/story/{{categoryname}}/{{skey + 1}}">{{story.story}}</a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<a id="categoriesindex" href="/index/">Return to Categories Index</a>
 	{% endif %}
 </div>

@@ -15,7 +15,7 @@ class categories extends Entity{
 		}
 		$where[] = 'categories.descriptor = :descriptor';
 		$bind['descriptor'] = $descriptor;
-		$sql = 'SELECT categories.id, categories.name, COUNT(stories.id) AS storiesCount FROM categories LEFT JOIN stories ON categories.id = stories.category';
+		$sql = 'SELECT categories.id, categories.name, "Snippets" AS type, COUNT(stories.id) AS storiesCount FROM categories LEFT JOIN stories ON categories.id = stories.category';
 		if(!empty($where)){
 			$sql .= ' WHERE ' . implode(' AND ', $where);
 		}

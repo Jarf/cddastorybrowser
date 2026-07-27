@@ -45,8 +45,8 @@ RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Redirect old index URLs
-RewriteRule ^index$ /story [L,R=301]
-RewriteRule ^index/(.*)$ /story/$1 [L,R=301]
+RewriteRule ^story/?$ /index [L,R=301]
+RewriteRule ^index/(.*)/?$ /story/$1 [L,R=301]
 
 # MIME types
 AddType image/x-icon .ico

@@ -262,7 +262,7 @@ if($zip->open(DIR_DATA . 'master.zip') === true){
 	$zip->close();
 }
 
-print 'Done' . PHP_EOL . 'Retrieve existing categories...';
+print 'Done' . PHP_EOL . 'Retrieve existing factions...';
 // Get already set factions
 $factionmap = array();
 $factions = new factions();
@@ -276,23 +276,25 @@ $factions = array();
 if(file_exists(DIR_DATA . 'factions.json')){
 	$json = file_get_contents(DIR_DATA . 'factions.json');
 	$json = @json_decode($json);
-	foreach($json as &$row){
-		print '.';
-		if(isset($row->type) && $row->type === 'faction' && isset($row->id) && isset($row->name)){
-			$factioncode = $row->id;
-			if(!in_array($row->id, $factionmap)){
-				$faction = new faction();
-				$faction->name = $row->name;
-				$faction->code = $factioncode;
-				$faction->description = isset($row->description) ? $row->description : null;
-				$faction->saveChanges();
-				$factionid = $faction->id;
-			}else{
-				$factionid = array_search($factioncode, $factionmap, true);
-			}
+	if($json !== null){
+		foreach($json as &$row){
+			print '.';
+			if(isset($row->type) && $row->type === 'faction' && isset($row->id) && isset($row->name)){
+				$factioncode = $row->id;
+				if(!in_array($row->id, $factionmap)){
+					$faction = new faction();
+					$faction->name = $row->name;
+					$faction->code = $factioncode;
+					$faction->description = isset($row->description) ? $row->description : null;
+					$faction->saveChanges();
+					$factionid = $faction->id;
+				}else{
+					$factionid = array_search($factioncode, $factionmap, true);
+				}
 
-			if(!isset($factionmap[$factionid])){
-				$factionmap[$factionid] = $factioncode;
+				if(!isset($factionmap[$factionid])){
+					$factionmap[$factionid] = $factioncode;
+				}
 			}
 		}
 	}

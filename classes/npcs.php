@@ -13,10 +13,11 @@ class npcs extends Entity{
 			$where[] = 'npcs.faction = :factionid';
 			$bind['factionid'] = $factionid;
 		}
-		$sql = 'SELECT npcs.id, npcs.code, npcs.name FROM npcs JOIN factions ON npcs.faction = factions.id';
+		$sql = 'SELECT npcs.code, "NPC" AS type, npcs.name, factions.code AS faction, COUNT(dialogue.id) AS storiesCount FROM npcs JOIN factions ON npcs.faction = factions.id LEFT JOIN dialogue ON dialogue.npc = npcs.id';
 		if(!empty($where)){
 			$sql .= ' WHERE ' . implode(' AND ', $where);
 		}
+		$sql .= ' GROUP BY npcs.id ORDER BY npcs.code ASC';
 		$this->db->query($sql);
 		if(!empty($bind)){
 			foreach($bind as $bkey => $bval){
@@ -30,6 +31,7 @@ class npcs extends Entity{
 				if(empty($row->name)){
 					$row->name = $this->humanReadable($row->code);
 				}
+				$row->name .= ' (' . $row->code . ')';
 			}
 		}
 		$this->npcs = $return;

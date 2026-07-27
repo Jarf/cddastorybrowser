@@ -49,6 +49,7 @@ $pagevars['dependencies'] = array(
 unset($story);
 
 switch ($page) {
+	// Home page
 	case '':
 	default:
 		$template = 'home.twig';
@@ -66,6 +67,7 @@ switch ($page) {
 		}
 		break;
 
+	// Story
 	case (!empty($urlpath) && isset($urlpath[0]) && $urlpath[0] === 'story' && isset($urlpath[2])):
 		$story = new story();
 		$storyid = $categoryname = $categorystoryid = null;
@@ -108,50 +110,88 @@ switch ($page) {
 		$pagevars['dependencies'] = array_merge($pagevars['dependencies'], $pagevars['story']->getDependencies());
 		break;
 	
+	// Story Indexes
+	case 'index':
 	case (!empty($urlpath) && isset($urlpath[0]) && $urlpath[0] === 'story' && !isset($urlpath[2])):
-		$categoryid = null;
-		if(!empty($urlpath) && isset($urlpath[1]) && !empty($urlpath[1]) && is_string($urlpath[1])){
-			$category = new category();
-			if(is_numeric($urlpath[1])){
-				$category->loadCategory($urlpath[1]);
-				if(isset($category->name)){
-					header('Location: /story/' . $category->name);
-					exit();
-				}else{
+	case (!empty($urlpath) && isset($urlpath[0]) && $urlpath[0] === 'dialogue' && !isset($urlpath[3])):
+		$pagevars['indextype'] = $urlpath[0];
+		$pagevars['indexheading'] = 'Entry Category Index';
+		$pagevars['entries'] = array();
+		if($urlpath[0] === 'index'){
+			$pagevars['header']['title'] .= ' - Category Index';
+			$pagevars['header']['description'] = 'An index of the various categories the CDDA lore snippets/dialogue are sorted into';
+			$categories = new categories();
+			$categories->indexListings(null);
+			$factions = new factions();
+			$factions->indexListings(null);
+			$pagevars['entries'] = array_merge($categories->categories, $factions->factions);
+		}elseif($urlpath[0] === 'story'){
+			$categoryid = null;
+			if(!empty($urlpath) && isset($urlpath[1]) && !empty($urlpath[1]) && is_string($urlpath[1])){
+				$category = new category();
+				if(is_numeric($urlpath[1])){
+					$category->loadCategory($urlpath[1]);
+					if(isset($category->name)){
+						header('Location: /story/' . $category->name);
+						exit();
+					}else{
+						display404();
+						exit();
+					}
+				}
+				$categoryid = $urlpath[1];
+				$categoryid = $category->getIdFromName($categoryid);
+				if($categoryid === false){
 					display404();
 					exit();
 				}
 			}
-			$categoryid = $urlpath[1];
-			$categoryid = $category->getIdFromName($categoryid);
-			if($categoryid === false){
-				display404();
-				exit();
+			$pagevars['categoryid'] = $categoryid;
+			$categories = new categories();
+			$categories->indexListings(isset($category) && isset($category->id) ? $category->id : null);
+			$pagevars['entries'] = $categories->categories;
+			$pagevars['categoryname'] = !empty($pagevars['categoryid']) && isset($categories->categories) && isset($categories->categories[0]) && isset($categories->categories[0]->name) ? $categories->categories[0]->name : null;
+			$pagevars['categorynamereadable'] = null;
+			if(empty($categoryid)){
+				$pagevars['header']['title'] .= ' - Story Category Index';
+				$pagevars['header']['description'] = 'An index of the various categories the CDDA lore snippets are sorted into';
+			}else{
+				if(isset($categories->categories) && !empty($categories->categories) && isset($categories->categories[0]) && isset($categories->categories[0]->nameReadable)){
+					$pagevars['header']['title'] .= ' - ' . $categories->categories[0]->nameReadable . ' Story Index';
+					$pagevars['header']['description'] = 'An index of the stories found in the ' . $categories->categories[0]->nameReadable . ' category of CDDA lore snippets';
+					$pagevars['categorynamereadable'] = $categories->categories[0]->nameReadable;
+				}
+				$stories = new stories();
+				$pagevars['entries'] = $stories->loadStories($categoryid);
+				$pagevars['entries'] = $pagevars['entries']['data'];
+			}
+		}elseif ($urlpath[0] === 'dialogue') {
+			if(!isset($urlpath[2])){
+				$pagevars['indextype'] = 'index';
+			}
+			if(isset($urlpath[2])){
+				
+			}elseif(isset($urlpath[1])){
+				$faction = new faction();
+				$factionid = $faction->getIdFromCode($urlpath[1], true);
+				if(empty($factionid)){
+					$factionid = null;
+				}
+				$npcs = new npcs();
+				$npcs->indexListings($factionid);
+				$pagevars['entries'] = $npcs->npcs;
+				$pagevars['header']['title'] .= ' - ' . $faction->name . ' NPC Index';
+				$pagevars['header']['description'] = 'An index of the NPCs with dialogue found in the ' . $faction->name . ' faction of CDDA';
+				$pagevars['indexheading'] = $faction->name . ' NPC Index';
 			}
 		}
-		$pagevars['categoryid'] = $categoryid;
+
 		$template = 'index.twig';
 		$pagevars['stylesheets'][] = SITE_CSS . 'index.css';
 		$pagevars['javascripts'][] = SITE_VENDOR . 'components/jquery/jquery.min.js';
 		$pagevars['stylesheets'][] = SITE_VENDOR . 'datatables/datatables/media/css/jquery.dataTables.min.css';
 		$pagevars['javascripts'][] = SITE_VENDOR . 'datatables/datatables/media/js/jquery.dataTables.min.js';
-		$pagevars['javascripts'][] = SITE_JS . 'index.js';
-		$categories = new categories();
-		$categories->indexListings(isset($category) && isset($category->id) ? $category->id : null);
-		$pagevars['categoryname'] = !empty($pagevars['categoryid']) && isset($categories->categories) && isset($categories->categories[0]) && isset($categories->categories[0]->name) ? $categories->categories[0]->name : null;
-		$pagevars['categorynamereadable'] = null;
-		if(empty($categoryid)){
-			$pagevars['header']['title'] .= ' - Story Category Index';
-			$pagevars['header']['description'] = 'An index of the various categories the CDDA lore snippets are sorted into';
-		}else{
-			if(isset($categories->categories) && !empty($categories->categories) && isset($categories->categories[0]) && isset($categories->categories[0]->nameReadable)){
-				$pagevars['header']['title'] .= ' - ' . $categories->categories[0]->nameReadable . ' Story Index';
-				$pagevars['header']['description'] = 'An index of the stories found in the ' . $categories->categories[0]->nameReadable . ' category of CDDA lore snippets';
-				$pagevars['categorynamereadable'] = $categories->categories[0]->nameReadable;
-			}
-			$stories = new stories();
-			$pagevars['stories'] = $stories->loadStories($categoryid);
-		}
+		$pagevars['javascripts'][] = SITE_JS . 'index.js';	
 		$pagevars['categories'] = &$categories;
 		$pagevars['dependencies'][] = array(
 			'type' => 'image',
@@ -161,6 +201,15 @@ switch ($page) {
 			'type' => 'image',
 			'path' => SITE_VENDOR . 'datatables/datatables/media/images/sort_desc.png'
 		);
+		break;
+
+	// Dialogue
+	case (!empty($urlpath) && isset($urlpath[0]) && $urlpath[0] === 'dialogue' && isset($urlpath[3])):
+		$dialogue = new dialogue();
+		$dialogueid = $dialogue->getDialogueId($urlpath[1], $urlpath[2], $urlpath[3]);
+		$dialogue->loadDialogue($dialogueid);
+		var_dump($dialogue);
+		exit();
 		break;
 }
 
