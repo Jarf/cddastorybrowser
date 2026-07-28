@@ -45,7 +45,6 @@
 			{% endfor %}
 		</tbody>
 	</table>
-	<a id="categoriesindex" href="/index/">Return to Categories Index</a>
 	{% elseif indextype == "dialogue" %}
 	<h1>{{categorynamereadable}} Index</h1>
 	<p>Select an entry to view it</p>
@@ -56,13 +55,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for skey,story in entries %}
+			{% for dkey,dialogue in entries %}
 			<tr>
-				<td><a href="/story/{{categoryname}}/{{skey + 1}}">{{story.story}}</a></td>
+				<td><a href="/dialogue/{{dialogue.factioncode}}/{{dialogue.npccode}}/{{dkey + 1}}">{{dialogue.dialogue}}</a></td>
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
-	<a id="categoriesindex" href="/index/">Return to Categories Index</a>
+	{% endif %}
+	{% if parentindex is not empty %}
+	<a id="indexparent" href="{{parentindex}}">Return to Parent Index</a>
 	{% endif %}
 </div>

@@ -7,7 +7,7 @@ div#container{
 	}
 }
 
-div#container .dataTables_wrapper, table#categoryIndex, table#storyIndex{
+div#container .dataTables_wrapper, table#categoryIndex, table#storyIndex, table#dialogueIndex{
 	max-width: 100vw;
 	thead, thead > tr{
 		max-width: 100vw;
@@ -44,11 +44,11 @@ div#container .dataTables_wrapper, table#categoryIndex, table#storyIndex{
 	}
 }
 
-#categoryIndex_paginate > span > a:not(.current), #categoryIndex_paginate > a:not(.disabled), #storyIndex_paginate > span > a:not(.current), #storyIndex_paginate > a:not(.disabled){
+#categoryIndex_paginate > span > a:not(.current), #categoryIndex_paginate > a:not(.disabled), #storyIndex_paginate > span > a:not(.current), #storyIndex_paginate > a:not(.disabled), #dialogueIndex_paginate > span > a:not(.current), #dialogueIndex_paginate > a:not(.disabled){
 	color: #ffffff !important;
 }
 
-a#categoriesindex{
+a#indexparent{
 	text-align: center;
 	display: block;
 	color: inherit;

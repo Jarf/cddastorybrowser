@@ -9,5 +9,10 @@ $(document).ready(function(){
 			order: [],
 			responsive: true
 		});
+	}else if($('table#dialogueIndex').length){
+		const dt = $('table#dialogueIndex').DataTable({
+			order: [],
+			responsive: true
+		});
 	}
 });

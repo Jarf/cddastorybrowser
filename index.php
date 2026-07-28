@@ -114,6 +114,7 @@ switch ($page) {
 	case 'index':
 	case (!empty($urlpath) && isset($urlpath[0]) && $urlpath[0] === 'story' && !isset($urlpath[2])):
 	case (!empty($urlpath) && isset($urlpath[0]) && $urlpath[0] === 'dialogue' && !isset($urlpath[3])):
+		$pagevars['parentindex'] = null;
 		$pagevars['indextype'] = $urlpath[0];
 		$pagevars['indexheading'] = 'Entry Category Index';
 		$pagevars['entries'] = array();
@@ -127,6 +128,7 @@ switch ($page) {
 			$pagevars['entries'] = array_merge($categories->categories, $factions->factions);
 		}elseif($urlpath[0] === 'story'){
 			$categoryid = null;
+			$pagevars['parentindex'] = '/index';
 			if(!empty($urlpath) && isset($urlpath[1]) && !empty($urlpath[1]) && is_string($urlpath[1])){
 				$category = new category();
 				if(is_numeric($urlpath[1])){
@@ -166,11 +168,16 @@ switch ($page) {
 				$pagevars['entries'] = $pagevars['entries']['data'];
 			}
 		}elseif ($urlpath[0] === 'dialogue') {
+			$pagevars['parentindex'] = '/index';
 			if(!isset($urlpath[2])){
 				$pagevars['indextype'] = 'index';
 			}
 			if(isset($urlpath[2])){
-				
+				$pagevars['parentindex'] = '/dialogue/' . $urlpath[1];
+				$pagevars['indextype'] = 'dialogue';
+				$dialogues = new dialogues();
+				$dialogues->indexListings($urlpath[1], $urlpath[2]);
+				$pagevars['entries'] = $dialogues->dialogues;
 			}elseif(isset($urlpath[1])){
 				$faction = new faction();
 				$factionid = $faction->getIdFromCode($urlpath[1], true);
