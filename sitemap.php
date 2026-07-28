@@ -18,14 +18,26 @@ switch ($sitemap) {
 				$pages[] = array('loc' => SITE_ROOT . 'sitemap_storyindex_' . $category->name . '.xml', 'lastmod' => $lmod);
 			}
 		}
+		$factions = new factions();
+		$factions->indexListings();
+		foreach($factions->factions as $faction){
+			if($faction->storiesCount > 0){
+				$pages[] = array('loc' => SITE_ROOT . 'sitemap_dialogueindex_' . $faction->code . '.xml', 'lastmod' => $lmod);
+			}
+		}
 		break;
 
 	case 'sitemap_categoryindex':
-		$pages[] = array('loc' => SITE_ROOT . 'story', 'lastmod' => $lmod);
+		$pages[] = array('loc' => SITE_ROOT . 'index', 'lastmod' => $lmod);
 		$categories = new categories();
 		$categories->indexListings();
 		foreach($categories->categories as $category){
 			$pages[] = array('loc' => SITE_ROOT . 'story/' . $category->name, 'lastmod' => $lmod);
+		}
+		$factions = new factions();
+		$factions->indexListings();
+		foreach($factions->factions as $faction){
+			$pages[] = array('loc' => SITE_ROOT . 'dialogue/' . $faction->code, 'lastmod' => $lmod);
 		}
 		break;
 
@@ -40,6 +52,23 @@ switch ($sitemap) {
 			while($i <= $storycount){
 				$pages[] = array('loc' => SITE_ROOT . 'story/' . $category->name . '/' . $i, 'lastmod' => $lmod);
 				$i++;
+			}
+		}
+		break;
+
+	case preg_match('/^sitemap_dialogueindex_(.*)$/', $sitemap, $dialogue) === 1:
+		$faction = new faction();
+		$faction->getIdFromCode($dialogue[1], true);
+		$npcs = new npcs();
+		$npcs->indexListings($faction->id);
+		foreach($npcs->npcs as $npc){
+			if($npc->storiesCount > 0){
+				$pages[] = array('loc' => SITE_ROOT . 'dialogue/' . $dialogue[1] . '/' . $npc->code, 'lastmod' => $lmod);
+				$i = 1;
+				while($i <= $npc->storiesCount){
+					$pages[] = array('loc' => SITE_ROOT . 'dialogue/' . $dialogue[1] . '/' . $npc->code . '/' . $i, 'lastmod' => $lmod);
+					$i++;
+				}
 			}
 		}
 		break;
