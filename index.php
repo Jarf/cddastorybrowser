@@ -26,7 +26,11 @@ if(!empty($urlpath)){
 				'name' => $story->humanReadable($pval)
 			);
 			if($pkey !== (count($urlpath) - 1)){
-				$pagevars['breadcrumb'][$pkey]['item'] = $url;
+				if($pkey === 0){
+					$pagevars['breadcrumb'][$pkey]['item'] = SITE_ROOT . 'index';
+				}else{
+					$pagevars['breadcrumb'][$pkey]['item'] = $url;
+				}
 			}
 		}
 	}
@@ -178,11 +182,22 @@ switch ($page) {
 				$dialogues = new dialogues();
 				$dialogues->indexListings($urlpath[1], $urlpath[2]);
 				$pagevars['entries'] = $dialogues->dialogues;
+				$npc = new npc();
+				$npc->getIdFromCode($urlpath[2], true);
+				if(!isset($npc->id)){
+					display404();
+					exit();
+				}
+				$npcname = isset($npc->name) ? $npc->name : $npc->humanReadable($npc->code);
+				$pagevars['header']['title'] .= ' - ' . $npcname . ' Dialogue Index';
+				$pagevars['header']['description'] = 'An index of the ' . $npcname . ' NPC\'s dialogue';
+				$pagevars['indexheading'] = $npcname . ' Dialogue';
 			}elseif(isset($urlpath[1])){
 				$faction = new faction();
 				$factionid = $faction->getIdFromCode($urlpath[1], true);
 				if(empty($factionid)){
-					$factionid = null;
+					display404();
+					exit();
 				}
 				$npcs = new npcs();
 				$npcs->indexListings($factionid);
