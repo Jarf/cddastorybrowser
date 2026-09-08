@@ -38,11 +38,20 @@ class story extends Entity{
 	}
 
 	public function getRandomStoryId(){
-		$category = new categories();
-		$category = $category->getRandomCategory();
-		$storiescount = new stories();
-		$storiescount = $storiescount->countStories($category->id, null, true);
-		return $category->name . '/' . rand(1, $storiescount);
+		$stories = new stories();
+		$storiescount = $stories->countStories(null, null, true);
+		$dialogues = new dialogues();
+		$dialoguescount = $dialogues->countDialogues(null, null);
+		$totalcount = $storiescount + $dialoguescount;
+		$random = rand(1, $totalcount);
+		if($random >= $storiescount){
+			$category = new categories();
+			$category = $category->getRandomCategory();
+			$storiescount = $stories->countStories($category->id, null, true);
+			return '/story/' . $category->name . '/' . rand(1, $storiescount);
+		}else{
+			return $dialogues->getRandomDialogueUrl();
+		}
 	}
 
 	public function getStoryId(string $categoryname, int $categorystoryid){
@@ -136,6 +145,10 @@ class story extends Entity{
 			$row = $this->db->fetch();
 			if(is_numeric($row->next)){
 				$next = $row->next;
+			}else{
+				$dialogues = new dialogues();
+				$next = $dialogues->getEdgeDialogueUrl(true);
+
 			}
 		}
 		$this->db->query('SELECT MAX(stories.id) AS prev FROM stories JOIN categories ON stories.category = categories.id WHERE descriptor = 0 AND stories.id < :storyid LIMIT 1');
@@ -145,10 +158,21 @@ class story extends Entity{
 			$row = $this->db->fetch();
 			if(is_numeric($row->prev)){
 				$prev = $row->prev;
+			}else{
+				$dialogues = new dialogues();
+				$prev = $dialogues->getEdgeDialogueUrl(false);
 			}
 		}
-		$this->nextstory = $this->getStoryUrl($next);
-		$this->prevstory = $this->getStoryUrl($prev);
+		if(is_string($next)){
+			$this->nextstory = $next;
+		}else{
+			$this->nextstory = $this->getStoryUrl($next);
+		}
+		if(is_string($prev)){
+			$this->prevstory = $prev;
+		}else{
+			$this->prevstory = $this->getStoryUrl($prev);
+		}
 	}
 
 	public function getMetaDescription(){
@@ -195,26 +219,7 @@ class story extends Entity{
 	public function getDependencies(){
 		$return = array();
 		if(isset($this->style)){
-			$css = DIR_CSS . 'stories/' . $this->style . '.css';
-			if(file_exists($css)){
-				$css = file_get_contents($css);
-				preg_match_all('/background-image:\s?url\(\'([^\']+)\'\);/s', $css, $images, PREG_PATTERN_ORDER);
-				if(!empty($images)){
-					$images = end($images);
-					foreach($images as $image){
-						$return[] = array(
-							'type' => 'image',
-							'path' => $image
-						);
-					}
-				}
-				if(preg_match('/@font-face{[^}]+src:\s?url\(\'([^\']+)\'\);/s', $css, $font) === 1){
-					$return[] = array(
-						'type' => 'font',
-						'path' => end($font)
-					);
-				}
-			}
+			$return = $this->parseDependenciesFromCss(DIR_CSS . 'stories/' . $this->style . '.css');
 		}
 		return $return;
 	}

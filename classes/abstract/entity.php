@@ -78,6 +78,30 @@ class Entity{
 		return strip_tags($string);
 	}
 
+	protected function parseDependenciesFromCss(string $css){
+		$return = array();
+		if(file_exists($css)){
+			$css = file_get_contents($css);
+			preg_match_all('/background-image:\s?url\(\'([^\']+)\'\);/s', $css, $images, PREG_PATTERN_ORDER);
+			if(!empty($images)){
+				$images = end($images);
+				foreach($images as $image){
+					$return[] = array(
+						'type' => 'image',
+						'path' => $image
+					);
+				}
+			}
+			if(preg_match('/@font-face{[^}]+src:\s?url\(\'([^\']+)\'\);/s', $css, $font) === 1){
+				$return[] = array(
+					'type' => 'font',
+					'path' => end($font)
+				);
+			}
+		}
+		return $return;
+	}
+
 	private function getTables(){
 		$sql = 'SELECT table_name FROM information_schema.tables';
 		$this->db->query($sql);

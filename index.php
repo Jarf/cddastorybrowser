@@ -229,9 +229,13 @@ switch ($page) {
 	case (!empty($urlpath) && isset($urlpath[0]) && $urlpath[0] === 'dialogue' && isset($urlpath[3])):
 		$dialogue = new dialogue();
 		$dialogueid = $dialogue->getDialogueId($urlpath[1], $urlpath[2], $urlpath[3]);
+		if($dialogueid === false){
+			display404();
+			exit();
+		}
 		$dialogue->loadDialogue($dialogueid);
-		var_dump($dialogue);
-		exit();
+		$pagevars['dialogue'] = &$dialogue;
+		$template = 'dialogue.twig';
 		break;
 }
 

@@ -30,5 +30,17 @@ class npc extends entity{
 		}
 		return $return;
 	}
+
+	public function getDialogueCount(){
+		$return = false;
+		$sql = 'SELECT count(id) AS count FROM dialogue WHERE dialogue.npc = :npcid GROUP BY dialogue.npc';
+		$this->db->query($sql);
+		$this->db->bind('npcid', $this->id);
+		$this->db->execute();
+		if($this->db->rowCount() === 1){
+			$return = $this->db->fetch()->count;
+		}
+		return $return;
+	}
 }
 ?>

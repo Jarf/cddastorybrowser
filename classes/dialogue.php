@@ -5,7 +5,9 @@ class dialogue extends Entity{
 	public string $dialogue;
 	public int $npc;
 	public string $npcName;
+	public string $npcCode;
 	public string $factionName;
+	public string $factionCode;
 
 	public function __construct(){
 		$this->table = 'dialogue';
@@ -13,7 +15,7 @@ class dialogue extends Entity{
 	}
 
 	public function loadDialogue(int $id = null){
-		$sql = 'SELECT dialogue.id, dialogue.code, dialogue.dialogue, dialogue.npc, COALESCE(npcs.name, npcs.code) AS npcName, COALESCE(factions.name, factions.code) AS factionName FROM dialogue JOIN npcs ON dialogue.npc = npcs.id JOIN factions ON npcs.faction = factions.id';
+		$sql = 'SELECT dialogue.id, dialogue.code, dialogue.dialogue, dialogue.npc, COALESCE(npcs.name, npcs.code) AS npcName, npcs.code AS npcCode, COALESCE(factions.name, factions.code) AS factionName, factions.code AS factionCode FROM dialogue JOIN npcs ON dialogue.npc = npcs.id JOIN factions ON npcs.faction = factions.id';
 		if(!empty($id)){
 			$sql .= ' WHERE dialogue.id = :id';
 		}else{
@@ -46,6 +48,10 @@ class dialogue extends Entity{
 			$id = $this->db->fetch()->id;
 		}
 		return $id;
+	}
+
+	public function getNextPrevIds(){
+		
 	}
 }
 ?>
